@@ -17,7 +17,7 @@ $(document).ready(function() {
     
     var teams_div = document.createElement('div');
     teams_div.className = "league";
-    $(".draft_board").append(teams_div);
+    $(".board").append(teams_div);
   
     for (i=0; i<teams.length; i++) {
       var div = document.createElement('div');
@@ -50,7 +50,7 @@ $(document).ready(function() {
       var round_div = document.createElement('div');
       round_div.id = "round_" + i;
       round_div.className = "round";
-      $(".draft_board").append(round_div);
+      $(".board").append(round_div);
       
       if (odd_round) {
         for (j=1; j<teams.length + 1; j++) {
