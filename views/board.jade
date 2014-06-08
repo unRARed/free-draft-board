@@ -1,0 +1,15 @@
+extends layout
+
+block content
+
+  .draft_board
+    #selection.selection
+      h2#team_id
+      h3 Round: 
+        span#round_id
+        span#pick_id
+      form#selection_form(action="#", method="GET")
+        input#player_name(type="text")
+        input#full_pick_id(type="hidden")
+        input(type="submit")
+  script(src="/js/board.js")

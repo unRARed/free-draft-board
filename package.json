@@ -1,0 +1,11 @@
+{
+  "name": "free-draft-board",
+  "description": "Free Draft Board web application for fantasy sports.",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "express": "4.x",
+    "jade": "1.x",
+    "less-middleware": "1.x"
+  }
+}
