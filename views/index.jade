@@ -1,0 +1,7 @@
+extends layout
+
+block content
+
+  h3= pageTitle
+  form#create(action="/new", method="GET")
+    input(type="submit")

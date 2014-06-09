@@ -6,6 +6,7 @@
   "dependencies": {
     "express": "4.x",
     "jade": "1.x",
-    "less-middleware": "1.x"
+    "less-middleware": "1.x",
+    "shortid": "2.x"
   }
 }

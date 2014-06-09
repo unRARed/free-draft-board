@@ -1,15 +1,19 @@
 extends layout
 
+block head
+
+  script(src="/js/board.js")
+
 block content
 
   .board
     #selection.selection
       h2#team_id
-      h3 Round: 
+      h3 Round:&nbsp;
         span#round_id
+        |  Pick: 
         span#pick_id
       form#selection_form(action="#", method="GET")
         input#player_name(type="text")
         input#full_pick_id(type="hidden")
         input(type="submit")
-  script(src="/js/board.js")
