@@ -3,6 +3,9 @@
   "description": "Free Draft Board web application for fantasy sports.",
   "version": "0.0.1",
   "private": true,
+  "scripts": {
+    "start": "node app.js"
+  },
   "dependencies": {
     "express": "4.x",
     "jade": "1.x",
