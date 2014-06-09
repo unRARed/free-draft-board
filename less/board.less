@@ -16,6 +16,7 @@
     background-color: #eee;
     border-radius: 10px;
     box-shadow: 1px 2px 1px 1px #111;
+    z-index: 1;
   }
 
   .round,
@@ -28,12 +29,20 @@
       float: left;
       border-right: 1px solid black;
       border-bottom: 1px solid black;
-      width: 5%;
     }
     
     .pick {
       height: 80px;
+      position: relative;
+
+      .pick_count {
+        font-size: 10px;
+        position: absolute;
+        bottom: 5%;
+        right: 5%;
+      }
     }
+
     .pick:first-child {
       border-left: 1px solid black;
     }

@@ -1,19 +1,22 @@
-extends layout
-
-block head
-
-  script(src="/js/board.js")
-
-block content
-
-  .board
-    #selection.selection
-      h2#team_id
-      h3 Round:&nbsp;
-        span#round_id
-        |  Pick: 
-        span#pick_id
-      form#selection_form(action="#", method="GET")
-        input#player_name(type="text")
-        input#full_pick_id(type="hidden")
-        input(type="submit")
+doctype html
+html(lang="en")
+  head
+    link(rel="stylesheet", type="text/css", href="css/main.css")
+    link(href='http://fonts.googleapis.com/css?family=Droid+Sans', rel='stylesheet', type='text/css')
+    script(src="http://code.jquery.com/jquery-1.11.0.min.js")
+    script(type='text/javascript').
+      var settings = !{JSON.stringify(post_data)}
+    script(src="/js/board.js")
+    title= pageTitle
+  body
+    .board
+      #selection.selection
+        h2#team_id
+        h3 Round:&nbsp;
+          span#round_id
+          |  Pick: 
+          span#pick_id
+        form#selection_form(action="#", method="GET")
+          input#player_name(type="text")
+          input#full_pick_id(type="hidden")
+          input(type="submit")

@@ -1,47 +1,44 @@
 $(document).ready(function() {
   
-  var rounds = 15;
-  var serpentine = true;
-  
-  var hard_coded_teams = [
-    'nerds', 'goofy', 'blah', 'meh', 'haha',
-    'what', 'woot', 'lol', 'ok', 'word',
-    'gogo', 'booyah', 'heyo', 'moolah',
-    'hammer', 'mahjong', 'colar', 'boostay',
-    'sherpa', 'goose'
-  ];
-  
-  function init(teams, rounds, is_serpentine) {
-    
+  function init(teams, rounds, is_serpentine, unique_id) {
+
+    var tile_width = (100 / teams.length);
     var odd_round = true;
+
+    window.location.hash = unique_id;
     
-    var teams_div = document.createElement('div');
-    teams_div.className = "league";
-    $(".board").append(teams_div);
+    var teams_row = document.createElement('div');
+    teams_row.className = "league";
+    $(".board").append(teams_row);
   
     for (i=0; i<teams.length; i++) {
-      var div = document.createElement('div');
-      div.id = teams[i];
-      div.innerHTML = teams[i];
-      div.className = "team";
-      teams_div.appendChild(div);
+      var team_div = document.createElement('div');
+      team_div.id = teams[i];
+      team_div.innerHTML = teams[i];
+      team_div.style.width = tile_width + '%';
+      team_div.className = "team";
+      teams_row.appendChild(team_div);
     }
     
     var pick_count = 0;
     
     function createPick(team_index) {
-      pick_div = document.createElement('div');
+      var pick_div = document.createElement('div');
+      var pick_span = document.createElement('span');
       pick_div.id = "pick_" + i + "_" + (pick_count + j);
       pick_div.className = "pick";
-      pick_div.innerHTML = pick_count + j;
-      pick_div.dataset.team = teams[team_index]; 
+      pick_div.style.width = tile_width + '%';
+      pick_div.dataset.team = teams[team_index];
+      pick_span.innerHTML = pick_count + j;
+      pick_span.className = "pick_count";
+
+      pick_div.appendChild(pick_span);
       round_div.appendChild(pick_div);
     }
     
     for (i=1; i<=rounds; i++) {
       
       var even_round_index = 0;
-      var pick_div;
       
       if (is_serpentine) {
         odd_round = (i % 2);
@@ -89,6 +86,6 @@ $(document).ready(function() {
     
   }
   
-  init(hard_coded_teams, rounds, serpentine);
+  init(settings.team_names, settings.round, settings.serpentine, settings.id);
   
 });

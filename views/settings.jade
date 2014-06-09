@@ -1,0 +1,53 @@
+extends layout
+
+block head
+
+  script(src="/js/settings.js")
+
+block content
+
+  h1 Customize your Board
+  form#settings.settings(action="/board", method="POST")
+    input(type="hidden", value="#{url_id}", name="id")
+    .setting_group
+      label(for="round_setting") How many rounds? (roster spots)
+      select#round_setting(name="round")
+        - for (var low_round=1; low_round<15; low_round++)
+          option(value="#{low_round}")= low_round
+        option(value="15", selected="selected") 15
+        - for (var high_round=16; high_round<100; high_round++)
+          option(value="#{high_round}")= high_round
+    .setting_group
+      #time_setting
+        label(for="minute_setting") Time per pick? (minutes:seconds) 
+        select#minute_setting(name="minutes")
+          option(value="0") 00
+          option(value="1") 01
+          option(value="2", selected="selected") 02
+          option(value="3") 03
+          option(value="4") 04
+          option(value="5") 05
+          option(value="6") 06
+          option(value="7") 07
+          option(value="8") 08
+          option(value="9") 09
+          - for (var minute=10; minute<60; minute++)
+            option(value="#{minute}")= minute
+        select#second_setting(name="seconds")
+          option(value="0", selected="selected") 00
+          option(value="5") 05
+          - for (var second=10; second<60; second++)
+            - if (second % 5 == 0)
+              option(value="#{second}")= second
+    .setting_group
+      label(for="serpentine_setting") Serpentine style?
+      input(type="checkbox", checked="checked", id="serpentine_setting", name="serpentine")
+    .setting_group
+      label(for="team_setting") How many teams?
+      select#teams_setting
+        option(value="", selected="selected") &mdash;
+        - for (var team=1; team<21; team++)
+          option(value="#{team}")= team
+    #team_names.team_names.setting_group
+    .setting_group
+      input(id="submit_settings", type="submit")

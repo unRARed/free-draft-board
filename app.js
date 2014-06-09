@@ -2,6 +2,7 @@ var express = require('express');
 var path = require('path');
 var lessMiddleware = require('less-middleware');
 var shortId = require('shortid');
+var bodyParser = require('body-parser')
 var app = express();
 
 var siteTitle = "FreeDraftBoard.com - Free offline drafting for fantasy sports leagues."
@@ -24,18 +25,34 @@ app.use(lessMiddleware(path.join(__dirname, 'less'), {
   }
 }));
 app.use(express.static(__dirname + '/public'));
+app.use(bodyParser());
 
 app.get('/', function(req, res){ 
   res.render('index', {pageTitle: siteTitle}); 
 });
 
-app.get('/new', function(req, res){
-  console.log(req);
-  res.render('new', {
+app.get('/settings', function(req, res){
+  res.render('settings', {
     url_id: shortId.generate(),
     pageTitle: prependToTitle("Board Creator")
   }); 
 });
+
+app.post('/board', function(req, res){
+  var is_serpentine = (req.body.serpentine === 'on');
+
+  res.render('board', {
+    post_data: {
+      id: req.body.id,
+      round: req.body.round,
+      minutes: req.body.minutes,
+      seconds: req.body.seconds,
+      serpentine: is_serpentine,
+      team_names: req.body.team_names
+    }
+  });
+});
+
 
 app.get('/board', function(req, res){ 
   res.render('board', {pageTitle: prependToTitle("Live Draft Board")});
