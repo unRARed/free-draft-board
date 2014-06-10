@@ -11,11 +11,11 @@ html(lang="en")
   body
     .board
       #selection.selection
-        h2#team_id
+        h2#team_id.team_id
         h3 Round:&nbsp;
-          span#round_id
+          span#round_id.round_id
           |  Pick: 
-          span#pick_id
+          span#pick_id.pick_id
         form#selection_form(action="#", method="GET")
           input#player_name(type="text")
           input#full_pick_id(type="hidden")

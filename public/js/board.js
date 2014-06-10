@@ -25,7 +25,7 @@ $(document).ready(function() {
     function createPick(team_index) {
       var pick_div = document.createElement('div');
       var pick_span = document.createElement('span');
-      pick_div.id = "pick_" + i + "_" + (pick_count + j);
+      pick_div.id = "pick_" + (pick_count + j);
       pick_div.className = "pick";
       pick_div.style.width = tile_width + '%';
       pick_div.dataset.team = teams[team_index];
@@ -66,8 +66,8 @@ $(document).ready(function() {
     
   $(".pick").click(
     function() {
-      var round = this.id.substr(5,1);
-      var pick = this.id.substr(7, this.id.length);
+      var round = this.parentNode.id.substr(6,this.parentNode.id.length);
+      var pick = this.id.substr(5, this.id.length);
       $("#team_id").html($(this).data("team"));
       $("#full_pick_id").val(this.id);
       $("#round_id").html(round);
