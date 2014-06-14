@@ -11,7 +11,7 @@ block content
     input(type="hidden", value="#{url_id}", name="id")
     .setting_group
       label(for="round_setting") How many rounds? (roster spots)
-      select#round_setting(name="round")
+      select#round_setting(name="rounds")
         - for (var low_round=1; low_round<15; low_round++)
           option(value="#{low_round}")= low_round
         option(value="15", selected="selected") 15

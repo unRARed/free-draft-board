@@ -44,11 +44,11 @@ app.post('/board', function(req, res){
   res.render('board', {
     post_data: {
       id: req.body.id,
-      round: req.body.round,
-      minutes: req.body.minutes,
-      seconds: req.body.seconds,
+      rounds: req.body.rounds,
+      minutes: parseInt(req.body.minutes),
+      seconds: parseInt(req.body.seconds),
       serpentine: is_serpentine,
-      team_names: req.body.team_names
+      teams: req.body.team_names
     }
   });
 });

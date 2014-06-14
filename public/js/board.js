@@ -1,20 +1,23 @@
 $(document).ready(function() {
   
-  function init(teams, rounds, is_serpentine, unique_id) {
+  function init(settings) {
 
-    var tile_width = (100 / teams.length);
+    console.log(settings.minutes);
+    console.log(settings.seconds);
+
+    var tile_width = (100 / settings.teams.length);
     var odd_round = true;
 
-    window.location.hash = unique_id;
+    window.location.hash = settings.unique_id;
     
     var teams_row = document.createElement('div');
     teams_row.className = "league";
     $(".board").append(teams_row);
   
-    for (i=0; i<teams.length; i++) {
+    for (i=0; i<settings.teams.length; i++) {
       var team_div = document.createElement('div');
-      team_div.id = teams[i];
-      team_div.innerHTML = teams[i];
+      team_div.id = settings.teams[i];
+      team_div.innerHTML = settings.teams[i];
       team_div.style.width = tile_width + '%';
       team_div.className = "team";
       teams_row.appendChild(team_div);
@@ -28,7 +31,7 @@ $(document).ready(function() {
       pick_div.id = "pick_" + (pick_count + j);
       pick_div.className = "pick";
       pick_div.style.width = tile_width + '%';
-      pick_div.dataset.team = teams[team_index];
+      pick_div.dataset.team = settings.teams[team_index];
       pick_span.innerHTML = pick_count + j;
       pick_span.className = "pick_count";
 
@@ -37,11 +40,11 @@ $(document).ready(function() {
       $("#pick_" + (pick_count + j)).height($("#pick_" + (pick_count + j)).width());
     }
     
-    for (i=1; i<=rounds; i++) {
+    for (i=1; i<=settings.rounds; i++) {
       
       var even_round_index = 0;
       
-      if (is_serpentine) {
+      if (settings.serpentine) {
         odd_round = (i % 2);
       }
       
@@ -51,17 +54,17 @@ $(document).ready(function() {
       $(".board").append(round_div);
       
       if (odd_round) {
-        for (j=1; j<teams.length + 1; j++) {
+        for (j=1; j<settings.teams.length + 1; j++) {
           createPick(j-1);
         }           
       } else {
-        for (j=teams.length; j>0; j--) {
+        for (j=settings.teams.length; j>0; j--) {
           createPick(even_round_index);
           even_round_index++;
         }           
       }
       
-      pick_count += teams.length;
+      pick_count += settings.teams.length;
       
     }
 
@@ -69,7 +72,7 @@ $(document).ready(function() {
       var window_width = $(this).width();
       var board_width = window_width * .99;
       var row_width = board_width * .98;
-      var unit_width = (row_width / teams.length) *.97;
+      var unit_width = (row_width / settings.teams.length) *.97;
       setTimeout(function() {
         $(".board").width(board_width);
         $(".league, .round").width(row_width);
@@ -80,6 +83,6 @@ $(document).ready(function() {
     });
   }
   
-  init(settings.team_names, settings.round, settings.serpentine, settings.id);
+  init(settings);
 
 });
