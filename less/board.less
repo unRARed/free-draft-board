@@ -1,5 +1,6 @@
 .board {
-  
+
+  margin: 0 auto;
   position: relative;
   
   .selection {
@@ -13,14 +14,14 @@
     width: 50%;
     max-width: 500px;
     height: 400px;
-    background-color: #eee;
-    color: #11204F;
+    background-color: @bg-dark;
+    color: @bg-mid;
     border-radius: 10px;
     box-shadow: 1px 2px 1px 1px #111;
     z-index: 1;
 
     * {
-      color: #11204F;
+      color: @bg-mid;
     }
 
     .team_id {
@@ -31,8 +32,9 @@
 
   .round,
   .league {
-    
+    border-left: 1px solid black;    
     overflow: hidden;
+    margin: 0 auto;
     
     .pick,
     .team {
@@ -44,6 +46,8 @@
     .pick {
       height: 80px;
       position: relative;
+      background-color: @white;
+      color: @black;
 
       .pick_count {
         font-size: 10px;
@@ -54,19 +58,22 @@
     }
 
     .pick:first-child {
-      border-left: 1px solid black;
+      border-right: 1px solid black;
+      border-bottom: 1px solid black;
     }
     
     .team {
-      background-color: #eee;
-      color: #1F202B;
+      background: url(/img/stacked_circles.png) @brown;
+      color: @white;
       font-size: 12px;
-      padding: 10px 4px;
+      font-weight: bold;
+      padding: 10px 0;
       text-align: center;
+      font-family: 'Rock Salt', cursive;
     }
     
     .pick:hover {
-      background-color: #11204F;
+      background-color: @bg-light;
       cursor: pointer;
     }
     

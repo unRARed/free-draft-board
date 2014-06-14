@@ -34,6 +34,7 @@ $(document).ready(function() {
 
       pick_div.appendChild(pick_span);
       round_div.appendChild(pick_div);
+      $("#pick_" + (pick_count + j)).height($("#pick_" + (pick_count + j)).width());
     }
     
     for (i=1; i<=rounds; i++) {
@@ -63,29 +64,22 @@ $(document).ready(function() {
       pick_count += teams.length;
       
     }
-    
-  $(".pick").click(
-    function() {
-      var round = this.parentNode.id.substr(6,this.parentNode.id.length);
-      var pick = this.id.substr(5, this.id.length);
-      $("#team_id").html($(this).data("team"));
-      $("#full_pick_id").val(this.id);
-      $("#round_id").html(round);
-      $("#pick_id").html(pick);
-      $("#selection").show();
-    }
-  );
 
-    
-  $("#selection_form").submit(function(submit_event) {
-    submit_event.preventDefault();
-    $("#" + $("#full_pick_id").val()).append($("#player_name").val());
-    $("#player_name").val("");
-    $("#selection").hide();
-  });
-    
+    $(window).resize(function() {
+      var window_width = $(this).width();
+      var board_width = window_width * .99;
+      var row_width = board_width * .98;
+      var unit_width = (row_width / teams.length) *.97;
+      setTimeout(function() {
+        $(".board").width(board_width);
+        $(".league, .round").width(row_width);
+          $(".pick").height(unit_width).width(unit_width);
+          $(".team").width(unit_width);
+      }, 100);
+
+    });
   }
   
   init(settings.team_names, settings.round, settings.serpentine, settings.id);
-  
+
 });
