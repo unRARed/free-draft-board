@@ -61,6 +61,9 @@ app.post('/board', function(req, res){
 app.get('/board/:passedShortId', function(req, res){
 
   Board.findOne({shortId: req.params.passedShortId}, function(err, settings) {
+    if (!settings) {
+      res.send(404, '404 Not Found');
+    }
     res.render('board', {
       settings: settings,
       pageTitle: prependToTitle("Live Draft Board")
@@ -69,10 +72,10 @@ app.get('/board/:passedShortId', function(req, res){
 
 });
 
-// app.get('/*', function(req, res){
-//   res.status(404);
-//   res.send('404 Not Found');
-// });
+app.get('/*', function(req, res){
+  res.status(404);
+  res.send('404 Not Found');
+});
 
 var port = Number(process.env.PORT || 5000);
 app.listen(port, function() {
