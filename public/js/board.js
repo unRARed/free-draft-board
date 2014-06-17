@@ -8,7 +8,7 @@ $(document).ready(function() {
     var tile_width = (100 / settings.teams.length);
     var odd_round = true;
 
-    window.location.hash = settings.unique_id;
+    window.location.hash = settings.shortId;
     
     var teams_row = document.createElement('div');
     teams_row.className = "league";
