@@ -20,7 +20,7 @@ app.use(lessMiddleware(path.join(__dirname, 'less'), {
   dest: path.join(__dirname, 'public'),
   preprocess: {
     path: function(pathname, req) {
-      return pathname.replace('/css', '');
+      return pathname.replace('/css', '/');
     }
   }
 }));
@@ -52,22 +52,15 @@ app.post('/board', function(req, res){
 
   board.save();
 
-  res.render('board', {
-    settings: {
-      shortId: req.body.shortId,
-      rounds: req.body.rounds,
-      minutes: parseInt(req.body.minutes),
-      seconds: parseInt(req.body.seconds),
-      serpentine: is_serpentine,
-      teams: req.body.team_names
-    }
-  });
+
+  res.redirect('/board/' + req.body.shortId);
+
 });
 
 
-app.get('/board', function(req, res){
+app.get('/board/:passedShortId', function(req, res){
 
-  Board.findOne({shortId: 'GR-YnoGGGr'}, function(err, settings) {
+  Board.findOne({shortId: req.params.passedShortId}, function(err, settings) {
     res.render('board', {
       settings: settings,
       pageTitle: prependToTitle("Live Draft Board")
