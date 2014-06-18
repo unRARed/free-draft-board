@@ -14,8 +14,8 @@ $(document).ready(function() {
   
     for (i=0; i<settings.teams.length; i++) {
       var team_div = document.createElement('div');
-      team_div.id = settings.teams[i];
-      team_div.innerHTML = settings.teams[i];
+      team_div.id = settings.teams[i].name;
+      team_div.innerHTML = settings.teams[i].name;
       team_div.style.width = tile_width + '%';
       team_div.className = "team";
       teams_row.appendChild(team_div);
@@ -29,7 +29,7 @@ $(document).ready(function() {
       pick_div.id = "pick_" + (pick_count + j);
       pick_div.className = "pick";
       pick_div.style.width = tile_width + '%';
-      pick_div.dataset.team = settings.teams[team_index];
+      pick_div.dataset.team = settings.teams[team_index].name;
       pick_span.innerHTML = pick_count + j;
       pick_span.className = "pick_count";
 

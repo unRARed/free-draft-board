@@ -41,13 +41,24 @@ app.get('/settings', function(req, res){
 app.post('/board', function(req, res){
   var is_serpentine = (req.body.serpentine === 'on');
 
+  // creates Teams object
+  var teamsObject = [];
+
+  for (i=0;i<req.body.team_names.length;i++) {
+    var team = new models.Team({
+      name: req.body.team_names[i],
+      slot: (i + 1)
+    });
+    teamsObject.push(team);
+  }
+
   var board = new models.Board({
     shortId: req.body.shortId,
     rounds: req.body.rounds,
     minutes: parseInt(req.body.minutes),
     seconds: parseInt(req.body.seconds),
     serpentine: is_serpentine,
-    teams: req.body.team_names 
+    teams: teamsObject
   });
 
   board.save();
