@@ -9,6 +9,7 @@ var PickSpec = mongoose.Schema({
 
 var TeamSpec = mongoose.Schema({
   name: { type: String },
+  slot: { type: Number },
   picks: [PickSpec]
 });
 

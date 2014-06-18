@@ -82,6 +82,32 @@ app.get('/board/:passedShortId', function(req, res){
 
 });
 
+app.post('/select', function(req, res) {
+
+  models.Board.findOne({shortId: req.body.shortId}, function(err, settings) {
+      if (!settings) {
+        res.send(404, '404 Not Found');
+      }
+
+      for (i=0;i<settings.teams.length;i++) {
+        if (settings.teams[i].name === req.body.teamName) {
+          var pick = new models.Pick({
+            pick: parseInt(req.body.pick),
+            player: req.body.player
+          });
+          settings.teams[i].picks.push(pick);
+        }
+      }
+
+      settings.save()
+
+      console.log(settings);
+      res.send(settings);
+    });
+
+  console.log(req.body);
+});
+
 app.get('/*', function(req, res){
   res.status(404);
   res.send('404 Not Found');

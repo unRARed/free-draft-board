@@ -11,14 +11,16 @@ html(lang="en")
     script(src="/js/ui.js")
     title= pageTitle
   body
-    .board
+    .board(id="#{settings.shortId}")
       #selection.selection
         h2#team_id.team_id
         h3 Round:&nbsp;
           span#round_id.round_id
           |  Pick: 
           span#pick_id.pick_id
-        form#selection_form(action="#", method="GET")
-          input#player_name(type="text")
-          input#full_pick_id(type="hidden")
+        form#selection_form(action="#", method="POST")
+          input#player_name(type="text", name="player")
+          input#full_pick_id(type="hidden", name="pick")
+          input#short_id(type="hidden", name="shortId")
+          input#team_name(type="hidden", name="teamName")
           input(type="submit")
