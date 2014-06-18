@@ -5,7 +5,7 @@ var shortId = require('shortid');
 var bodyParser = require('body-parser')
 var app = express();
 var siteTitle = "FreeDraftBoard.com - Free offline drafting for fantasy sports leagues."
-var Board = require('./db')
+var models = require('./db')
 
 var prependToTitle = function(title) {
   return title + " | " + siteTitle;
@@ -41,7 +41,7 @@ app.get('/settings', function(req, res){
 app.post('/board', function(req, res){
   var is_serpentine = (req.body.serpentine === 'on');
 
-  var board = new Board({
+  var board = new models.Board({
     shortId: req.body.shortId,
     rounds: req.body.rounds,
     minutes: parseInt(req.body.minutes),
@@ -52,7 +52,6 @@ app.post('/board', function(req, res){
 
   board.save();
 
-
   res.redirect('/board/' + req.body.shortId);
 
 });
@@ -60,7 +59,7 @@ app.post('/board', function(req, res){
 
 app.get('/board/:passedShortId', function(req, res){
 
-  Board.findOne({shortId: req.params.passedShortId}, function(err, settings) {
+  models.Board.findOne({shortId: req.params.passedShortId}, function(err, settings) {
     if (!settings) {
       res.send(404, '404 Not Found');
     }

@@ -11,6 +11,8 @@ var boardSchema = mongoose.Schema({
   teams: []
 });
 
-var Board = mongoose.model('Board', boardSchema);
+var models = {
+  Board: mongoose.model('Board', boardSchema)
+};
 
-module.exports = Board;
+module.exports = models;
