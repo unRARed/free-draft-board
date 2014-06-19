@@ -2,10 +2,26 @@
 
   margin: 0 auto;
   position: relative;
+
+  .selection-blanket {
+    display: none;
+    background-color: @bg-dark;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    height: 100%;
+    width: 100%;
+    zoom: 1;
+    filter: alpha(opacity=50);
+    opacity: 0.5;
+  }
   
   .selection {
     display: none;
-    position: absolute;
+    position: fixed;
     top: 0;
     bottom: 0;
     left: 0;
@@ -15,14 +31,10 @@
     max-width: 500px;
     height: 400px;
     background-color: @bg-dark;
-    color: @bg-mid;
+    color: @white;
     border-radius: 10px;
     box-shadow: 1px 2px 1px 1px #111;
-    z-index: 1;
-
-    * {
-      color: @bg-mid;
-    }
+    z-index: 99 !important;  
 
     .team_id {
 
@@ -32,8 +44,7 @@
 
   .round,
   .league {
-    border-left: 1px solid black;    
-    overflow: hidden;
+    border-left: 1px solid black;
     margin: 0 auto;
     
     .pick,
@@ -49,7 +60,7 @@
       background-color: @white;
       color: @black;
 
-      .pick_count {
+      .pick-count {
         font-size: 10px;
         position: absolute;
         bottom: 5%;

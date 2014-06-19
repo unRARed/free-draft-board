@@ -12,6 +12,16 @@ html(lang="en")
     title= pageTitle
   body
     .board(id="#{settings.shortId}")
+      .league
+        each team in settings.teams
+          div(id="#{team.id}", class="team")= team.name
+      - for (i=1;i<settings.rounds+1;i++)
+        .round(id="round-#{i}", class=(i%2 === 0)? "even" : "odd")
+          - for (j=1;j<settings.teams.length+1;j++)
+            .pick(data-team="#{settings.teams[j-1].name}", id="pick-#{((i-1) * settings.teams.length) + j}")
+              - // add selected player name here, may need to dumb down schema
+              span.pick-count #{((i-1) * settings.teams.length) + j}
+      #selection-blanket.selection-blanket
       #selection.selection
         h2#team_id.team_id
         h3 Round:&nbsp;

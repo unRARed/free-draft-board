@@ -9,7 +9,17 @@ $(document).ready(function() {
       $("#short_id").val($(".board").attr("id"));
       $("#round_id").html(round);
       $("#pick_id").html(pick);
-      $("#selection").show();
+      $("#selection, #selection-blanket").show();
+  });
+
+  // if selection div is visible, 
+  // hide it if user clicks outside
+  $("#selection-blanket").click(function(evt) {
+    if ($("#selection").is(evt.target)) {
+      return;
+    } else {
+      $("#selection, #selection-blanket").hide();
+    }
   });
     
   $("#selection_form").submit(function(evt) {
@@ -20,7 +30,7 @@ $(document).ready(function() {
       $("#" + $("#full_pick_id").val()).append( data );
       $( ".result" ).html( data );
       $("#player_name").val("");
-      $("#selection").hide();
+      $("#selection, #selection-blanket").hide();
     });
 
   });

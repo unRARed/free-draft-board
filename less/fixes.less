@@ -15,15 +15,23 @@ body { min-height: 100%; }
  }
 
 .cf:before,
-.cf:after {
+.cf:after,
+.league:before,
+.league:after,
+.round:before,
+.round:after  {
     content: " "; 
     display: table; 
 }
 
-.cf:after {
+.cf:after,
+.league:after,
+.round:after {
     clear: both;
 }
 
-.cf {
+.cf,
+.league,
+.round {
     *zoom: 1;
 }
