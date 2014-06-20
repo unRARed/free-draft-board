@@ -1,12 +1,23 @@
 $(document).ready(function() {
+
+  function scaleBoard(boardWidth) {
+    while (boardWidth % settings.teams.length !== 0) { boardWidth--; }
+    var unitWidth = (boardWidth / settings.teams.length);
+    var pixelFraction = 1 / settings.teams.length;
+    setTimeout(function() {
+      $(".league, .round").css({width: boardWidth + "px"});
+      $(".pick").css({width: (unitWidth - pixelFraction) + "px", height: (unitWidth - pixelFraction) + "px"});
+      $(".team").css({width: (unitWidth - pixelFraction) + "px"});
+    }, 100);
+  }
   
   function init(settings) {
 
     console.log(settings.minutes);
     console.log(settings.seconds);
 
-    var tileWidth = (100.0 / settings.teams.length);
-    console.log(tileWidth)
+    var tileWidth = Math.floor(100.0 / settings.teams.length);
+    console.log(tileWidth);
 
     var $teams = $(".team");
     var $picks = $(".pick");
@@ -21,7 +32,7 @@ $(document).ready(function() {
     }
 
     $tiles.each(function(){
-      this.style.width = tileWidth + "%";
+      $(this).css({width: tileWidth + "%"});
     });
 
     // don't square the team names
@@ -30,18 +41,11 @@ $(document).ready(function() {
     });
 
     $(window).resize(function() {
-      var windowWidth = $(this).width();
-      var boardWidth = windowWidth;
-      var rowWidth = boardWidth * .99;
-      var unitWidth = (rowWidth / settings.teams.length) *.98;
-      setTimeout(function() {
-        $(".board").width(boardWidth);
-        $(".league, .round").width(rowWidth);
-          $(".pick").height(unitWidth).width(unitWidth);
-          $(".team").width(unitWidth);
-      }, 100);
-
+      scaleBoard($(this).width());
     });
+
+    scaleBoard($(window).width());
+
   }
   
   init(settings);

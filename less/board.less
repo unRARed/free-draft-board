@@ -5,7 +5,7 @@
 
   .selection-blanket {
     display: none;
-    background-color: @bg-dark;
+    background-color: @primary-bg-dark;
     position: fixed;
     top: 0;
     bottom: 0;
@@ -30,8 +30,8 @@
     width: 50%;
     max-width: 500px;
     height: 400px;
-    background-color: @bg-dark;
-    color: @white;
+    background-color: @primary-bg-dark;
+    color: @primary-fg;
     border-radius: 10px;
     box-shadow: 1px 2px 1px 1px #111;
     z-index: 99 !important;  
@@ -46,6 +46,7 @@
   .league {
     border-left: 1px solid black;
     margin: 0 auto;
+
     
     .pick,
     .team {
@@ -53,11 +54,10 @@
       border-right: 1px solid black;
       border-bottom: 1px solid black;
     }
-    
+
     .pick {
       height: 80px;
       position: relative;
-      background-color: @white;
       color: @black;
 
       .pick-count {
@@ -74,20 +74,26 @@
     }
     
     .team {
-      background: url(/img/stacked_circles.png) @brown;
-      color: @white;
+      background: url(/img/stacked_circles.png) @secondary-bg;
+      color: @primary-fg;
       font-size: 12px;
       font-weight: bold;
       padding: 10px 0;
       text-align: center;
       font-family: 'Rock Salt', cursive;
+      min-height: 80px;
+      display: inline-block;
+      vertical-align: middle;
     }
     
     .pick:hover {
-      background-color: @bg-light;
+      background-color: @primary-bg-light;
       cursor: pointer;
     }
     
   }
+
+  .even .pick { background-color: @primary-fg; }
+  .odd .pick { background-color: @primary-fg-accent; }
   
 }

@@ -1,17 +1,17 @@
 body {
   font-family: 'Droid Sans', sans-serif;
   letter-spacing: 0.1em;
-  background-color: @bg-dark;
-  color: #ccc;
+  background-color: @primary-fg;
+  color: @primary-bg;
   position: relative;
 }
 
 a, a:visited {
-  color: #C46500;
+  color: @secondary-bg-dark;
 }
 
 a:hover {
-  color: #D46D00;
+  color: @secondary-bg;
 }
 
 h1,
@@ -20,7 +20,7 @@ h3,
 h4,
 h5,
 h6 {
-  color: @white;
+  color: @primary-bg;
 }
 
 h1 {font-size: 4.0em; font-weight: bold;}
@@ -31,24 +31,24 @@ h5 {font-size: 1.6em;}
 h6 {font-size: 1.2em;}
 
 input[type="text"] {
-  background-color: #31401E;
+  background-color: @primary-bg-light;
   border-radius: 4px;
   border: 0;
   font-size: 1.4em;
-  color: @white;
+  color: @primary-bg;
   padding: 8px 6px;
 }
 
 input[type="submit"] {
-  background-color: #C46500;
+  background-color: @secondary-bg-dark;
   border: 0;
   border-radius: 4px;
   padding: 10px;
-  color: @white;
+  color: @primary-fg;
 }
 
 input[type="submit"]:hover {
-  background-color: #D46D00;
+  background-color: @secondary-bg;
   cursor: pointer;
 }
 
