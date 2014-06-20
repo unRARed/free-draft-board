@@ -16,18 +16,10 @@ html(lang="en")
         each team in settings.teams
           div(id="#{team.id}", class="team")= team.name
       - for (i=1;i<settings.rounds+1;i++)
-        if (i%2 === 0)
-          .round(id="round-#{i}", class="even")
-            - for (j=settings.teams.length;j>0;j--)
-              .pick(data-team="#{settings.teams[settings.teams.length-j].name}", id="pick-#{((i-1) * settings.teams.length) + j}")
-                - // add selected player name here, may need to dumb down schema
-                span.pick-count #{((i-1) * settings.teams.length) + j}  
+        if settings.serpentine
+          include partials/board/round_serpentine 
         else
-          .round(id="round-#{i}", class="odd")
-            - for (j=1;j<settings.teams.length+1;j++)
-              .pick(data-team="#{settings.teams[j-1].name}", id="pick-#{((i-1) * settings.teams.length) + j}")
-                - // add selected player name here, may need to dumb down schema
-                span.pick-count #{((i-1) * settings.teams.length) + j}        
+          include partials/board/round_standard
       #selection-blanket.selection-blanket
       #selection.selection
         h2#team_id.team_id

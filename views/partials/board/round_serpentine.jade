@@ -1,0 +1,12 @@
+if (i%2 === 0)
+  .round(id="round-#{i}", class="even")
+    - for (j=settings.teams.length;j>0;j--)
+      .pick(data-team="#{settings.teams[settings.teams.length-j].name}", id="pick-#{((i-1) * settings.teams.length) + j}")
+        - // add selected player name here, may need to dumb down schema
+        span.pick-count #{((i-1) * settings.teams.length) + j}  
+else
+  .round(id="round-#{i}", class="odd")
+    - for (j=1;j<settings.teams.length+1;j++)
+      .pick(data-team="#{settings.teams[j-1].name}", id="pick-#{((i-1) * settings.teams.length) + j}")
+        - // add selected player name here, may need to dumb down schema
+        span.pick-count #{((i-1) * settings.teams.length) + j}
