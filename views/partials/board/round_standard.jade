@@ -1,5 +1,9 @@
 .round(id="round-#{i}", class=(i%2 === 0) ? "even" : "odd")
   - for (j=1;j<settings.teams.length+1;j++)
-    .pick(data-team="#{settings.teams[j-1].name}", id="pick-#{((i-1) * settings.teams.length) + j}")
-      - // add selected player name here, may need to dumb down schema
+    - var pickId = ((i-1) * settings.teams.length) + j;
+    - var team = settings.teams[j-1];
+    .pick(data-team="#{team.name}", id="pick-#{pickId}")
+      each key, val in team.picks
+        if (team.picks[val].pick === pickId)
+          p= team.picks[val].player
       span.pick-count #{((i-1) * settings.teams.length) + j}

@@ -102,7 +102,7 @@ app.post('/select', function(req, res) {
       settings.save()
 
       console.log(settings);
-      res.send(settings);
+      res.redirect('/board/' + req.body.shortId);
     });
 
   console.log(req.body);
