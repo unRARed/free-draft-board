@@ -5,7 +5,7 @@
 
   .selection-blanket {
     display: none;
-    background-color: @primary-bg-dark;
+    background-color: @secondary-bg-light;
     position: fixed;
     top: 0;
     bottom: 0;
@@ -15,11 +15,12 @@
     height: 100%;
     width: 100%;
     zoom: 1;
-    filter: alpha(opacity=50);
-    opacity: 0.5;
+    filter: alpha(opacity=75);
+    opacity: 0.75;
   }
   
   .selection {
+
     display: none;
     position: fixed;
     top: 0;
@@ -35,6 +36,15 @@
     border-radius: 10px;
     box-shadow: 1px 2px 1px 1px #111;
     z-index: 99 !important;  
+
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    p {
+      color: @primary-fg;
+    }
 
     .team_id {
 

@@ -23,13 +23,13 @@ $(document).ready(function() {
     var $picks = $(".pick");
     var $tiles = $(".team, .pick");
 
-    if (settings.serpentine) {
-      var $evenRounds = $(".round.even");
-      $evenRounds.each(function() {
-        var evenPicks = $(this).children();
-        $(this).append(evenPicks.get().reverse());
-      });
-    }
+    // if (settings.serpentine) {
+    //   var $evenRounds = $(".round.even");
+    //   $evenRounds.each(function() {
+    //     var evenPicks = $(this).children();
+    //     $(this).append(evenPicks.get().reverse());
+    //   });
+    // }
 
     $tiles.each(function(){
       $(this).css({width: tileWidth + "%"});

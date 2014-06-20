@@ -16,17 +16,24 @@ html(lang="en")
         each team in settings.teams
           div(id="#{team.id}", class="team")= team.name
       - for (i=1;i<settings.rounds+1;i++)
-        .round(id="round-#{i}", class=(i%2 === 0)? "even" : "odd")
-          - for (j=1;j<settings.teams.length+1;j++)
-            .pick(data-team="#{settings.teams[j-1].name}", id="pick-#{((i-1) * settings.teams.length) + j}")
-              - // add selected player name here, may need to dumb down schema
-              span.pick-count #{((i-1) * settings.teams.length) + j}
+        if (i%2 === 0)
+          .round(id="round-#{i}", class="even")
+            - for (j=settings.teams.length;j>0;j--)
+              .pick(data-team="#{settings.teams[settings.teams.length-j].name}", id="pick-#{((i-1) * settings.teams.length) + j}")
+                - // add selected player name here, may need to dumb down schema
+                span.pick-count #{((i-1) * settings.teams.length) + j}  
+        else
+          .round(id="round-#{i}", class="odd")
+            - for (j=1;j<settings.teams.length+1;j++)
+              .pick(data-team="#{settings.teams[j-1].name}", id="pick-#{((i-1) * settings.teams.length) + j}")
+                - // add selected player name here, may need to dumb down schema
+                span.pick-count #{((i-1) * settings.teams.length) + j}        
       #selection-blanket.selection-blanket
       #selection.selection
         h2#team_id.team_id
         h3 Round:&nbsp;
           span#round_id.round_id
-          |  Pick: 
+          |  Pick:&nbsp;
           span#pick_id.pick_id
         form#selection_form(action="#", method="POST")
           input#player_name(type="text", name="player")
