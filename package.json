@@ -12,6 +12,7 @@
     "less-middleware": "1.x",
     "body-parser": "1.x",
     "mongoose": "3.8.12",
-    "shortid": "2.x"
+    "shortid": "2.x",
+    "connect-favicons": "0.0.4"
   }
 }

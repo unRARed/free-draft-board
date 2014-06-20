@@ -3,6 +3,7 @@ var path = require('path');
 var lessMiddleware = require('less-middleware');
 var shortId = require('shortid');
 var bodyParser = require('body-parser')
+var favicons = require('connect-favicons');
 var app = express();
 var siteTitle = "FreeDraftBoard.com - Free offline drafting for fantasy sports leagues."
 var models = require('./db')
@@ -25,6 +26,7 @@ app.use(lessMiddleware(path.join(__dirname, 'less'), {
   }
 }));
 app.use(express.static(__dirname + '/public'));
+app.use(favicons(__dirname + '/public/img/icons')); 
 app.use(bodyParser());
 
 app.get('/', function(req, res){ 
