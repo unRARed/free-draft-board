@@ -35,7 +35,6 @@ app.get('/', function(req, res){
 
 app.get('/settings', function(req, res){
   res.render('settings', {
-    shortId: shortId.generate(),
     pageTitle: prependToTitle("Board Creator")
   }); 
 });
@@ -55,7 +54,7 @@ app.post('/board', function(req, res){
   }
 
   var board = new models.Board({
-    shortId: req.body.shortId,
+    shortId: shortId.generate(),
     rounds: req.body.rounds,
     minutes: parseInt(req.body.minutes),
     seconds: parseInt(req.body.seconds),
@@ -65,7 +64,7 @@ app.post('/board', function(req, res){
 
   board.save();
 
-  res.redirect('/board/' + req.body.shortId);
+  res.redirect('/board/' + board.shortId);
 
 });
 
