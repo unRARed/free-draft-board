@@ -45,25 +45,38 @@ app.post('/board', function(req, res){
   var teamsArray = [];
   var teamsPicksArray = [];
 
+  console.log(req.body.team_names);
+
   for (i=1;i<(req.body.team_names.length+1);i++) {
 
     var teamName = req.body.team_names[i-1];
+    var pickValue;
     teamsArray.push(teamName);
 
     for(j=0;j<req.body.rounds;j++) {
 
+      console.log(teamName);
+
+      if ((j+1)%2==0 && is_serpentine) { // even rounds reverse if serpentine chosen
+
+        pickValue = (req.body.team_names.length)-(i-1) + (req.body.team_names.length * j);
+
+      } else {
+
+        pickValue = i + (req.body.team_names.length * j);
+
+      }
+
       var pick = new models.Pick({
-        team: req.body.team_names[i-1],
-        pick: (i + (req.body.team_names.length * j))
+        team: teamName,
+        pick: pickValue
       });
 
       teamsPicksArray.push(pick);
 
     }
 
-  }
-
-  //console.log(req.body);
+  }      
 
   var board = new models.Board({
     shortId: shortId.generate(),
