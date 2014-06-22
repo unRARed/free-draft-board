@@ -9,6 +9,9 @@ block content
   h1 Customize your Board
   form#settings.settings(action="/board", method="POST")
     .setting_group
+      label(for="league") League Name: 
+      input(type="text", name="league")
+    .setting_group
       label(for="round_setting") How many rounds? (roster spots)
       select#round_setting(name="rounds")
         - for (var low_round=1; low_round<15; low_round++)

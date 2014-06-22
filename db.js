@@ -15,6 +15,7 @@ var TeamSpec = mongoose.Schema({
 
 var BoardSpec = mongoose.Schema({
   shortId : { type: String, index: true },
+  league : { type: String },
   rounds : { type: Number, max: 99 }, 
   minutes : { type: Number, max: 60 },
   seconds : { type: Number, max: 60 },

@@ -6,12 +6,22 @@ html(lang="en")
     link(href='http://fonts.googleapis.com/css?family=Rock+Salt', rel='stylesheet' type='text/css')
     script(src="http://code.jquery.com/jquery-1.11.0.min.js")
     script(type='text/javascript').
-      var settings = !{JSON.stringify(settings)}
+      var settings = !{JSON.stringify(settings)} // for client access
     script(src="/js/board.js")
     script(src="/js/ui.js")
     title= pageTitle
   body
+    - var boardUrl = "http://www.freedraftboard.com/board/" + settings.shortId;
     .board(id="#{settings.shortId}")
+      .league-info.cf
+        h1.league-name= settings.league
+        p.league-settings
+          span.board-url URL: 
+            a(href="#{boardUrl}") #{boardUrl}
+          br
+          span.total-rounds #{"Rounds: " + settings.rounds}
+          br
+          span.pick-time #{"Pick Time: " + settings.minutes + ":" + settings.seconds}
       .league
         each team in settings.teams
           div(id="#{team.id}", class="team")= team.name

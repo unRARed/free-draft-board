@@ -53,8 +53,11 @@ app.post('/board', function(req, res){
     teamsObject.push(team);
   }
 
+  console.log(req.body);
+
   var board = new models.Board({
     shortId: shortId.generate(),
+    league: req.body.league,
     rounds: req.body.rounds,
     minutes: parseInt(req.body.minutes),
     seconds: parseInt(req.body.seconds),
@@ -75,6 +78,10 @@ app.get('/board/:passedShortId', function(req, res){
     if (!settings) {
       res.send(404, '404 Not Found');
     }
+
+    console.log(settings);
+    console.log(process);
+    
     res.render('board', {
       settings: settings,
       pageTitle: prependToTitle("Live Draft Board")
