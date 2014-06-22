@@ -13,7 +13,7 @@ $(document).ready(function() {
         for (i=teams_showing; i<$(this).val(); i++) {
           $("#submit_settings").show();
           $("#team_names").append('<input placeholder="Team ' + (i + 1) + 
-            '" class="team_submission" id="team_' + i + '" name="team_names[' + i + ']"type="text">')
+            '" class="team_submission" id="team_' + i + '" name="team_names[' + i + ']"type="text" required>')
         }
       } else if (teams_showing > $(this).val()) {
         for (i=teams_showing; i>=$(this).val(); i--) {

@@ -22,9 +22,11 @@ html(lang="en")
           span.total-rounds #{"Rounds: " + settings.rounds}
           br
           span.pick-time #{"Pick Time: " + settings.minutes + ":" + settings.seconds}
+          br
+          span.on-the-clock #{"On the clock: add team here"}
       .league
-        each team in settings.teams
-          div(id="#{team.id}", class="team")= team.name
+        each teamName in settings.teams
+          div(id="#{teamName}", class="team")= teamName
       - for (i=1;i<settings.rounds+1;i++)
         if settings.serpentine
           include partials/board/round_serpentine 

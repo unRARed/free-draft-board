@@ -10,7 +10,7 @@ block content
   form#settings.settings(action="/board", method="POST")
     .setting_group
       label(for="league") League Name: 
-      input(type="text", name="league")
+      input(type="text", name="league", required)
     .setting_group
       label(for="round_setting") How many rounds? (roster spots)
       select#round_setting(name="rounds")

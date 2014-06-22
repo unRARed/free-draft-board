@@ -42,18 +42,28 @@ app.get('/settings', function(req, res){
 app.post('/board', function(req, res){
   var is_serpentine = (req.body.serpentine === 'on');
 
-  // creates Teams object
-  var teamsObject = [];
+  var teamsArray = [];
+  var teamsPicksArray = [];
 
-  for (i=0;i<req.body.team_names.length;i++) {
-    var team = new models.Team({
-      name: req.body.team_names[i],
-      slot: (i + 1)
-    });
-    teamsObject.push(team);
+  for (i=1;i<(req.body.team_names.length+1);i++) {
+
+    var teamName = req.body.team_names[i-1];
+    teamsArray.push(teamName);
+
+    for(j=0;j<req.body.rounds;j++) {
+
+      var pick = new models.Pick({
+        team: req.body.team_names[i-1],
+        pick: (i + (req.body.team_names.length * j))
+      });
+
+      teamsPicksArray.push(pick);
+
+    }
+
   }
 
-  console.log(req.body);
+  //console.log(req.body);
 
   var board = new models.Board({
     shortId: shortId.generate(),
@@ -62,7 +72,8 @@ app.post('/board', function(req, res){
     minutes: parseInt(req.body.minutes),
     seconds: parseInt(req.body.seconds),
     serpentine: is_serpentine,
-    teams: teamsObject
+    teams: teamsArray,
+    picks: teamsPicksArray
   });
 
   board.save();
@@ -80,8 +91,7 @@ app.get('/board/:passedShortId', function(req, res){
     }
 
     console.log(settings);
-    console.log(process);
-    
+
     res.render('board', {
       settings: settings,
       pageTitle: prependToTitle("Live Draft Board")
