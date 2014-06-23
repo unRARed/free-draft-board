@@ -47,10 +47,10 @@ app.post('/board', function(req, res){
   var teamsArray = [];
   var teamsPicksArray = [];
 
-  console.log(req.body);
+  var confirmedPassword = null;
 
   if (req.body.password_value === req.body.pass_confirm_value) {
-    var confirmedPassword = req.body.password_value;
+    confirmedPassword = req.body.password_value;
   } else if (req.body.password_value) {
     // handle when is set but not matching (should also be checked client-side)
     // probably respond with json???
@@ -100,9 +100,11 @@ app.post('/board', function(req, res){
     picks: teamsPicksArray
   });
 
-  board.save();
+  board.save(function(err, board) {
 
-  res.redirect('/board/' + board.shortId);
+    res.redirect('/board/' + board.shortId);
+
+  });
 
 });
 

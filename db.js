@@ -23,10 +23,10 @@ var BoardSchema = new Schema({
 
 BoardSchema.pre('save', function(next) {
 
-  var board = this;
+  // only hash the password if it has been set... or new or modified.
+  if (!this.isModified('password') || !this.password) return next();
 
-  // only hash the password if it has been modified (or is new)
-  if (!this.isModified('password')) return next();
+  var board = this;
 
   bcrypt.genSalt(10, function(err, salt) {
 
