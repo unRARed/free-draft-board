@@ -12,6 +12,11 @@ block content
       label(for="league") League Name: 
       input(type="text", name="league", required)
     .setting_group
+      label(for="password_setting") Password Protected? 
+      input(type="checkbox", id="password_setting")
+      #password_fields.password_fields
+      p By default, draft boards are wide open. Consider setting an edit password if selections should be moderated.
+    .setting_group
       label(for="round_setting") How many rounds? (roster spots)
       select#round_setting(name="rounds")
         - for (var low_round=1; low_round<15; low_round++)
@@ -42,7 +47,7 @@ block content
             - if (second % 5 == 0)
               option(value="#{second}")= second
     .setting_group
-      label(for="serpentine_setting") Serpentine style?
+      label(for="serpentine_setting") Serpentine style? 
       input(type="checkbox", checked="checked", id="serpentine_setting", name="serpentine")
     .setting_group
       label(for="team_setting") How many teams?

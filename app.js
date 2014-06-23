@@ -7,6 +7,8 @@ var favicons = require('connect-favicons');
 var app = express();
 var siteTitle = "FreeDraftBoard.com - Free offline drafting for fantasy sports leagues."
 var models = require('./db')
+var Board = models.Board;
+var Pick = models.Pick;
 
 var prependToTitle = function(title) {
   return title + " | " + siteTitle;
@@ -45,7 +47,15 @@ app.post('/board', function(req, res){
   var teamsArray = [];
   var teamsPicksArray = [];
 
-  console.log(req.body.team_names);
+  console.log(req.body);
+
+  if (req.body.password_value === req.body.pass_confirm_value) {
+    var confirmedPassword = req.body.password_value;
+  } else if (req.body.password_value) {
+    // handle when is set but not matching (should also be checked client-side)
+    // probably respond with json???
+    res.send('An invalid password was submitted.');
+  }
 
   for (i=1;i<(req.body.team_names.length+1);i++) {
 
@@ -54,8 +64,6 @@ app.post('/board', function(req, res){
     teamsArray.push(teamName);
 
     for(j=0;j<req.body.rounds;j++) {
-
-      console.log(teamName);
 
       if ((j+1)%2==0 && is_serpentine) { // even rounds reverse if serpentine chosen
 
@@ -67,7 +75,7 @@ app.post('/board', function(req, res){
 
       }
 
-      var pick = new models.Pick({
+      var pick = new Pick({
         team: teamName,
         pick: pickValue
       });
@@ -78,9 +86,12 @@ app.post('/board', function(req, res){
 
   }      
 
-  var board = new models.Board({
+  console.log(confirmedPassword);
+
+  var board = new Board({
     shortId: shortId.generate(),
     league: req.body.league,
+    password: confirmedPassword,
     rounds: req.body.rounds,
     minutes: parseInt(req.body.minutes),
     seconds: parseInt(req.body.seconds),
@@ -98,7 +109,7 @@ app.post('/board', function(req, res){
 
 app.get('/board/:passedShortId', function(req, res){
 
-  models.Board.findOne({shortId: req.params.passedShortId}, function(err, settings) {
+  Board.findOne({shortId: req.params.passedShortId}, function(err, settings) {
     if (!settings) {
       res.send(404, '404 Not Found');
     }
@@ -115,14 +126,14 @@ app.get('/board/:passedShortId', function(req, res){
 
 app.post('/select', function(req, res) {
 
-  models.Board.findOne({shortId: req.body.shortId}, function(err, settings) {
+  Board.findOne({shortId: req.body.shortId}, function(err, settings) {
       if (!settings) {
         res.send(404, '404 Not Found');
       }
 
       for (i=0;i<settings.teams.length;i++) {
         if (settings.teams[i].name === req.body.teamName) {
-          var pick = new models.Pick({
+          var pick = new Pick({
             pick: parseInt(req.body.pick),
             player: req.body.player
           });

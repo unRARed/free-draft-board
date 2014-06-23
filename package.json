@@ -13,6 +13,7 @@
     "body-parser": "1.x",
     "mongoose": "3.8.12",
     "shortid": "2.x",
-    "connect-favicons": "0.0.4"
+    "connect-favicons": "0.0.4",
+    "bcrypt": "0.7.8"
   }
 }
