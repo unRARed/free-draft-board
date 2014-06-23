@@ -15,8 +15,35 @@
 
     .league-settings {
       padding: 0 2%;
-      font-size: 12px;
+      font-size: 14px;
       float: right;
+    }
+
+    .start-draft,
+    .resume-draft {
+      background-color: @tertiary-bg-dark;
+      font-size: 20px;
+    }
+
+    .start-draft:hover,
+    .resume-draft:hover {
+      background-color: @tertiary-bg;
+      transition: background-color 0.3s ease;
+    }
+
+    .resume-draft {
+      display: none;
+    }
+
+    .pause-draft {
+      display: none;
+      background-color: @quadrary-bg-dark;
+      font-size: 20px;
+    }
+
+    .pause-draft:hover {
+      background-color: @quadrary-bg;
+      transition: background-color 0.3s ease;
     }
 
   }
@@ -124,4 +151,22 @@
   .even .pick { background-color: @primary-fg; }
   .odd .pick { background-color: @primary-fg-accent; }
   
+}
+
+
+@media only screen and (max-width : 960px) {
+
+  .board {
+
+    .league-info {
+
+      .league-name,
+      .league-settings {
+        float: none;
+      }
+
+    }
+
+  }
+
 }

@@ -35,4 +35,19 @@ $(document).ready(function() {
 
   });
 
+  $("#start-draft").click(function() {
+    $(this).hide();
+    $("#pause-draft").show();
+  });
+
+  $("#pause-draft").click(function() {
+    $(this).hide();
+    $("#resume-draft").show();
+  });
+
+  $("#resume-draft").click(function() {
+    $(this).hide();
+    $("#pause-draft").show();
+  });
+
 });

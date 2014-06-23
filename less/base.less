@@ -4,6 +4,7 @@ body {
   background-color: @primary-fg;
   color: @primary-bg;
   position: relative;
+
 }
 
 a, a:visited {
@@ -42,7 +43,8 @@ input[type="password"] {
   padding: 8px 6px;
 }
 
-input[type="submit"] {
+input[type="submit"],
+button {
   background-color: @secondary-bg-dark;
   border: 0;
   border-radius: 4px;
@@ -50,7 +52,8 @@ input[type="submit"] {
   color: @primary-fg;
 }
 
-input[type="submit"]:hover {
+input[type="submit"]:hover,
+button:hover {
   background-color: @secondary-bg;
   transition: background-color 0.3s ease;
   cursor: pointer;

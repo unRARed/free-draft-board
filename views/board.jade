@@ -24,6 +24,10 @@ html(lang="en")
           span.pick-time #{"Pick Time: " + settings.minutes + ":" + settings.seconds}
           br
           span.on-the-clock #{"On the clock: add team here"}
+          br
+          button#start-draft.start-draft Start Drafting
+          button#pause-draft.pause-draft Pause Draft
+          button#resume-draft.resume-draft Resume Draft
       .league
         each teamName in settings.teams
           div(id="#{teamName}", class="team")= teamName
