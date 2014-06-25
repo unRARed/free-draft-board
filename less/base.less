@@ -24,6 +24,7 @@ h4,
 h5,
 h6 {
   color: @primary-bg;
+  margin-bottom: 20px;
 }
 
 h1 {font-size: 4.0em; font-weight: bold;}
@@ -33,31 +34,43 @@ h4 {font-size: 2.0em;}
 h5 {font-size: 1.6em;}
 h6 {font-size: 1.2em;}
 
-input[type="text"],
-input[type="password"] {
+.text-input,
+.text-input.primary {
   background-color: @primary-bg-light;
   border-radius: 4px;
   border: 0;
-  font-size: 1.4em;
+  font-size: 20px;
   color: @primary-bg;
-  padding: 8px 6px;
+  padding: 10px 6px;
 }
 
-input[type="submit"],
-button {
+.text-input.secondary { background-color: @secondary-bg-light; color: @secondary-bg; }
+.text-input.tertiary { background-color: @tertiary-bg-light; color: @tertiary-bg-darker; }
+.text-input.quadrary { background-color: @quadrary-bg-light; color: @quadrary-bg; }
+
+.button,
+.button.primary {
   background-color: @secondary-bg-dark;
   border: 0;
   border-radius: 4px;
-  padding: 10px;
+  padding: 12px;
   color: @primary-fg;
+  cursor: pointer;
 }
 
-input[type="submit"]:hover,
-button:hover {
+.button.secondary { background-color: @secondary-bg-light; }
+.button.tertiary { background-color: @tertiary-bg-dark; }
+.button.quadrary { background-color: @quadrary-bg-light; }
+
+.button:hover {
   background-color: @secondary-bg;
   transition: background-color 0.3s ease;
   cursor: pointer;
 }
+
+.button.secondary:hover { background-color: @secondary-bg-light; }
+.button.tertiary:hover { background-color: @tertiary-bg; }
+.button.quadrary:hover { background-color: @quadrary-bg-light; }
 
 .big_submit {
   font-size: 2.5em;

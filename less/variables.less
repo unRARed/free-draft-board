@@ -14,6 +14,7 @@
 // green
 @tertiary-bg: #4EC412;
 @tertiary-bg-dark: darken(@tertiary-bg, 5%);
+@tertiary-bg-darker: darken(@tertiary-bg, 30%);
 @tertiary-bg-light: lighten(@tertiary-bg, 50%);
 
 // purple
@@ -24,3 +25,20 @@
 @dark-grey: #11204F;
 @black: #222;
 @brown: #693D0C;
+
+.v-center {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.transparent-high {
+  zoom: 1;
+  filter: alpha(opacity=75);
+  opacity: 0.75;
+}
+
+.transparent {
+  zoom: 1;
+  filter: alpha(opacity=50);
+  opacity: 0.5;
+}

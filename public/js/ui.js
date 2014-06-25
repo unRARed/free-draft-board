@@ -3,7 +3,7 @@ $(document).ready(function() {
   $(".pick").click(function() {
       var round = this.parentNode.id.substr(6,this.parentNode.id.length);
       var pick = this.id.substr(5, this.id.length);
-      $("#team_id").html($(this).data("team"));
+      $("#team_id").html($(this).data("team") + ",");
       $("#team_name").val($(this).data("team"));
       $("#full_pick_id").val(this.id.substr(5,this.id.length));
       $("#short_id").val($(".board").attr("id"));
@@ -19,6 +19,7 @@ $(document).ready(function() {
       return;
     } else {
       $("#selection, #selection-blanket").hide();
+      $("#player_name").val("");
     }
   });
     

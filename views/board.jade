@@ -13,6 +13,10 @@ html(lang="en")
   body
     - var boardUrl = "http://www.freedraftboard.com/board/" + settings.shortId;
     .board(id="#{settings.shortId}")
+      .control-panel
+        button#start-draft.button.tertiary.start-draft Start Drafting
+        button#pause-draft.button.quadrary.pause-draft Pause Draft
+        button#resume-draft.button.tertiary.resume-draft Resume Draft
       .league-info.cf
         h1.league-name= settings.league
         p.league-settings
@@ -24,10 +28,6 @@ html(lang="en")
           span.pick-time #{"Pick Time: " + settings.minutes + ":" + settings.seconds}
           br
           span.on-the-clock #{"On the clock: add team here"}
-          br
-          button#start-draft.start-draft Start Drafting
-          button#pause-draft.pause-draft Pause Draft
-          button#resume-draft.resume-draft Resume Draft
       .league
         each teamName in settings.teams
           div(id="#{teamName}", class="team")= teamName
@@ -38,14 +38,17 @@ html(lang="en")
           include partials/board/round_standard
       #selection-blanket.selection-blanket
       #selection.selection
-        h2#team_id.team_id
-        h3 Round:&nbsp;
-          span#round_id.round_id
-          |  Pick:&nbsp;
-          span#pick_id.pick_id
-        form#selection_form(action="#", method="POST")
-          input#player_name(type="text", name="player")
-          input#full_pick_id(type="hidden", name="pick")
-          input#short_id(type="hidden", name="shortId")
-          input#team_name(type="hidden", name="teamName")
-          input(type="submit")
+        .selection-content
+          h2#team_id.team-id
+          h3.your-pick it's your pick.
+          form#selection_form(action="#", method="POST")
+            input#player_name.text-input.tertiary.player-input(type="text", name="player")
+            input#full_pick_id(type="hidden", name="pick")
+            input#short_id(type="hidden", name="shortId")
+            input#team_name(type="hidden", name="teamName")
+            input.button.tertiary.pick-submit(type="submit", value="Go")
+          .pick-indicator
+            h3.round-id Round:&nbsp;
+              span#round_id
+              |  Pick:&nbsp;
+              span#pick_id

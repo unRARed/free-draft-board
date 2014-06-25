@@ -3,6 +3,43 @@
   margin: 0 auto;
   position: relative;
 
+  .control-panel {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    z-index: 1;
+    padding: 10px;
+
+    .start-draft,
+    .resume-draft {
+      background-color: @tertiary-bg-dark;
+      font-size: 20px;
+    }
+
+    .start-draft:hover,
+    .resume-draft:hover {
+      background-color: @tertiary-bg;
+      transition: background-color 0.3s ease;
+    }
+
+    .resume-draft,
+    .pause-draft {
+      display: none;
+      .transparent;
+    }
+
+    .pause-draft {
+      background-color: @quadrary-bg-dark;
+      font-size: 20px;
+    }
+
+    .pause-draft:hover {
+      background-color: @quadrary-bg;
+      transition: background-color 0.3s ease;
+    }
+
+  }
+
   .league-info {
 
     padding: 10px 0;
@@ -19,33 +56,6 @@
       float: right;
     }
 
-    .start-draft,
-    .resume-draft {
-      background-color: @tertiary-bg-dark;
-      font-size: 20px;
-    }
-
-    .start-draft:hover,
-    .resume-draft:hover {
-      background-color: @tertiary-bg;
-      transition: background-color 0.3s ease;
-    }
-
-    .resume-draft {
-      display: none;
-    }
-
-    .pause-draft {
-      display: none;
-      background-color: @quadrary-bg-dark;
-      font-size: 20px;
-    }
-
-    .pause-draft:hover {
-      background-color: @quadrary-bg;
-      transition: background-color 0.3s ease;
-    }
-
   }
 
   .selection-blanket {
@@ -59,9 +69,7 @@
     margin: auto;
     height: 100%;
     width: 100%;
-    zoom: 1;
-    filter: alpha(opacity=75);
-    opacity: 0.75;
+    .transparent-high
   }
   
   .selection {
@@ -73,25 +81,59 @@
     left: 0;
     right: 0;
     margin: auto;
-    width: 50%;
+    padding: 20px 5%;
     max-width: 500px;
-    height: 400px;
-    background-color: @primary-bg-dark;
-    color: @primary-fg;
+    max-height: 420px;
+    background-color: @tertiary-bg-darker;
     border-radius: 10px;
-    box-shadow: 1px 2px 1px 1px #111;
-    z-index: 99 !important;  
+    box-shadow: 1px 1px 4px 1px @tertiary-bg;
+    z-index: 99 !important;
 
-    h2,
-    h3,
-    h4,
-    h5,
-    h6,
-    p {
-      color: @primary-fg;
-    }
+    .selection-content {
+      position: relative;
+      min-height: 360px;
 
-    .team_id {
+      .pick-indicator {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+
+      }
+
+      .team-id {
+        font-size: 36px;
+        margin-bottom: 10px;
+      }
+
+      .your-pick {
+        font-size: 30px;
+      }
+
+      .round-id {
+        font-size: 24px;
+        margin-bottom: 0;
+      }
+
+      .player-input {
+        border-radius: 6px 0 0 6px;
+        width: 70%;
+        .v-center;
+      }
+
+      .pick-submit {
+        border-radius: 0 6px 6px 0;
+        width: 30%;
+        .v-center;
+      }
+
+      h2,
+      h3,
+      h4,
+      h5,
+      h6,
+      p {
+        color: @tertiary-bg-light;
+      }
 
     }
 
@@ -111,7 +153,6 @@
     }
 
     .pick {
-      height: 80px;
       position: relative;
       color: @black;
 
