@@ -1,12 +1,12 @@
 $(document).ready(function() {
-  
-  function init(settings) {
+
+    var numTeams = $(".team").size();
 
     function scaleBoard(boardWidth) {
       if (initialRender || shouldResize) {
-        while (boardWidth % settings.teams.length !== 0) { boardWidth--; }
-        var unitWidth = (boardWidth / settings.teams.length);
-        var pixelFraction = 1 / settings.teams.length;
+        while (boardWidth % numTeams !== 0) { boardWidth--; }
+        var unitWidth = (boardWidth / numTeams);
+        var pixelFraction = 1 / numTeams;
         $(".league, .round").css({width: boardWidth + "px"});
         $(".pick").css({width: (unitWidth - pixelFraction) + "px"});
         var actualWidth = $(".pick").first().css('width');
@@ -26,7 +26,7 @@ $(document).ready(function() {
     var shouldResize = false;
     var initialRender = true; // to skip timeout logic on initial board scaling
 
-    var tileWidth = Math.floor(100.0 / settings.teams.length);
+    var tileWidth = Math.floor(100.0 / numTeams);
 
     var $teams = $(".team");
     var $picks = $(".pick");
@@ -46,9 +46,5 @@ $(document).ready(function() {
     });
 
     scaleBoard($(window).width());
-
-  }
-  
-  init(settings);
 
 });
