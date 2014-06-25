@@ -10,7 +10,7 @@ block content
   form#settings.settings(action="/board", method="POST")
     .setting_group
       label(for="league") League Name: 
-      input(type="text", name="league", required)
+      input.text-input.primary(type="text", name="league", placeholder="Enter League Name Here", required)
     .setting_group
       label(for="password_setting") Password Protected? 
       input(type="checkbox", id="password_setting")
@@ -57,4 +57,4 @@ block content
           option(value="#{team}")= team
     #team_names.team_names.setting_group
     .setting_group
-      input(id="submit_settings", type="submit")
+      input.button.tertiary(id="submit_settings", type="submit")

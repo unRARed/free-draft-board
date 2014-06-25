@@ -54,7 +54,7 @@ app.post('/board', function(req, res){
   } else if (req.body.password_value) {
     // handle when is set but not matching (should also be checked client-side)
     // probably respond with json???
-    res.send('An invalid password was submitted.');
+    return res.send(400, 'Bad Request: Password value did not match password confirmation value.');
   }
 
   for (i=1;i<(req.body.team_names.length+1);i++) {
