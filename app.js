@@ -118,6 +118,12 @@ app.get('/board/:passedShortId', function(req, res){
 
     console.log(settings);
 
+    var emptyPicks = settings.picks.map(function(err, key, val) { 
+      if (val[key].player === undefined) {
+        console.log(val[key].pick);
+      }
+    });
+
     res.render('board', {
       settings: settings,
       pageTitle: prependToTitle("Live Draft Board")
@@ -133,20 +139,16 @@ app.post('/select', function(req, res) {
         res.send(404, '404 Not Found');
       }
 
-      for (i=0;i<settings.teams.length;i++) {
-        if (settings.teams[i].name === req.body.teamName) {
-          var pick = new Pick({
-            pick: parseInt(req.body.pick),
-            player: req.body.player
-          });
-          settings.teams[i].picks.push(pick);
+      settings.picks.map(function(err, key, val) {
+        if (val[key].pick === parseInt(req.body.pick)) {
+          val[key].player = req.body.player;
         }
-      }
+      });
 
-      settings.save()
+      settings.save();
 
       console.log(settings);
-      res.redirect('/board/' + req.body.shortId);
+      res.send(req.body.player);
     });
 
   console.log(req.body);

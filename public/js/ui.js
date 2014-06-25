@@ -4,7 +4,7 @@ $(document).ready(function() {
       var round = this.parentNode.id.substr(6,this.parentNode.id.length);
       var pick = this.id.substr(5, this.id.length);
       $("#team_id").html($(this).data("team") + ",");
-      $("#team_name").val($(this).data("team"));
+      $("#teamName").val($(this).data("team"));
       $("#full_pick_id").val(this.id.substr(5,this.id.length));
       $("#short_id").val($(".board").attr("id"));
       $("#round_id").html(round);
@@ -30,6 +30,7 @@ $(document).ready(function() {
     $.post( "/select", formData, function(data) {
       $("#" + $("#full_pick_id").val()).append( data );
       $( ".result" ).html( data );
+      $("#pick-" + $("#full_pick_id").val() + " .selected-value").html(data);
       $("#player_name").val("");
       $("#selection, #selection-blanket").hide();
     });

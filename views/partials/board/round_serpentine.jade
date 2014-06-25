@@ -4,9 +4,9 @@ if (i%2 === 0)
       - var pickId = ((i-1) * settings.teams.length) + j;
       - var teamName = settings.teams[settings.teams.length-j];
       .pick(data-team="#{teamName}", id="pick-#{pickId}")
-        //- each key, val in team.picks
-        //-   if (team.picks[val].pick === pickId)
-        //-     p= team.picks[val].player
+        each key, val in settings.picks
+          if (settings.picks[val].pick === pickId)
+            p.selected-value= settings.picks[val].player
         span.pick-count #{((i-1) * settings.teams.length) + j}
 else
   .round(id="round-#{i}", class="odd")
@@ -14,7 +14,7 @@ else
       - var pickId = ((i-1) * settings.teams.length) + j;
       - var teamName = settings.teams[j-1];
       .pick(data-team="#{teamName}", id="pick-#{pickId}")
-        //- each key, val in team.picks
-        //-   if (team.picks[val].pick === pickId)
-        //-     p= team.picks[val].player
+        each key, val in settings.picks
+          if (settings.picks[val].pick === pickId)
+            p.selected-value= settings.picks[val].player
         span.pick-count #{((i-1) * settings.teams.length) + j}
