@@ -7,6 +7,22 @@ $(document).ready(function() {
         while (boardWidth % numTeams !== 0) { boardWidth--; }
         var unitWidth = (boardWidth / numTeams);
         var pixelFraction = 1 / numTeams;
+        var teamHeight;
+        $(".team").each(function() {
+            $(this).css({height: "auto"});
+        });
+        $(".team").each(function() {
+            if (!teamHeight) {
+                teamHeight = $(this).height();
+            } else {
+                if ($(this).height() > teamHeight) {
+                    teamHeight = $(this).height();
+                }
+            }
+        });
+        $(".team").each(function() {
+            $(this).height(teamHeight);
+        });
         $(".league, .round").css({width: boardWidth + "px"});
         $(".pick").css({width: (unitWidth - pixelFraction) + "px"});
         var actualWidth = $(".pick").first().css('width');
@@ -19,9 +35,6 @@ $(document).ready(function() {
         shouldResize = true;
       }, 100);
     }
-
-    // console.log(settings.minutes);
-    // console.log(settings.seconds);
 
     var shouldResize = false;
     var initialRender = true; // to skip timeout logic on initial board scaling
@@ -46,5 +59,11 @@ $(document).ready(function() {
     });
 
     scaleBoard($(window).width());
+
+    var nowTime = new Date().getTime();
+    $("#count-down").attr('datetime', (nowTime + countDown));
+    $.livetime.options.serverTimeUrl = 'empty.txt';
+
+    $(".board").livetime();
 
 });

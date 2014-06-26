@@ -118,11 +118,11 @@ app.get('/board/:passedShortId', function(req, res){
 
     console.log(settings);
 
-    var emptyPicks = settings.picks.map(function(err, key, val) { 
-      if (val[key].player === undefined) {
-        console.log(val[key].pick);
-      }
-    });
+    // var emptyPicks = settings.picks.map(function(err, key, val) { 
+    //   if (val[key].player === undefined) {
+    //     console.log(val[key].pick);
+    //   }
+    // });
 
     res.render('board', {
       settings: settings,

@@ -5,7 +5,9 @@ html(lang="en")
     link(href='http://fonts.googleapis.com/css?family=Droid+Sans', rel='stylesheet', type='text/css')
     link(href='http://fonts.googleapis.com/css?family=Rock+Salt', rel='stylesheet' type='text/css')
     script(src="http://code.jquery.com/jquery-1.11.0.min.js")
+    script(src="/js/plugins/jlivetime-0.0.13.min.js")
     script(type='text/javascript').
+      var countDown = !{((settings.minutes * 60) + settings.seconds) * 1000}
       //var settings = !{JSON.stringify(settings)} // for client access
     script(src="/js/board.js")
     script(src="/js/ui.js")
@@ -13,21 +15,24 @@ html(lang="en")
   body
     - var boardUrl = "http://www.freedraftboard.com/board/" + settings.shortId;
     .board(id="#{settings.shortId}")
-      .control-panel
+      #control-panel.control-panel
         button#start-draft.button.tertiary.start-draft Start Drafting
         button#pause-draft.button.quadrary.pause-draft Pause Draft
         button#resume-draft.button.tertiary.resume-draft Resume Draft
       .league-info.cf
-        h1.league-name= settings.league
-        p.league-settings
-          span.board-url URL: 
+        .league-settings
+          h1.league-name= settings.league
+          p.board-url URL: 
             a(href="#{boardUrl}") #{boardUrl}
-          br
-          span.total-rounds #{"Rounds: " + settings.rounds}
-          br
-          span.pick-time #{"Pick Time: " + settings.minutes + ":" + settings.seconds}
-          br
-          span.on-the-clock #{"On the clock: add team here"}
+          p.total-rounds #{"Rounds: " + settings.rounds}
+          p.pick-time #{"Pick Time: " + settings.minutes + ":" + settings.seconds}
+        .on-the-clock
+          h3.clock-heading #{"On the Clock"}
+          h4.active-team Some team here
+          h4.count-down
+            time#count-down(datetime="")
+              span(data-time-label="d_mm:")
+              span(data-time-label="d_ss")
       .league
         each teamName in settings.teams
           div(id="#{teamName}", class="team")= teamName

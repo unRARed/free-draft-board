@@ -44,16 +44,51 @@
 
     padding: 10px 0;
 
-    .league-name {
-      padding: 0 2%;
-      font-size: 46px;
-      float: left;
-    }
-
     .league-settings {
       padding: 0 2%;
+      float: left;
+      width: 63%;
       font-size: 14px;
+
+      .league-name {
+        font-size: 36px;
+        margin-bottom: 10px;
+      }
+
+      .board-url,
+      .total-rounds,
+      .pick-time {
+        margin-bottom: 0;
+      }
+
+    }
+
+    .on-the-clock {
+      text-align: center;
+      width: 33%;
+      padding: 0 2%;
       float: right;
+
+      .clock-heading {
+        .dry-erase;
+        font-size: 16px;
+        margin-bottom: 0;
+      }
+
+      .active-team {
+        color: @secondary-bg;
+        margin-bottom: 10px;
+        font-size: 26px;
+      }
+
+      .count-down {
+        padding: 4px 8px;
+        font-weight: bold;
+        background-color: @primary-bg-light;
+        display: inline-block;
+        font-size: 30px;
+      }
+
     }
 
   }
@@ -170,15 +205,13 @@
     }
     
     .team {
-      background: url(/img/stacked_circles.png) @secondary-bg;
+      background: @secondary-bg;
       color: @primary-fg;
-      font-size: 12px;
-      font-weight: bold;
+      font-size: 18px;
       padding: 10px 0;
       text-align: center;
-      font-family: 'Rock Salt', cursive;
-      min-height: 80px;
       display: inline-block;
+      letter-spacing: -1px;
       vertical-align: middle;
     }
     
@@ -201,10 +234,28 @@
 
     .league-info {
 
-      .league-name,
-      .league-settings {
-        float: none;
+      .league-name {
+        margin: 0;
       }
+      
+      .board-url,
+      .total-rounds,
+      .pick-time {
+        display: none;
+      }
+
+      .league-settings,
+      .on-the-clock {
+        float: none;
+        text-align: center;
+        width: 100%;
+      }
+
+    }
+
+    .league {
+
+      .team { font-size: 12px; letter-spacing: 0; }
 
     }
 
