@@ -30,9 +30,6 @@ html(lang="en")
           h3.clock-heading #{"On the Clock"}
           h4.active-team Some team here
           h4.count-down
-            time#count-down(datetime="")
-              span(data-time-label="d_mm:")
-              span(data-time-label="d_ss")
       .league
         each teamName in settings.teams
           div(id="#{teamName}", class="team")= teamName

@@ -1,5 +1,40 @@
 $(document).ready(function() {
 
+  $.livetime.options.serverTimeUrl = '/time-ref.txt';
+
+  var timeBoxInstance;
+
+  var timeBox = (function(msFromNow) {
+
+    function fullTimeStamp(ms) {
+      var nowTime = new Date().getTime();
+      return nowTime + ms;
+    }
+    var originalTime = msFromNow;
+    var timeRemaining = msFromNow;
+    var initialTimeStamp = fullTimeStamp(msFromNow);
+
+    return {
+      update: (function() {
+        console.log(timeRemaining);
+        timePassed = (initialTimeStamp - fullTimeStamp(0));
+        timeRemaining = originalTime - (originalTime - timePassed);
+      }),
+      get: (function() {
+        return fullTimeStamp(timeRemaining);
+      })
+    }
+  });
+
+  function startCountDown(milliseconds) {
+    console.log('called countDown function');
+    timeBoxInstance = timeBox(milliseconds);
+    var tickingElement = "<time id=\"count-down\" datetime=\"" + timeBoxInstance.get() + 
+      "\"><span data-time-label=\"d_mm:\"></span><span data-time-label=\"d_ss\"></span></time>";
+    $(".count-down").html(tickingElement);
+    $("#count-down").livetime();
+  }
+
   $(".pick").click(function() {
       var round = this.parentNode.id.substr(6,this.parentNode.id.length);
       var pick = this.id.substr(5, this.id.length);
@@ -38,16 +73,21 @@ $(document).ready(function() {
   });
 
   $("#start-draft").click(function() {
+    startCountDown(countDown);
     $(this).hide();
     $("#pause-draft").show();
   });
 
   $("#pause-draft").click(function() {
+    timeBoxInstance.update();
+    $("#count-down").livetime(false);
     $(this).hide();
     $("#resume-draft").show();
   });
 
   $("#resume-draft").click(function() {
+    $("#count-down").attr('datetime', timeBoxInstance.get());
+    $("#count-down").livetime();
     $(this).hide();
     $("#pause-draft").show();
   });

@@ -60,10 +60,4 @@ $(document).ready(function() {
 
     scaleBoard($(window).width());
 
-    var nowTime = new Date().getTime();
-    $("#count-down").attr('datetime', (nowTime + countDown));
-    $.livetime.options.serverTimeUrl = 'empty.txt';
-
-    $(".board").livetime();
-
 });
