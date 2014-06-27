@@ -25,8 +25,10 @@ $(document).ready(function() {
         });
         $(".league, .round").css({width: boardWidth + "px"});
         $(".pick").css({width: (unitWidth - pixelFraction) + "px"});
-        var actualWidth = $(".pick").first().css('width');
-        $(".pick").css({height: actualWidth});
+
+        var maintainedAspect = $(".pick").first().width() * 0.6;
+
+        $(".pick").css({height: maintainedAspect});
         $(".team").css({width: (unitWidth - pixelFraction) + "px"});
         shouldResize = false;
         initialRender = false;
