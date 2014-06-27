@@ -203,6 +203,18 @@
       border-right: 1px solid black;
       border-bottom: 1px solid black;
     }
+
+    .pick.active {
+      background-color: @tertiary-bg;
+      position: relative;
+    }
+
+    .pick.active:before {
+      content: 'On the clock.';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+    }
     
     .team {
       background: @secondary-bg;

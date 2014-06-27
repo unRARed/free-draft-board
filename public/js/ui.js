@@ -1,5 +1,11 @@
 $(document).ready(function() {
 
+  function highlightPick() {
+    var nextPick = openPicks[0].pick;
+    console.log(nextPick);
+    $("#pick-" + nextPick).addClass('active');
+  }
+
   $.livetime.options.serverTimeUrl = '/time-ref.txt';
 
   var timeBoxInstance;
@@ -73,6 +79,7 @@ $(document).ready(function() {
   });
 
   $("#start-draft").click(function() {
+    highlightPick();
     startCountDown(countDown);
     $(this).hide();
     $("#pause-draft").show();

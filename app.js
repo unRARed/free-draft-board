@@ -116,21 +116,40 @@ app.get('/board/:passedShortId', function(req, res){
       res.send(404, '404 Not Found');
     }
 
+    var openPicks = [];
+
     console.log(settings);
 
-    // var emptyPicks = settings.picks.map(function(err, key, val) { 
-    //   if (val[key].player === undefined) {
-    //     console.log(val[key].pick);
-    //   }
-    // });
+    //find first empty pick and pass that ID
+    for (i=0;i<settings.picks.length;i++) {
+      if (settings.picks[i].player === undefined) {
+        var openPick = {};
+        openPick.pick = settings.picks[i].pick;
+        openPick.team = settings.picks[i].team;
+        openPicks.push(openPick);
+      }
+      if (settings.picks[i].pick === parseInt(req.body.pick)) {
+        settings.picks[i].player = req.body.player;
+      }
+    }
+
+    openPicks.sort(function(a,b) {
+      return a.pick - b.pick;
+    });
+
+    console.log(openPicks);
 
     res.render('board', {
       settings: settings,
+      openPicks: openPicks,
       pageTitle: prependToTitle("Live Draft Board")
     });
   });
 
 });
+
+
+// TODO - Make /board requests show the most recent COMPLETED<-(important) drafts
 
 app.post('/select', function(req, res) {
 

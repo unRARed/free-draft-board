@@ -9,7 +9,7 @@ html(lang="en")
     script(src="/js/plugins/jlivetime-0.0.13.min.js")
     script(type='text/javascript').
       var countDown = !{((settings.minutes * 60) + settings.seconds) * 1000}
-      //var settings = !{JSON.stringify(settings)} // for client access
+      var openPicks = !{JSON.stringify(openPicks)}
     script(src="/js/board.js")
     script(src="/js/ui.js")
     title= pageTitle
@@ -26,7 +26,7 @@ html(lang="en")
           p.board-url URL: 
             a(href="#{boardUrl}") #{boardUrl}
           p.total-rounds #{"Rounds: " + settings.rounds}
-          p.pick-time #{"Pick Time: " + settings.minutes + ":" + settings.seconds}
+          p.pick-time #{"Pick Time: " + settings.minutes + " Minutes, " + settings.seconds + " Seconds"}
         .on-the-clock
           h3.clock-heading #{"On the Clock"}
           h4.active-team Some team here
