@@ -1,14 +1,40 @@
 $(document).ready(function() {
 
-  function highlightPick() {
-    var nextPick = openPicks[0].pick;
-    console.log(nextPick);
-    $("#pick-" + nextPick).addClass('active');
-  }
-
+  var pickCount = $(".pick").size(),
+      teamCount = $(".team").size();
+  var timeBoxInstance;
   $.livetime.options.serverTimeUrl = '/time-ref.txt';
 
-  var timeBoxInstance;
+  function changeActivePick(forward) {
+    // sets active element if direction boolean not passed
+    // if passed, it finds active element, sets inactive
+    // and sets previous or next element active
+    var currentPick;
+    var $newPick;
+
+    startCountDown(countDown);
+
+    if (forward === undefined) {
+      currentPick = openPicks[0].pick; // get first available pick number
+      if (!$("#pick-" + currentPick).hasClass('active')) {
+        $("#pick-" + currentPick).addClass('active');
+      }
+      return;
+    }
+
+    //parameter is set so we need to grab current active pick number
+    currentPick = parseInt($(".pick.active").attr("id").substr(5));
+
+    if (!forward && currentPick > 1) {
+      $newPick  = $("#pick-" + (currentPick - 1));
+      $("#pick-" + currentPick).removeClass('active');
+      $newPick.addClass('active');
+    } else if (forward && currentPick < pickCount) {
+      $newPick  = $("#pick-" + (currentPick + 1));
+      $("#pick-" + currentPick).removeClass('active');
+      $newPick.addClass('active');
+    }
+  }
 
   var timeBox = (function(msFromNow) {
 
@@ -35,16 +61,14 @@ $(document).ready(function() {
   function startCountDown(milliseconds) {
     console.log('called countDown function');
     timeBoxInstance = timeBox(milliseconds);
-    var tickingElement = "<time id=\"count-down\" datetime=\"" + timeBoxInstance.get() + 
-      "\"><span data-time-label=\"d_mm:\"></span><span data-time-label=\"d_ss\"></span></time>";
-    $(".count-down").html(tickingElement);
+    $("#count-down").attr('datetime', timeBoxInstance.get());
     $("#count-down").livetime();
   }
 
   $(".pick").click(function() {
       var round = this.parentNode.id.substr(6,this.parentNode.id.length);
       var pick = this.id.substr(5, this.id.length);
-      $("#team_id").html($(this).data("team") + ",");
+      $("#team_id").html($(this).data("team"));
       $("#teamName").val($(this).data("team"));
       $("#full_pick_id").val(this.id.substr(5,this.id.length));
       $("#short_id").val($(".board").attr("id"));
@@ -74,15 +98,15 @@ $(document).ready(function() {
       $("#pick-" + $("#full_pick_id").val() + " .selected-value").html(data);
       $("#player_name").val("");
       $("#selection, #selection-blanket").hide();
+      changeActivePick(true);
     });
 
   });
 
   $("#start-draft").click(function() {
-    highlightPick();
-    startCountDown(countDown);
+    changeActivePick();
     $(this).hide();
-    $("#pause-draft").show();
+    $("#pause-draft, #previous-pick, #next-pick").show();
   });
 
   $("#pause-draft").click(function() {
@@ -97,6 +121,14 @@ $(document).ready(function() {
     $("#count-down").livetime();
     $(this).hide();
     $("#pause-draft").show();
+  });
+
+  $("#next-pick").click(function() {
+    changeActivePick(true);
+  });
+
+  $("#previous-pick").click(function() {
+    changeActivePick(false);
   });
 
 });

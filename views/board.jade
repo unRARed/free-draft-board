@@ -20,6 +20,9 @@ html(lang="en")
         button#start-draft.button.tertiary.start-draft Start Drafting
         button#pause-draft.button.quadrary.pause-draft Pause Draft
         button#resume-draft.button.tertiary.resume-draft Resume Draft
+        .pick-nav
+          button#previous-pick.button.primary.previous-pick &laquo;
+          button#next-pick.button.primary.next-pick &raquo;
       .league-info.cf
         .league-settings
           h1.league-name= settings.league
@@ -31,6 +34,9 @@ html(lang="en")
           h3.clock-heading #{"On the Clock"}
           h4.active-team Some team here
           h4.count-down
+            time(id="count-down") 
+              span(data-time-label="d_mm:") 00:
+              span(data-time-label="d_ss") 00
       .league
         each teamName in settings.teams
           div(id="#{teamName}", class="team")= teamName
@@ -42,8 +48,8 @@ html(lang="en")
       #selection-blanket.selection-blanket
       #selection.selection
         .selection-content
+          h3.your-pick Enter selection for
           h2#team_id.team-id
-          h3.your-pick it's your pick.
           form#selection_form(action="#", method="POST")
             input#player_name.text-input.tertiary.player-input(type="text", name="player")
             input#full_pick_id(type="hidden", name="pick")
