@@ -5,6 +5,13 @@ $(document).ready(function() {
   var timeBoxInstance;
   $.livetime.options.serverTimeUrl = '/time-ref.txt';
 
+  function applyTheClock(team) {
+    var timerDivA = '<div class="on-the-clock"><h3 class="clock-heading">On the Clock</h3><h4 class="active-team">';
+    var timerDivB = '</h4><h4 class="count-down"><time id="count-down"><span data-time-label="d_mm:"> 00:</span> \
+    <span data-time-label="d_ss"> 00</span></time></h4></div>';
+    $('.pick.active').append(timerDivA + team + timerDivB)
+  }
+
   // repositions the viewport if given selector
   // exceeds the top or bottom of it.
   function positionWindow($selector) {
@@ -28,12 +35,22 @@ $(document).ready(function() {
     var currentPick;
     var $newPick;
 
-    startCountDown(countDown);
+    function execute() {
+      $("#pick-" + currentPick).removeClass('active');
+      $("#pick-" + currentPick).off('click');
+      $newPick.addClass('active');
+      positionWindow($newPick);
+      applyTheClock($newPick.data('team'));
+      makeSelection($newPick);
+      startCountDown(countDown);
+    }
 
     if (forward === undefined) {
       currentPick = openPicks[0].pick; // get first available pick number
       if (!$("#pick-" + currentPick).hasClass('active')) {
         $("#pick-" + currentPick).addClass('active');
+        applyTheClock($("#pick-" + currentPick).data('team'));
+        makeSelection($("#pick-" + currentPick));
       }
       return;
     }
@@ -43,15 +60,12 @@ $(document).ready(function() {
 
     if (!forward && currentPick > 1) {
       $newPick  = $("#pick-" + (currentPick - 1));
-      $("#pick-" + currentPick).removeClass('active');
-      $newPick.addClass('active');
-      positionWindow($newPick);
+      execute();
     } else if (forward && currentPick < pickCount) {
       $newPick  = $("#pick-" + (currentPick + 1));
-      $("#pick-" + currentPick).removeClass('active');
-      $newPick.addClass('active');
-      positionWindow($newPick);
+      execute();
     }
+
   }
 
   var timeBox = (function(msFromNow) {
@@ -83,7 +97,8 @@ $(document).ready(function() {
     $("#count-down").livetime();
   }
 
-  $(".pick").click(function() {
+  function makeSelection($selector) {
+    $selector.click(function() {
       var round = this.parentNode.id.substr(6,this.parentNode.id.length);
       var pick = this.id.substr(5, this.id.length);
       $("#team_id").html($(this).data("team"));
@@ -93,7 +108,8 @@ $(document).ready(function() {
       $("#round_id").html(round);
       $("#pick_id").html(pick);
       $("#selection, #selection-blanket").show();
-  });
+    });
+  }
 
   // if selection div is visible, 
   // hide it if user clicks outside

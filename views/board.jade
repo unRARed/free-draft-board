@@ -30,13 +30,6 @@ html(lang="en")
             a(href="#{boardUrl}") #{boardUrl}
           p.total-rounds #{"Rounds: " + settings.rounds}
           p.pick-time #{"Pick Time: " + settings.minutes + " Minutes, " + settings.seconds + " Seconds"}
-        .on-the-clock
-          h3.clock-heading #{"On the Clock"}
-          h4.active-team Some team here
-          h4.count-down
-            time(id="count-down") 
-              span(data-time-label="d_mm:") 00:
-              span(data-time-label="d_ss") 00
       .league
         each teamName in settings.teams
           div(id="#{teamName}", class="team")= teamName
