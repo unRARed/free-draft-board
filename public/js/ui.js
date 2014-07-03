@@ -5,10 +5,26 @@ $(document).ready(function() {
   var timeBoxInstance;
   $.livetime.options.serverTimeUrl = '/time-ref.txt';
 
+  // repositions the viewport if given selector
+  // exceeds the top or bottom of it.
+  function positionWindow($selector) {
+    var selectorPosition = $selector.position();
+    var $win = $(window);
+    var halfHeight = $win.height() / 2;
+
+    if (selectorPosition.top < $win.scrollTop()) {
+      $win.scrollTop(selectorPosition.top - halfHeight);
+    }
+    if (selectorPosition.top > ($win.scrollTop() + halfHeight + $selector.height())) {
+      $win.scrollTop(selectorPosition.top);
+    }
+
+  }
+
+  // sets active element if direction boolean not passed
+  // if passed, it finds active element, sets inactive
+  // and sets previous or next element active
   function changeActivePick(forward) {
-    // sets active element if direction boolean not passed
-    // if passed, it finds active element, sets inactive
-    // and sets previous or next element active
     var currentPick;
     var $newPick;
 
@@ -29,10 +45,12 @@ $(document).ready(function() {
       $newPick  = $("#pick-" + (currentPick - 1));
       $("#pick-" + currentPick).removeClass('active');
       $newPick.addClass('active');
+      positionWindow($newPick);
     } else if (forward && currentPick < pickCount) {
       $newPick  = $("#pick-" + (currentPick + 1));
       $("#pick-" + currentPick).removeClass('active');
       $newPick.addClass('active');
+      positionWindow($newPick);
     }
   }
 
