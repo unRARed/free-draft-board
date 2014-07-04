@@ -154,23 +154,34 @@ app.get('/board/:passedShortId', function(req, res){
 app.post('/select', function(req, res) {
 
   Board.findOne({shortId: req.body.shortId}, function(err, settings) {
-      if (!settings) {
-        res.send(404, '404 Not Found');
+    if (!settings) {
+      res.send(404, '404 Not Found');
+    }
+
+    settings.picks.map(function(err, key, val) {
+      if (val[key].pick === parseInt(req.body.pick)) {
+        val[key].player = req.body.player;
       }
-
-      settings.picks.map(function(err, key, val) {
-        if (val[key].pick === parseInt(req.body.pick)) {
-          val[key].player = req.body.player;
-        }
-      });
-
-      settings.save();
-
-      console.log(settings);
-      res.send(req.body.player);
     });
 
+    settings.save();
+
+    console.log(settings);
+    res.send(req.body.player);
+  });
+
   console.log(req.body);
+});
+
+app.post('/picktime', function(req, res) {
+  Board.findOne({shortId: req.body.shortId}, function(err, settings) {
+    if (!settings) {
+      res.send(404, '404 Not Found');
+    }
+
+    settings.pickTime = req.body.picktime;
+    settings.save();
+  });
 });
 
 app.get('/*', function(req, res){
