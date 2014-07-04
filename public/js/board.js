@@ -11,7 +11,8 @@ $(document).ready(function() {
     var newPick = currentPick;
     var roundTimeInMS = spec.pickTime;
     var timeRemaining = roundTimeInMS;
-    var startTime = fullTimeStamp(roundTimeInMS);
+    var baseTime = fullTimeStamp(roundTimeInMS);
+    var refreshTimeRemaining;
 
   ///////////////////////////////
   ////                       ////
@@ -26,7 +27,7 @@ $(document).ready(function() {
 
     var resetTime = (function () {
       timeRemaining = roundTimeInMS;
-      startTime = fullTimeStamp(roundTimeInMS);
+      baseTime = fullTimeStamp(roundTimeInMS);
     });
 
     var select = (function () {
@@ -47,11 +48,6 @@ $(document).ready(function() {
   ////   Board Instance Methods  ////
   ////                           ////
   ///////////////////////////////////
-
-    var updateTimeRemaining = (function () {
-      var timePassed = (startTime - fullTimeStamp(0));
-      timeRemaining = roundTimeInMS - (roundTimeInMS - timePassed);
-    });
 
     var scale = (function (initial) {
       if (initial) { shouldResize = true; }
@@ -146,8 +142,17 @@ $(document).ready(function() {
       getTime: (function() {
         return fullTimeStamp(timeRemaining);
       }),
-      updateTime: (function () {
-        updateTimeRemaining();
+      refreshTime: (function () {
+        // reset base to now + current time remaining
+        baseTime = fullTimeStamp(timeRemaining);
+        refreshTimeRemaining = setInterval(function () {
+          var timePassed = (baseTime - fullTimeStamp(0));
+          timeRemaining = roundTimeInMS - (roundTimeInMS - timePassed);
+          console.log(timeRemaining);
+        }, 500);
+      }),
+      pauseTime: (function () {
+        clearInterval(refreshTimeRemaining);
       })
     }
 
@@ -170,6 +175,7 @@ $(document).ready(function() {
 
   $("#start-draft").click(function() {
     boardInstance.nextPick();
+    boardInstance.refreshTime();
     $(this).hide();
     $("#pause-draft, #previous-pick, #next-pick").show();
   });
@@ -203,13 +209,14 @@ $(document).ready(function() {
   });
 
   $("#pause-draft").click(function() {
-    boardInstance.updateTime();
+    boardInstance.pauseTime();
     $("#count-down").livetime(false);
     $(this).hide();
     $("#resume-draft").show();
   });
 
   $("#resume-draft").click(function() {
+    boardInstance.refreshTime();
     $("#count-down").attr('datetime', boardInstance.getTime());
     $("#count-down").livetime();
     $(this).hide();
