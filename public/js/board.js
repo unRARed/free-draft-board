@@ -1,12 +1,21 @@
 $(document).ready(function() {
 
-    var numTeams = $(".team").size();
+  var board = (function (spec) {
 
-    function scaleBoard(boardWidth) {
-      if (initialRender || shouldResize) {
-        while (boardWidth % numTeams !== 0) { boardWidth--; }
-        var unitWidth = (boardWidth / numTeams);
-        var pixelFraction = 1 / numTeams;
+    var teamCount = $(".team").size();
+    var pickCount = $(".pick").size();
+    var shouldResize = false;
+    var currentPick = spec.currentPick;
+    var newPick = spec.currentPick;
+
+    var scale = (function (initial) {
+      if (initial) { shouldResize = true; }
+      console.log('scaling...');
+      var boardWidth = $(window).width();
+      if (shouldResize) {
+        while (boardWidth % teamCount !== 0) { boardWidth--; }
+        var unitWidth = (boardWidth / teamCount);
+        var pixelFraction = 1 / teamCount;
         var teamHeight;
         $(".team").each(function() {
             $(this).css({height: "auto"});
@@ -31,35 +40,65 @@ $(document).ready(function() {
         $(".pick").css({height: maintainedAspect});
         $(".team").css({width: (unitWidth - pixelFraction) + "px"});
         shouldResize = false;
-        initialRender = false;
       }
       setTimeout(function() {
         shouldResize = true;
       }, 100);
+    });
+
+    var nextPick = (function () {
+      var $currentPick = $("#pick-" + currentPick);
+      var $newPick = $("#pick-" + newPick);
+      console.log($currentPick);
+      console.log($newPick);
+      $currentPick.removeClass('active');
+      //$currentPick.off('click');
+      $newPick.addClass('active');
+      currentPick = newPick;
+    });
+
+
+    return {
+      scale: (function (initial) {
+        scale(initial);
+      }),
+      nextPick: (function (direction) {
+        if (direction === 'forward' && currentPick < pickCount) {
+          newPick++;
+        } else if (direction === 'reverse' && currentPick > 1) {
+          newPick--;
+        }
+        nextPick();
+      })
+
+
     }
 
-    var shouldResize = false;
-    var initialRender = true; // to skip timeout logic on initial board scaling
+  });
 
-    var tileWidth = Math.floor(100.0 / numTeams);
+  var boardInstance = board({
+    currentPick: openPicks[0].pick
+  });
 
-    var $teams = $(".team");
-    var $picks = $(".pick");
-    var $tiles = $(".team, .pick");
+  boardInstance.scale(true);
 
-    $tiles.each(function(){
-      $(this).css({width: tileWidth + "%"});
-    });
+  $("#start-draft").click(function() {
+    boardInstance.nextPick();
+    $(this).hide();
+    $("#pause-draft, #previous-pick, #next-pick").show();
+  });
 
-    // don't square the team names
-    $picks.each(function() {
-      $(this).height($(this).width());
-    });
+  $(window).resize(function() {
+    boardInstance.scale();
+  });
 
-    $(window).resize(function() {
-      scaleBoard($(this).width());
-    });
+  $("#next-pick").click(function() {
+    boardInstance.nextPick('forward');
+  });
 
-    scaleBoard($(window).width());
+  $("#previous-pick").click(function() {
+    boardInstance.nextPick('reverse');
+  });
+
 
 });

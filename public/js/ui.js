@@ -31,42 +31,42 @@ $(document).ready(function() {
   // sets active element if direction boolean not passed
   // if passed, it finds active element, sets inactive
   // and sets previous or next element active
-  function changeActivePick(forward) {
-    var currentPick;
-    var $newPick;
+  // function changeActivePick(forward) {
+  //   var currentPick;
+  //   var $newPick;
 
-    function execute() {
-      $("#pick-" + currentPick).removeClass('active');
-      $("#pick-" + currentPick).off('click');
-      $newPick.addClass('active');
-      positionWindow($newPick);
-      applyTheClock($newPick.data('team'));
-      makeSelection($newPick);
-      startCountDown(countDown);
-    }
+  //   function execute() {
+  //     $("#pick-" + currentPick).removeClass('active');
+  //     $("#pick-" + currentPick).off('click');
+  //     $newPick.addClass('active');
+  //     positionWindow($newPick);
+  //     applyTheClock($newPick.data('team'));
+  //     makeSelection($newPick);
+  //     startCountDown(countDown);
+  //   }
 
-    if (forward === undefined) {
-      currentPick = openPicks[0].pick; // get first available pick number
-      if (!$("#pick-" + currentPick).hasClass('active')) {
-        $("#pick-" + currentPick).addClass('active');
-        applyTheClock($("#pick-" + currentPick).data('team'));
-        makeSelection($("#pick-" + currentPick));
-      }
-      return;
-    }
+  //   if (forward === undefined) {
+  //     currentPick = openPicks[0].pick; // get first available pick number
+  //     if (!$("#pick-" + currentPick).hasClass('active')) {
+  //       $("#pick-" + currentPick).addClass('active');
+  //       applyTheClock($("#pick-" + currentPick).data('team'));
+  //       makeSelection($("#pick-" + currentPick));
+  //     }
+  //     return;
+  //   }
 
-    //parameter is set so we need to grab current active pick number
-    currentPick = parseInt($(".pick.active").attr("id").substr(5));
+  //   //parameter is set so we need to grab current active pick number
+  //   currentPick = parseInt($(".pick.active").attr("id").substr(5));
 
-    if (!forward && currentPick > 1) {
-      $newPick  = $("#pick-" + (currentPick - 1));
-      execute();
-    } else if (forward && currentPick < pickCount) {
-      $newPick  = $("#pick-" + (currentPick + 1));
-      execute();
-    }
+  //   if (!forward && currentPick > 1) {
+  //     $newPick  = $("#pick-" + (currentPick - 1));
+  //     execute();
+  //   } else if (forward && currentPick < pickCount) {
+  //     $newPick  = $("#pick-" + (currentPick + 1));
+  //     execute();
+  //   }
 
-  }
+  // }
 
   var timeBox = (function(msFromNow) {
 
@@ -137,11 +137,11 @@ $(document).ready(function() {
 
   });
 
-  $("#start-draft").click(function() {
-    changeActivePick();
-    $(this).hide();
-    $("#pause-draft, #previous-pick, #next-pick").show();
-  });
+  // $("#start-draft").click(function() {
+  //   changeActivePick();
+  //   $(this).hide();
+  //   $("#pause-draft, #previous-pick, #next-pick").show();
+  // });
 
   $("#pause-draft").click(function() {
     timeBoxInstance.update();
@@ -157,12 +157,12 @@ $(document).ready(function() {
     $("#pause-draft").show();
   });
 
-  $("#next-pick").click(function() {
-    changeActivePick(true);
-  });
+  // $("#next-pick").click(function() {
+  //   changeActivePick(true);
+  // });
 
-  $("#previous-pick").click(function() {
-    changeActivePick(false);
-  });
+  // $("#previous-pick").click(function() {
+  //   changeActivePick(false);
+  // });
 
 });
