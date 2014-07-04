@@ -1,6 +1,13 @@
 $(document).ready(function() {
 
   $.livetime.options.serverTimeUrl = '/time-ref.txt';
+  $.livetime.options.formats.countDown = [
+    [-4, 'd_mm:d_ss'],
+    [-3, '<b>Three!</b>'],
+    [-2, '<b>Two!</b>'],
+    [-1, '<b>ONE!</b>'],
+    ['<b>TIMES UP!</b>']
+  ];
 
   var board = (function (spec) {
 
@@ -21,8 +28,10 @@ $(document).ready(function() {
   ///////////////////////////////
 
     function fullTimeStamp(ms) {
-      var nowTime = new Date().getTime();
-      return nowTime + ms;
+      var date = new Date();
+      // use clients timezone
+      var nowTimeUTC = date.getTime() - (date.getTimezoneOffset() * 60000);
+      return nowTimeUTC + ms;
     }
 
     var resetTime = (function () {
@@ -90,9 +99,7 @@ $(document).ready(function() {
     var nextPick = (function () {
       var $currentPick = $("#pick-" + currentPick);
       var $newPick = $("#pick-" + newPick);
-      var timerDiv = '<time class="count-down" id="count-down"> \
-                      <span data-time-label="d_mm:"> 00:</span> \
-                      <span data-time-label="d_ss"> 00</span></time>';
+      var timerDiv = '<time data-time-label="#countDown" class="count-down" id="count-down"></time>';
       // reset the coundDown timer
       resetTime();
 
@@ -102,8 +109,9 @@ $(document).ready(function() {
       $currentPick.off('click');
       $newPick.addClass('active');
       $newPick.append(timerDiv);
-      $newPick.attr('datetime', boardInstance.getTime());
-      $newPick.livetime();
+      $newPick.find('#count-down').attr('datetime', fullTimeStamp(timeRemaining));
+      $newPick.find('#count-down').data('duration', timeRemaining);
+      $newPick.find('#count-down').livetime();
 
       currentPick = newPick;
       $newPick.click(function() {
@@ -142,14 +150,19 @@ $(document).ready(function() {
       getTime: (function() {
         return fullTimeStamp(timeRemaining);
       }),
+      getMsRemaining: (function() {
+        return timeRemaining;
+      }),
       refreshTime: (function () {
         // reset base to now + current time remaining
         baseTime = fullTimeStamp(timeRemaining);
         refreshTimeRemaining = setInterval(function () {
-          var timePassed = (baseTime - fullTimeStamp(0));
-          timeRemaining = roundTimeInMS - (roundTimeInMS - timePassed);
-          console.log(timeRemaining);
-        }, 500);
+          if (timeRemaining > 0) {
+            var timePassed = (baseTime - fullTimeStamp(0));
+            timeRemaining = roundTimeInMS - (roundTimeInMS - timePassed);
+            console.log(timeRemaining);
+          }
+        }, 2000);
       }),
       pauseTime: (function () {
         clearInterval(refreshTimeRemaining);
@@ -218,6 +231,7 @@ $(document).ready(function() {
   $("#resume-draft").click(function() {
     boardInstance.refreshTime();
     $("#count-down").attr('datetime', boardInstance.getTime());
+    $("#count-down").data('duration', boardInstance.getMsRemaining());
     $("#count-down").livetime();
     $(this).hide();
     $("#pause-draft").show();

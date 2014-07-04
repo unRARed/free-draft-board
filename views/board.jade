@@ -11,7 +11,6 @@ html(lang="en")
       var countDown = !{((settings.minutes * 60) + settings.seconds) * 1000}
       var openPicks = !{JSON.stringify(openPicks)}
     script(src="/js/board.js")
-    script(src="/js/ui.js")
     title= pageTitle
   body
     - var boardUrl = "http://www.freedraftboard.com/board/" + settings.shortId;
