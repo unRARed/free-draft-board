@@ -20,6 +20,7 @@ $(document).ready(function() {
     var timeRemaining = roundTimeInMS;
     var baseTime = fullTimeStamp(roundTimeInMS);
     var refreshTimeRemaining;
+    var active = true;
 
   ///////////////////////////////
   ////                       ////
@@ -50,6 +51,7 @@ $(document).ready(function() {
       $("#round_id").html(round);
       $("#pick_id").html(pick);
       $("#selection, #selection-blanket").show();
+      $("#control-panel").hide();
     });
 
   ///////////////////////////////////
@@ -99,7 +101,7 @@ $(document).ready(function() {
     var nextPick = (function () {
       var $currentPick = $("#pick-" + currentPick);
       var $newPick = $("#pick-" + newPick);
-      var timerDiv = '<time data-time-label="#countDown" class="count-down" id="count-down"></time>';
+      var timerDiv = '<h3><time data-time-label="#countDown" class="count-down" id="count-down"></time></h3>';
       // reset the coundDown timer
       resetTime();
 
@@ -153,8 +155,9 @@ $(document).ready(function() {
       getMsRemaining: (function() {
         return timeRemaining;
       }),
-      refreshTime: (function () {
+      startTime: (function () {
         // reset base to now + current time remaining
+        active = true;
         baseTime = fullTimeStamp(timeRemaining);
         refreshTimeRemaining = setInterval(function () {
           if (timeRemaining > 0) {
@@ -165,7 +168,11 @@ $(document).ready(function() {
         }, 2000);
       }),
       pauseTime: (function () {
+        active = false;
         clearInterval(refreshTimeRemaining);
+      }),
+      isActive: (function () {
+        return active;
       })
     }
 
@@ -185,12 +192,36 @@ $(document).ready(function() {
   ////                            ////
   ////////////////////////////////////
 
+  $("#open-panel").click(function() {
+    $(this).hide();
+    $("#close-panel").css({'display': 'inline-block'}); 
+
+    if (boardInstance.isActive()) {
+      $("#pause-draft, #pick-nav").css({'display': 'inline-block'});
+      $("#resume-draft").css({'display': 'none'});
+    } else {
+      $("#resume-draft").css({'display': 'inline-block'});
+    }
+
+  });
+
+  $("#close-panel").click(function() {
+    $(this).hide();
+    $("#open-panel").css(
+      {'display': 'inline-block'}
+    );
+    $("#pause-draft, #resume-draft, #pick-nav").css(
+      {'display': 'none'}
+    );  
+  });
 
   $("#start-draft").click(function() {
     boardInstance.nextPick();
-    boardInstance.refreshTime();
+    boardInstance.startTime();
     $(this).hide();
-    $("#pause-draft, #previous-pick, #next-pick").show();
+    $("#open-panel").css(
+      {'display': 'inline-block'}
+    );
   });
 
   $(window).resize(function() {
@@ -217,6 +248,7 @@ $(document).ready(function() {
       $("#player_name").val("");
       $("#selection, #selection-blanket").hide();
       boardInstance.nextPick('forward');
+      $("#control-panel").show();
     });
 
   });
@@ -224,17 +256,23 @@ $(document).ready(function() {
   $("#pause-draft").click(function() {
     boardInstance.pauseTime();
     $("#count-down").livetime(false);
-    $(this).hide();
-    $("#resume-draft").show();
+    $("#pause-draft, #pick-nav").css(
+      {'display': 'none'}
+    );  
+    $("#resume-draft").css(
+      {'display': 'inline-block'}
+    );
   });
 
   $("#resume-draft").click(function() {
-    boardInstance.refreshTime();
+    boardInstance.startTime();
     $("#count-down").attr('datetime', boardInstance.getTime());
     $("#count-down").data('duration', boardInstance.getMsRemaining());
     $("#count-down").livetime();
     $(this).hide();
-    $("#pause-draft").show();
+    $("#pause-draft, #pick-nav").css(
+      {'display': 'inline-block'}
+    );
   });
 
   // if selection div is visible, 
@@ -245,6 +283,7 @@ $(document).ready(function() {
     } else {
       $("#selection, #selection-blanket").hide();
       $("#player_name").val("");
+      $("#control-panel").show();
     }
   });
 

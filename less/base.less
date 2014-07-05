@@ -1,19 +1,19 @@
 body {
   font-family: 'Droid Sans', sans-serif;
   letter-spacing: 0.1em;
-  background-color: @primary-fg;
-  color: @primary-bg;
+  background-color: @black;
+  color: @white;
   position: relative;
 
 }
 
 a, a:visited {
-  color: @tertiary-bg-dark;
+  color: @tertiary-dark;
   text-decoration: none;
 }
 
 a:hover {
-  color: @tertiary-bg;
+  color: @tertiary;
   transition: color 0.3s ease;
 }
 
@@ -23,57 +23,76 @@ h3,
 h4,
 h5,
 h6 {
-  color: @primary-bg;
+  color: @primary;
   margin-bottom: 20px;
 }
 
-h1 {font-size: 4.0em; font-weight: bold;}
-h2 {font-size: 3.0em;}
-h3 {font-size: 2.4em;}
-h4 {font-size: 2.0em;}
-h5 {font-size: 1.6em;}
-h6 {font-size: 1.2em;}
+h1 {font-size: 42px; font-weight: bold;}
+h2 {font-size: 36px;}
+h3 {font-size: 30px;}
+h4 {font-size: 26px;}
+h5 {font-size: 22px;}
+h6 {font-size: 18px;}
 
 .text-input,
 .text-input.primary {
-  background-color: @primary-bg-light;
+  background-color: @primary-light;
   border-radius: 4px;
   border: 0;
   font-size: 20px;
-  color: @primary-bg;
+  color: @black;
   padding: 10px 6px;
 }
 
-.text-input.secondary { background-color: @secondary-bg-light; color: @secondary-bg; }
-.text-input.tertiary { background-color: @tertiary-bg-light; color: @tertiary-bg-darker; }
-.text-input.quadrary { background-color: @quadrary-bg-light; color: @quadrary-bg; }
+.text-input.secondary { background-color: @secondary-light; }
+.text-input.tertiary { background-color: @tertiary-light; }
+
+.text-input.primary::-webkit-input-placeholder,
+.text-input.primary:-moz-placeholder,
+.text-input.primary::-moz-placeholder,
+.text-input.primary:-ms-input-placeholder {  
+  color: @primary; 
+}
+
+.text-input.secondary::-webkit-input-placeholder,
+.text-input.secondary:-moz-placeholder,
+.text-input.secondary::-moz-placeholder,
+.text-input.secondary:-ms-input-placeholder {  
+  color: @secondary; 
+}
+
+.text-input.tertiary::-webkit-input-placeholder,
+.text-input.tertiary:-moz-placeholder,
+.text-input.tertiary::-moz-placeholder,
+.text-input.tertiary:-ms-input-placeholder {  
+  color: @tertiary; 
+}
 
 .button,
 .button.primary {
-  background-color: @primary-bg-dark;
+  background-color: @primary-dark;
   border: 0;
   border-radius: 4px;
-  padding: 12px;
-  color: @primary-fg;
+  padding: 4px 12px;
+  color: @white;
   cursor: pointer;
+  height: 44px;
 }
 
-.button.secondary { background-color: @secondary-bg-light; }
-.button.tertiary { background-color: @tertiary-bg-dark; }
-.button.quadrary { background-color: @quadrary-bg-light; }
+.button.secondary { background-color: @secondary; }
+.button.tertiary { background-color: @tertiary-dark; }
 
 .button:hover {
-  background-color: @primary-bg;
+  background-color: @primary;
   transition: background-color 0.3s ease;
   cursor: pointer;
 }
 
-.button.secondary:hover { background-color: @secondary-bg-light; }
-.button.tertiary:hover { background-color: @tertiary-bg; }
-.button.quadrary:hover { background-color: @quadrary-bg-light; }
+.button.secondary:hover { background-color: @secondary-light; }
+.button.tertiary:hover { background-color: @tertiary; }
 
 .big-submit {
-  font-size: 36px;
+  font-size: 26px;
 }
 
 .container {

@@ -16,12 +16,15 @@ html(lang="en")
     - var boardUrl = "http://www.freedraftboard.com/board/" + settings.shortId;
     .board(id="#{settings.shortId}")
       #control-panel.control-panel
-        button#start-draft.button.tertiary.start-draft Start Drafting
-        button#pause-draft.button.quadrary.pause-draft Pause Draft
-        button#resume-draft.button.tertiary.resume-draft Resume Draft
-        .pick-nav
-          button#previous-pick.button.primary.previous-pick &laquo;
-          button#next-pick.button.primary.next-pick &raquo;
+        .transparent-wrapper
+          button#start-draft.button.tertiary.start-draft Start
+          button#pause-draft.button.quadrary.pause-draft Pause
+          button#resume-draft.button.tertiary.resume-draft Resume
+          #pick-nav.pick-nav
+            button#previous-pick.button.tertiary.previous-pick &laquo;
+            button#next-pick.button.tertiary.next-pick &raquo;
+          button#open-panel.open-panel.button.secondary &laquo;
+          button#close-panel.close-panel.button.secondary &raquo;
       .league-info.cf
         .league-settings
           h1.league-name= settings.league

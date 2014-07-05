@@ -5,42 +5,41 @@
 
   .control-panel {
     position: fixed;
-    bottom: 0;
+    top: 0;
     right: 0;
     z-index: 1;
     padding: 10px;
+    background-color: @primary-dark;
+    border-radius: 0 0 0 6px;
 
     .start-draft,
     .resume-draft {
-      background-color: @tertiary-bg-dark;
+      background-color: @tertiary-dark;
       font-size: 20px;
     }
 
     .start-draft:hover,
     .resume-draft:hover {
-      background-color: @tertiary-bg;
+      background-color: @tertiary;
       transition: background-color 0.3s ease;
     }
 
     .resume-draft,
     .pause-draft,
-    .previous-pick,
-    .next-pick {
+    .pick-nav,
+    .open-panel,
+    .close-panel {
       display: none;
-    }
-
-    .resume-draft,
-    .pause-draft {
-      .transparent;
+      vertical-align: middle;
     }
 
     .pause-draft {
-      background-color: @quadrary-bg-dark;
+      background-color: @black;
       font-size: 20px;
     }
 
     .pause-draft:hover {
-      background-color: @quadrary-bg;
+      background-color: @black-light;
       transition: background-color 0.3s ease;
     }
 
@@ -82,7 +81,7 @@
       }
 
       .active-team {
-        color: @secondary-bg;
+        color: @secondary;
         margin-bottom: 10px;
         font-size: 26px;
       }
@@ -90,7 +89,7 @@
       .count-down {
         padding: 4px 8px;
         font-weight: bold;
-        background-color: @primary-bg-light;
+        background-color: @primary-light;
         display: inline-block;
         font-size: 30px;
       }
@@ -101,7 +100,7 @@
 
   .selection-blanket {
     display: none;
-    background-color: @secondary-bg-light;
+    background-color: @primary-light;
     position: fixed;
     top: 0;
     bottom: 0;
@@ -125,9 +124,9 @@
     padding: 20px 5%;
     max-width: 500px;
     max-height: 420px;
-    background-color: @tertiary-bg-darker;
+    background-color: @black;
     border-radius: 10px;
-    box-shadow: 1px 1px 4px 1px @tertiary-bg;
+    box-shadow: 1px 1px 4px 1px @primary;
     z-index: 99 !important;
 
     .selection-content {
@@ -173,7 +172,7 @@
       h5,
       h6,
       p {
-        color: @tertiary-bg-light;
+        color: @white;
       }
 
     }
@@ -182,36 +181,40 @@
 
   .round,
   .league {
-    border-left: 1px solid black;
+    border-left: 1px solid @black-true;
     margin: 0 auto;
 
     
     .pick,
     .team {
       float: left;
-      border-right: 1px solid black;
-      border-bottom: 1px solid black;
+      padding: 10px;
+      letter-spacing: -1px;
+      border-right: 1px solid @black-true;
+      border-bottom: 1px solid @black-true;
     }
 
     .pick {
       position: relative;
-      color: @black;
+      color: @white;
 
       .pick-count {
         font-size: 10px;
         position: absolute;
         bottom: 5%;
         right: 5%;
+        color: @primary-light;
       }
     }
 
     .pick:first-child {
-      border-right: 1px solid black;
-      border-bottom: 1px solid black;
+      border-right: 1px solid @black-true;
+      border-bottom: 1px solid @black-true;
     }
 
     .pick.active {
-      background-color: @tertiary-bg;
+      background-color: @primary-light;
+      color: @black;
       position: relative;
     }
 
@@ -223,25 +226,24 @@
     }
     
     .team {
-      background: @secondary-bg;
-      color: @primary-fg;
+      background: @secondary;
+      color: @white;
       font-size: 18px;
       padding: 10px 0;
       text-align: center;
       display: inline-block;
-      letter-spacing: -1px;
       vertical-align: middle;
     }
     
     .pick:hover {
-      background-color: @primary-bg-light;
+      background-color: @primary-light;
       cursor: pointer;
     }
     
   }
 
-  .even .pick { background-color: @primary-fg; }
-  .odd .pick { background-color: @primary-fg-accent; }
+  .even .pick { background-color: @black; }
+  .odd .pick { background-color: @black-dark; }
   
 }
 
@@ -273,7 +275,8 @@
 
     .league {
 
-      .team { font-size: 12px; letter-spacing: 0; }
+      .team,
+      .pick { font-size: 12px; letter-spacing: 0; }
 
     }
 
