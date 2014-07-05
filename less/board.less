@@ -7,10 +7,17 @@
     position: fixed;
     top: 0;
     right: 0;
-    z-index: 1;
+    z-index: 99;
     padding: 10px;
     background-color: @primary-dark;
     border-radius: 0 0 0 6px;
+
+    .count-down {
+      font-weight: bold;
+      font-size: 40px;
+      margin-right: 10px;
+      padding-top: 4px;
+    }
 
     .start-draft,
     .resume-draft {
@@ -28,7 +35,8 @@
     .pause-draft,
     .pick-nav,
     .open-panel,
-    .close-panel {
+    .close-panel,
+    .count-down {
       display: none;
       vertical-align: middle;
     }
@@ -64,34 +72,6 @@
       .total-rounds,
       .pick-time {
         margin-bottom: 0;
-      }
-
-    }
-
-    .on-the-clock {
-      text-align: center;
-      width: 33%;
-      padding: 0 2%;
-      float: right;
-
-      .clock-heading {
-        .dry-erase;
-        font-size: 16px;
-        margin-bottom: 0;
-      }
-
-      .active-team {
-        color: @secondary;
-        margin-bottom: 10px;
-        font-size: 26px;
-      }
-
-      .count-down {
-        padding: 4px 8px;
-        font-weight: bold;
-        background-color: @primary-light;
-        display: inline-block;
-        font-size: 30px;
       }
 
     }
@@ -189,7 +169,6 @@
     .team {
       float: left;
       padding: 10px;
-      letter-spacing: -1px;
       border-right: 1px solid @black-true;
       border-bottom: 1px solid @black-true;
     }
@@ -197,13 +176,48 @@
     .pick {
       position: relative;
       color: @white;
+      overflow: hidden;
+
+      .pick-data {
+        position: relative;
+        text-align: center;
+
+      .pick-team { font-size: 18px; margin-bottom: 4px; }
+      .pick-value { 
+        padding: 4px; 
+        font-size: 26px; 
+        font-weight: bold; 
+        margin-bottom: 4px;
+        background-color: @tertiary-dark;
+        display: inline-block;
+        padding: 4px 8px;
+        border-radius: 4px;
+      }
+
+      .pick-meta1,
+      .pick-meta2 {
+        padding: 0 8px;
+        display: inline-block;
+        vertical-align: middle;
+      }
+        
+
+      }
 
       .pick-count {
-        font-size: 10px;
+        background-color: @white;
+        text-align: center;
+        padding-top: 2px;
+        display: inline-block;
+        border-radius: 50%;
+        font-size: 16px;
+        width: 22px;
+        height: 22px;
         position: absolute;
         bottom: 5%;
         right: 5%;
-        color: @primary-light;
+        color: @black;
+        font-weight: bold;
       }
     }
 
@@ -213,16 +227,19 @@
     }
 
     .pick.active {
-      background-color: @primary-light;
-      color: @black;
+      background-color: @tertiary-dark;
+      color: @white;
       position: relative;
     }
 
-    .pick.active:before {
-      content: 'On the clock.';
-      position: absolute;
-      bottom: 0;
-      left: 0;
+    .pick.active:hover {
+      background-color: @primary;
+      color: @white;
+      cursor: pointer;
+
+      .count-down {
+        color: @white;
+      }
     }
     
     .team {
@@ -233,11 +250,6 @@
       text-align: center;
       display: inline-block;
       vertical-align: middle;
-    }
-    
-    .pick:hover {
-      background-color: @primary-light;
-      cursor: pointer;
     }
     
   }
@@ -264,20 +276,10 @@
         display: none;
       }
 
-      .league-settings,
-      .on-the-clock {
-        float: none;
-        text-align: center;
-        width: 100%;
-      }
-
     }
 
-    .league {
-
-      .team,
-      .pick { font-size: 12px; letter-spacing: 0; }
-
+    .pick-data {
+      .pick-team { display: none; }
     }
 
   }

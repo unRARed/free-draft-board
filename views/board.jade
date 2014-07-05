@@ -3,7 +3,7 @@ html(lang="en")
   head
     meta(name="viewport", content="width=device-width, initial-scale=1")
     link(rel="stylesheet", type="text/css", href="/css/main.css")
-    link(href='http://fonts.googleapis.com/css?family=Droid+Sans', rel='stylesheet', type='text/css')
+    link(href='http://fonts.googleapis.com/css?family=Pompiere', rel='stylesheet', type='text/css')
     link(href='http://fonts.googleapis.com/css?family=Rock+Salt', rel='stylesheet' type='text/css')
     script(src="http://code.jquery.com/jquery-1.11.0.min.js")
     script(src="/js/plugins/jlivetime-0.0.13.min.js")
@@ -17,6 +17,7 @@ html(lang="en")
     .board(id="#{settings.shortId}")
       #control-panel.control-panel
         .transparent-wrapper
+          time(data-time-label="#countDown", class="count-down", id="count-down")
           button#start-draft.button.tertiary.start-draft Start
           button#pause-draft.button.quadrary.pause-draft Pause
           button#resume-draft.button.tertiary.resume-draft Resume
@@ -42,7 +43,7 @@ html(lang="en")
           h3.your-pick Enter selection for
           h2#team_id.team-id
           form#selection_form(action="#", method="POST")
-            input#player_name.text-input.tertiary.player-input(type="text", name="player")
+            input#entered-value.text-input.tertiary.player-input(type="text", name="value")
             input#full_pick_id(type="hidden", name="pick")
             input#short_id(type="hidden", name="shortId")
             input#team_name(type="hidden", name="teamName")

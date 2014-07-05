@@ -101,7 +101,7 @@ $(document).ready(function() {
     var nextPick = (function () {
       var $currentPick = $("#pick-" + currentPick);
       var $newPick = $("#pick-" + newPick);
-      var timerDiv = '<h3><time data-time-label="#countDown" class="count-down" id="count-down"></time></h3>';
+      var timerDiv = '<time data-time-label="#countDown" class="count-down" id="count-down"></time>';
       // reset the coundDown timer
       resetTime();
 
@@ -111,9 +111,9 @@ $(document).ready(function() {
       $currentPick.off('click');
       $newPick.addClass('active');
       $newPick.append(timerDiv);
-      $newPick.find('#count-down').attr('datetime', fullTimeStamp(timeRemaining));
-      $newPick.find('#count-down').data('duration', timeRemaining);
-      $newPick.find('#count-down').livetime();
+      $('#count-down').attr('datetime', fullTimeStamp(timeRemaining));
+      $('#count-down').data('duration', timeRemaining);
+      $('#count-down').livetime();
 
       currentPick = newPick;
       $newPick.click(function() {
@@ -219,7 +219,7 @@ $(document).ready(function() {
     boardInstance.nextPick();
     boardInstance.startTime();
     $(this).hide();
-    $("#open-panel").css(
+    $("#open-panel, #count-down").css(
       {'display': 'inline-block'}
     );
   });
@@ -244,8 +244,8 @@ $(document).ready(function() {
     $.post( "/select", formData, function(data) {
       $("#" + $("#full_pick_id").val()).append( data );
       $( ".result" ).html( data );
-      $("#pick-" + $("#full_pick_id").val() + " .selected-value").html(data);
-      $("#player_name").val("");
+      $("#pick-" + $("#full_pick_id").val() + " .pick-value").html(data);
+      $("#entered-value").val("");
       $("#selection, #selection-blanket").hide();
       boardInstance.nextPick('forward');
       $("#control-panel").show();
@@ -282,7 +282,7 @@ $(document).ready(function() {
       return;
     } else {
       $("#selection, #selection-blanket").hide();
-      $("#player_name").val("");
+      $("#entered-value").val("");
       $("#control-panel").show();
     }
   });

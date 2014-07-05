@@ -1,5 +1,10 @@
 .pick(data-team="#{teamName}", id="pick-#{pickId}")
   each key, val in settings.picks
-    if (settings.picks[val].pick === pickId)
-      p.selected-value= settings.picks[val].player
+    if (settings.picks[val].pick === pickId && settings.picks[val].value !== '')
+      .pick-data
+        p.pick-team Some team
+        p.pick-value= settings.picks[val].value
+        .pick-meta
+          p.pick-meta1 QB
+          p.pick-meta2 BYE: 8
   span.pick-count #{((i-1) * settings.teams.length) + j}

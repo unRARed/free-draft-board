@@ -6,7 +6,7 @@ mongoose.connect('mongodb://localhost/freeDraftBoard');
 var PickSchema = new Schema({
   team: { type: String },
   pick: { type: Number },
-  player: { type: String }
+  value: { type: String }
 });
 
 var BoardSchema = new Schema({

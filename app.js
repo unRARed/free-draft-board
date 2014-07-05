@@ -122,14 +122,14 @@ app.get('/board/:passedShortId', function(req, res){
 
     //find first empty pick and pass that ID
     for (i=0;i<settings.picks.length;i++) {
-      if (settings.picks[i].player === undefined) {
+      if (settings.picks[i].value === undefined) {
         var openPick = {};
         openPick.pick = settings.picks[i].pick;
         openPick.team = settings.picks[i].team;
         openPicks.push(openPick);
       }
       if (settings.picks[i].pick === parseInt(req.body.pick)) {
-        settings.picks[i].player = req.body.player;
+        settings.picks[i].value = req.body.value;
       }
     }
 
@@ -160,14 +160,14 @@ app.post('/select', function(req, res) {
 
     settings.picks.map(function(err, key, val) {
       if (val[key].pick === parseInt(req.body.pick)) {
-        val[key].player = req.body.player;
+        val[key].value = req.body.value;
       }
     });
 
     settings.save();
 
     console.log(settings);
-    res.send(req.body.player);
+    res.send(req.body.value);
   });
 
   console.log(req.body);
