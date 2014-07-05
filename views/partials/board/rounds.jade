@@ -1,0 +1,9 @@
+- for (i=1;i<settings.rounds+1;i++)
+  if (settings.serpentine && (i%2 === 0))
+    .round(id="round-#{i}", class="even")
+      - for (j=settings.teams.length;j>0;j--)
+        - var pickId = ((i-1) * settings.teams.length) + j;
+        - var teamName = settings.teams[settings.teams.length-j];
+        include pick
+  else
+    include round

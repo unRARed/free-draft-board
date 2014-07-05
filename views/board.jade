@@ -35,11 +35,7 @@ html(lang="en")
       .league
         each teamName in settings.teams
           div(id="#{teamName}", class="team")= teamName
-      - for (i=1;i<settings.rounds+1;i++)
-        if settings.serpentine
-          include partials/board/round_serpentine 
-        else
-          include partials/board/round_standard
+      include partials/board/rounds
       #selection-blanket.selection-blanket
       #selection.selection
         .selection-content
