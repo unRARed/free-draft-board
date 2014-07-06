@@ -1,5 +1,6 @@
 var express = require('express');
 var path = require('path');
+var fs = require('fs');
 var lessMiddleware = require('less-middleware');
 var shortId = require('shortid');
 var bodyParser = require('body-parser')
@@ -42,6 +43,8 @@ app.get('/settings', function(req, res){
 });
 
 app.post('/board', function(req, res){
+
+  console.log(req.body);
   var is_serpentine = (req.body.serpentine === 'on');
 
   var teamsArray = [];
@@ -100,11 +103,47 @@ app.post('/board', function(req, res){
     picks: teamsPicksArray
   });
 
-  board.save(function(err, board) {
+  if (req.body.pool_setting === 'football') {
+    fs.readFile('json/americanFootballBase.json', function (err, data) {
+      if (err) throw err;
+      var footballJson = JSON.parse(data);
 
-    res.redirect('/board/' + board.shortId);
+      var players = [];
 
-  });
+      for (i=0;i<footballJson.length;i++) {
+        var team = footballJson[i].city + " " + footballJson[i].name;
+        var bye = footballJson[i].bye;
+
+        for (j=0;j<footballJson[i].players.length;j++) {
+          var player = {};
+          player.firstName = footballJson[i].players[j].firstName;
+          player.lastName = footballJson[i].players[j].lastName;
+          player.team = team;
+          player.position = footballJson[i].players[j].position;
+          player.bye = bye;
+          players.push(player);
+        }
+
+      }
+
+      board.pool = players;
+
+      board.save(function(err, board) {
+
+        res.redirect('/board/' + board.shortId);
+
+      });
+
+    });
+  } else { // not loading any pool-data
+
+    board.save(function(err, board) {
+
+      res.redirect('/board/' + board.shortId);
+
+    });
+
+  }
 
 });
 

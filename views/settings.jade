@@ -9,6 +9,10 @@ block content
   h1 Customize your Board
   form#settings.settings(action="/board", method="POST")
     .setting_group
+        label(for="pool_setting") Type: 
+        select#pool_setting(name="pool_setting")
+          option(value="football", selected="selected") American Football
+    .setting_group
       label(for="league") League Name: 
       input.text-input.primary(type="text", name="league", placeholder="Enter League Name Here", required)
     .setting_group

@@ -1,492 +1,556 @@
-{
-  cardinals: {
-    bye: 4,
-    players: [
+[
+  {
+    "city": "Arizona",
+    "name": "Cardinals",
+    "bye": 4,
+    "players": [
       {
-        'firstName': 'Cardinals',
-        'lastName': 'Defense / Special Teams',
-        'position': 'D/ST'
+        "firstName": "Cardinals",
+        "lastName": "Defense / Special Teams",
+        "position": "D/ST"
       },
       {
-        'firstName': 'Andre',
-        'lastName': 'Ellington',
-        'position': 'RB'
+        "firstName": "Andre",
+        "lastName": "Ellington",
+        "position": "RB"
       }
     ]
   },
-  bengals: {
-    bye: 4,
-    players: [
+  {
+    "city": "Cincinatti",
+    "name": "Bengals",
+    "bye": 4,
+    "players": [
       {
-        'firstName': 'Bengals',
-        'lastName': 'Defense / Special Teams',
-        'position': 'D/ST'
+        "firstName": "Bengals",
+        "lastName": "Defense / Special Teams",
+        "position": "D/ST"
       },
       {
-        'firstName': 'A.J.',
-        'lastName': 'Green',
-        'position': 'WR'
+        "firstName": "A.J.",
+        "lastName": "Green",
+        "position": "WR"
       },
       {
-        'firstName': 'Giovani',
-        'lastName': 'Bernard',
-        'position': 'RB'
+        "firstName": "Giovani",
+        "lastName": "Bernard",
+        "position": "RB"
       }
     ]
   },
-  browns: {
-    bye: 4,
-    players: [
+  {
+    "city": "Cleveland",
+    "name": "Browns",
+    "bye": 4,
+    "players": [
       {
-        'firstName': 'Browns',
-        'lastName': 'Defense / Special Teams',
-        'position': 'D/ST'
+        "firstName": "Browns",
+        "lastName": "Defense / Special Teams",
+        "position": "D/ST"
       }
     ]
   },
-  broncos: {
-    bye: 4,
-    players: [
+  {
+    "city": "Denver",
+    "name": "Broncos",
+    "bye": 4,
+    "players": [
       {
-        'firstName': 'Broncos',
-        'lastName': 'Defense / Special Teams',
-        'position': 'D/ST'
+        "firstName": "Broncos",
+        "lastName": "Defense / Special Teams",
+        "position": "D/ST"
       },
       {
-        'firstName': 'Demaryius',
-        'lastName': 'Thomas',
-        'position': 'WR'
+        "firstName": "Demaryius",
+        "lastName": "Thomas",
+        "position": "WR"
       },
       {
-        'firstName': 'Montee',
-        'lastName': 'Ball',
-        'position': 'RB'
+        "firstName": "Montee",
+        "lastName": "Ball",
+        "position": "RB"
       },
       {
-        'firstName': 'Peyton',
-        'lastName': 'Manning',
-        'position': 'QB'
+        "firstName": "Peyton",
+        "lastName": "Manning",
+        "position": "QB"
       },
       {
-        'firstName': 'Julius',
-        'lastName': 'Thomas',
-        'position': 'TE'
+        "firstName": "Julius",
+        "lastName": "Thomas",
+        "position": "TE"
       }
     ]
   },
-  seahawks: {
-    bye: 4,
-    players: [
+  {
+    "city": "Seattle",
+    "name": "Seahawks",
+    "bye": 4,
+    "players": [
       {
-        'firstName': 'Seahawks',
-        'lastName': 'Defense / Special Teams',
-        'position': 'D/ST'
+        "firstName": "Seahawks",
+        "lastName": "Defense / Special Teams",
+        "position": "D/ST"
       },
       {
-        'firstName': 'Marshawn',
-        'lastName': 'Lynch',
-        'position': 'RB'
+        "firstName": "Marshawn",
+        "lastName": "Lynch",
+        "position": "RB"
       }
     ]
   },
-  rams: {
-    bye: 4,
-    players: [
+  {
+    "city": "St. Louis",
+    "name": "Rams",
+    "bye": 4,
+    "players": [
       {
-        'firstName': 'Rams',
-        'lastName': 'Defense / Special Teams',
-        'position': 'D/ST'
+        "firstName": "Rams",
+        "lastName": "Defense / Special Teams",
+        "position": "D/ST"
       },
       {
-        'firstName': 'Zac',
-        'lastName': 'Stacy',
-        'position': 'RB'
+        "firstName": "Zac",
+        "lastName": "Stacy",
+        "position": "RB"
       }
     ]
   },
-  raiders: {
-    bye: 5,
-    players: [
+  {
+    "city": "Oakland",
+    "name": "Raiders",
+    "bye": 5,
+    "players": [
       {
-        'firstName': 'Raiders',
-        'lastName': 'Defense / Special Teams',
-        'position': 'D/ST'
+        "firstName": "Raiders",
+        "lastName": "Defense / Special Teams",
+        "position": "D/ST"
       }
     ]
   },
-  dolphins: {
-    bye: 5,
-    players: [
+  {
+    "city": "Miami",
+    "name": "Dolphins",
+    "bye": 5,
+    "players": [
       {
-        'firstName': 'Dolphins',
-        'lastName': 'Defense / Special Teams',
-        'position': 'D/ST'
+        "firstName": "Dolphins",
+        "lastName": "Defense / Special Teams",
+        "position": "D/ST"
       }
     ]
   },
-  chiefs: {
-    bye: 6,
-    players: [
+  {
+    "city": "Kansas City",
+    "name": "Chiefs",
+    "bye": 6,
+    "players": [
       {
-        'firstName': 'Chiefs',
-        'lastName': 'Defense / Special Teams',
-        'position': 'D/ST'
+        "firstName": "Chiefs",
+        "lastName": "Defense / Special Teams",
+        "position": "D/ST"
       },
       {
-        'firstName': 'Jamaal',
-        'lastName': 'Charles',
-        'position': 'RB'
+        "firstName": "Jamaal",
+        "lastName": "Charles",
+        "position": "RB"
       }
     ]
   },
-  saints: {
-    bye: 6,
-    players: [
+  {
+    "city": "New Orleans",
+    "name": "Saints",
+    "bye": 6,
+    "players": [
       {
-        'firstName': 'Saints',
-        'lastName': 'Defense / Special Teams',
-        'position': 'D/ST'
+        "firstName": "Saints",
+        "lastName": "Defense / Special Teams",
+        "position": "D/ST"
       },
       {
-        'firstName': 'Jimmy',
-        'lastName': 'Graham',
-        'position': 'TE'
+        "firstName": "Jimmy",
+        "lastName": "Graham",
+        "position": "TE"
       },
       {
-        'firstName': 'Drew',
-        'lastName': 'Brees',
-        'position': 'QB'
+        "firstName": "Drew",
+        "lastName": "Brees",
+        "position": "QB"
       }
     ]
   },
-  eagles: {
-    bye: 7,
-    players: [
+  {
+    "city": "Philadelphia",
+    "name": "Eagles",
+    "bye": 7,
+    "players": [
       {
-        'firstName': 'Eagles',
-        'lastName': 'Defense / Special Teams',
-        'position': 'D/ST'
+        "firstName": "Eagles",
+        "lastName": "Defense / Special Teams",
+        "position": "D/ST"
       },
       {
-        'firstName': 'LeSean',
-        'lastName': 'McCoy',
-        'position': 'RB'
+        "firstName": "LeSean",
+        "lastName": "McCoy",
+        "position": "RB"
       }
     ]
   },
-  buccaneers: {
-    bye: 7,
-    players: [
+  {
+    "city": "Tampa Bay",
+    "name": "Buccaneers",
+    "bye": 7,
+    "players": [
       {
-        'firstName': 'Buccaneers',
-        'lastName': 'Defense / Special Teams',
-        'position': 'D/ST'
+        "firstName": "Buccaneers",
+        "lastName": "Defense / Special Teams",
+        "position": "D/ST"
       },
       {
-        'firstName': 'Doug',
-        'lastName': 'Martin',
-        'position': 'RB'
+        "firstName": "Doug",
+        "lastName": "Martin",
+        "position": "RB"
       }
     ]
   },
-  giants: {
-    bye: 8,
-    players: [
+  {
+    "city": "New York",
+    "name": "Giants",
+    "bye": 8,
+    "players": [
       {
-        'firstName': 'Giants',
-        'lastName': 'Defense / Special Teams',
-        'position': 'D/ST'
+        "firstName": "Giants",
+        "lastName": "Defense / Special Teams",
+        "position": "D/ST"
       },
       {
-        'firstName': 'Victor',
-        'lastName': 'Cruz',
-        'position': 'WR'
+        "firstName": "Victor",
+        "lastName": "Cruz",
+        "position": "WR"
       }
     ]
   },
-  49ers: {
-    bye: 8,
-    players: [
+  {
+    "city": "San Francisco",
+    "name": "49ers",
+    "bye": 8,
+    "players": [
       {
-        'firstName': '49ers',
-        'lastName': 'Defense / Special Teams',
-        'position': 'D/ST'
+        "firstName": "49ers",
+        "lastName": "Defense / Special Teams",
+        "position": "D/ST"
       }
     ]
   },
-  falcons: {
-    bye: 9,
-    players: [
+  {
+    "city": "Atlanta",
+    "name": "Falcons",
+    "bye": 9,
+    "players": [
       {
-        'firstName': 'Falcons',
-        'lastName': 'Defense / Special Teams',
-        'position': 'D/ST'
+        "firstName": "Falcons",
+        "lastName": "Defense / Special Teams",
+        "position": "D/ST"
       },
       {
-        'firstName': 'Julio',
-        'lastName': 'Jones',
-        'position': 'WR'
+        "firstName": "Julio",
+        "lastName": "Jones",
+        "position": "WR"
       }
     ]
   },
-  bills: {
-    bye: 9,
-    players: [
+  {
+    "city": "Buffalo",
+    "name": "Bills",
+    "bye": 9,
+    "players": [
       {
-        'firstName': 'Bills',
-        'lastName': 'Defense / Special Teams',
-        'position': 'D/ST'
+        "firstName": "Bills",
+        "lastName": "Defense / Special Teams",
+        "position": "D/ST"
       },
       {
-        'firstName': 'C.J.',
-        'lastName': 'Spiller',
-        'position': 'RB'
+        "firstName": "C.J.",
+        "lastName": "Spiller",
+        "position": "RB"
       }
     ]
   },
-  bears: {
-    bye: 9,
-    players: [
+  {
+    "city": "Chicago",
+    "name": "Bears",
+    "bye": 9,
+    "players": [
       {
-        'firstName': 'Bears',
-        'lastName': 'Defense / Special Teams',
-        'position': 'D/ST'
+        "firstName": "Bears",
+        "lastName": "Defense / Special Teams",
+        "position": "D/ST"
       },
       {
-        'firstName': 'Matt',
-        'lastName': 'Forte',
-        'position': 'RB'
+        "firstName": "Matt",
+        "lastName": "Forte",
+        "position": "RB"
       },
       {
-        'firstName': 'Brandon',
-        'lastName': 'Marshall',
-        'position': 'WR'
+        "firstName": "Brandon",
+        "lastName": "Marshall",
+        "position": "WR"
       },
       {
-        'firstName': 'Alshon',
-        'lastName': 'Jeffery',
-        'position': 'WR'
+        "firstName": "Alshon",
+        "lastName": "Jeffery",
+        "position": "WR"
       }
     ]
   },
-  lions: {
-    bye: 9,
-    players: [
+  {
+    "city": "Detroit",
+    "name": "Lions",
+    "bye": 9,
+    "players": [
       {
-        'firstName': 'Lions',
-        'lastName': 'Defense / Special Teams',
-        'position': 'D/ST'
+        "firstName": "Lions",
+        "lastName": "Defense / Special Teams",
+        "position": "D/ST"
       },
       {
-        'firstName': 'Calvin',
-        'lastName': 'Johnson',
-        'position': 'WR'
+        "firstName": "Calvin",
+        "lastName": "Johnson",
+        "position": "WR"
       }
     ]
   },
-  packers: {
-    bye: 9,
-    players: [
+  {
+    "city": "Green Bay",
+    "name": "Packers",
+    "bye": 9,
+    "players": [
       {
-        'firstName': 'Packers',
-        'lastName': 'Defense / Special Teams',
-        'position': 'D/ST'
+        "firstName": "Packers",
+        "lastName": "Defense / Special Teams",
+        "position": "D/ST"
       },
       {
-        'firstName': 'Eddie',
-        'lastName': 'Lacy',
-        'position': 'RB'
+        "firstName": "Eddie",
+        "lastName": "Lacy",
+        "position": "RB"
       },
       {
-        'firstName': 'Randall',
-        'lastName': 'Cobb',
-        'position': 'WR'
+        "firstName": "Randall",
+        "lastName": "Cobb",
+        "position": "WR"
       },
       {
-        'firstName': 'Aaron',
-        'lastName': 'Rodgers',
-        'position': 'QB'
+        "firstName": "Aaron",
+        "lastName": "Rodgers",
+        "position": "QB"
       },
       {
-        'firstName': 'Jordy',
-        'lastName': 'Nelson',
-        'position': 'WR'
+        "firstName": "Jordy",
+        "lastName": "Nelson",
+        "position": "WR"
       }
     ]
   },
-  titans: {
-    bye: 9,
-    players: [
+  {
+    "city": "Tennessee",
+    "name": "Titans",
+    "bye": 9,
+    "players": [
       {
-        'firstName': 'Titans',
-        'lastName': 'Defense / Special Teams',
-        'position': 'D/ST'
+        "firstName": "Titans",
+        "lastName": "Defense / Special Teams",
+        "position": "D/ST"
       }
     ]
   },
-  colts: {
-    bye: 10,
-    players: [
+  {
+    "city": "Indianapolis",
+    "name": "Colts",
+    "bye": 10,
+    "players": [
       {
-        'firstName': 'Colts',
-        'lastName': 'Defense / Special Teams',
-        'position': 'D/ST'
+        "firstName": "Colts",
+        "lastName": "Defense / Special Teams",
+        "position": "D/ST"
       }
     ]
   },
-  vikings: {
-    bye: 10,
-    players: [
+  {
+    "city": "Minnesota",
+    "name": "Vikings",
+    "bye": 10,
+    "players": [
       {
-        'firstName': 'Vikings',
-        'lastName': 'Defense / Special Teams',
-        'position': 'D/ST'
+        "firstName": "Vikings",
+        "lastName": "Defense / Special Teams",
+        "position": "D/ST"
       },
       {
-        'firstName': 'Adrian',
-        'lastName': 'Peterson',
-        'position': 'RB'
+        "firstName": "Adrian",
+        "lastName": "Peterson",
+        "position": "RB"
       }
     ]
   },
-  patriots: {
-    bye: 10,
-    players: [
+  {
+    "city": "New England",
+    "name": "Patriots",
+    "bye": 10,
+    "players": [
       {
-        'firstName': 'Patriots',
-        'lastName': 'Defense / Special Teams',
-        'position': 'D/ST'
+        "firstName": "Patriots",
+        "lastName": "Defense / Special Teams",
+        "position": "D/ST"
       }
     ]
   },
-  chargers: {
-    bye: 10,
-    players: [
+  {
+    "city": "San Diego",
+    "name": "Chargers",
+    "bye": 10,
+    "players": [
       {
-        'firstName': 'Chargers',
-        'lastName': 'Defense / Special Teams',
-        'position': 'D/ST'
+        "firstName": "Chargers",
+        "lastName": "Defense / Special Teams",
+        "position": "D/ST"
       },
       {
-        'firstName': 'Keenan',
-        'lastName': 'Allen',
-        'position': 'D/ST'
+        "firstName": "Keenan",
+        "lastName": "Allen",
+        "position": "D/ST"
       },
       {
-        'firstName': 'Rob',
-        'lastName': 'Gronkowski',
-        'position': 'TE'
+        "firstName": "Rob",
+        "lastName": "Gronkowski",
+        "position": "TE"
       }
     ]
   },
-  redskins: {
-    bye: 10,
-    players: [
+  {
+    "city": "Washington",
+    "name": "Redskins",
+    "bye": 10,
+    "players": [
       {
-        'firstName': 'Redskins',
-        'lastName': 'Defense / Special Teams',
-        'position': 'D/ST'
+        "firstName": "Redskins",
+        "lastName": "Defense / Special Teams",
+        "position": "D/ST"
       },
       {
-        'firstName': 'Pierre',
-        'lastName': 'Garcon',
-        'position': 'WR'
+        "firstName": "Pierre",
+        "lastName": "Garcon",
+        "position": "WR"
       }
     ]
   },
-  texans: {
-    bye: 10,
-    players: [
+  {
+    "city": "Houston",
+    "name": "Texans",
+    "bye": 10,
+    "players": [
       {
-        'firstName': 'Texans',
-        'lastName': 'Defense / Special Teams',
-        'position': 'D/ST'
+        "firstName": "Texans",
+        "lastName": "Defense / Special Teams",
+        "position": "D/ST"
       },
       {
-        'firstName': 'Arian',
-        'lastName': 'Foster',
-        'position': 'RB'
+        "firstName": "Arian",
+        "lastName": "Foster",
+        "position": "RB"
       }
     ]
   },
-  cowboys: {
-    bye: 11,
-    players: [
+  {
+    "city": "Dallas",
+    "name": "Cowboys",
+    "bye": 11,
+    "players": [
       {
-        'firstName': 'Cowboys',
-        'lastName': 'Defense / Special Teams',
-        'position': 'D/ST'
+        "firstName": "Cowboys",
+        "lastName": "Defense / Special Teams",
+        "position": "D/ST"
       },
       {
-        'firstName': 'Dez',
-        'lastName': 'Bryant',
-        'position': 'WR'
+        "firstName": "Dez",
+        "lastName": "Bryant",
+        "position": "WR"
       },
       {
-        'firstName': 'Demarco',
-        'lastName': 'Murray',
-        'position': 'RB'
+        "firstName": "Demarco",
+        "lastName": "Murray",
+        "position": "RB"
       }
     ]
   },
-  jets: {
-    bye: 11,
-    players: [
+  {
+    "city": "New York",
+    "name": "Jets",
+    "bye": 11,
+    "players": [
       {
-        'firstName': 'Jets',
-        'lastName': 'Defense / Special Teams',
-        'position': 'D/ST'
+        "firstName": "Jets",
+        "lastName": "Defense / Special Teams",
+        "position": "D/ST"
       }
     ]
   },
-  jaguars: {
-    bye: 11,
-    players: [
+  {
+    "city": "Jacksonville",
+    "name": "Jaguars",
+    "bye": 11,
+    "players": [
       {
-        'firstName': 'Jaguars',
-        'lastName': 'Defense / Special Teams',
-        'position': 'D/ST'
+        "firstName": "Jaguars",
+        "lastName": "Defense / Special Teams",
+        "position": "D/ST"
       }
     ]
   },
-  ravens: {
-    bye: 11,
-    players: [
+  {
+    "city": "Baltimore",
+    "name": "Ravens",
+    "bye": 11,
+    "players": [
       {
-        'firstName': 'Ravens',
-        'lastName': 'Defense / Special Teams',
-        'position': 'D/ST'
+        "firstName": "Ravens",
+        "lastName": "Defense / Special Teams",
+        "position": "D/ST"
       }
     ]
   },
-  steelers: {
-    bye: 4,
-    players: [
+  {
+    "city": "Pittsburgh",
+    "name": "Steelers",
+    "bye": 4,
+    "players": [
       {
-        'firstName': 'Steelers',
-        'lastName': 'Defense / Special Teams',
-        'position': 'D/ST'
+        "firstName": "Steelers",
+        "lastName": "Defense / Special Teams",
+        "position": "D/ST"
       },
       {
-        'firstName': 'Le\'Veon',
-        'lastName': 'Bell',
-        'position': 'RB'
+        "firstName": "Le'Veon",
+        "lastName": "Bell",
+        "position": "RB"
       },
       {
-        'firstName': 'Antonio',
-        'lastName': 'Brown',
-        'position': 'WR'
+        "firstName": "Antonio",
+        "lastName": "Brown",
+        "position": "WR"
       }
     ]
   },
-  panthers: {
-    bye: 4,
-    players: [
+  {
+    "city": "Carolina",
+    "name": "Panthers",
+    "bye": 4,
+    "players": [
       {
-        'firstName': 'Panthers',
-        'lastName': 'Defense / Special Teams',
-        'position': 'D/ST'
+        "firstName": "Panthers",
+        "lastName": "Defense / Special Teams",
+        "position": "D/ST"
       }
     ]
   }
-}
+]

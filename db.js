@@ -21,7 +21,8 @@ var BoardSchema = new Schema({
   serpentine: { type: Boolean, default: true },
   pickTime: { type: Date, default: Date.now },
   teams: [],
-  picks: [PickSchema]
+  picks: [PickSchema],
+  pool: []
 });
 
 BoardSchema.pre('save', function(next) {
