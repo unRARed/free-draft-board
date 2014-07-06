@@ -30,7 +30,10 @@ app.use(lessMiddleware(path.join(__dirname, 'less'), {
 }));
 app.use(express.static(__dirname + '/public'));
 app.use(favicons(__dirname + '/public/img/icons')); 
-app.use(bodyParser());
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+app.use(bodyParser.json())
 
 app.get('/', function(req, res){ 
   res.render('index', {pageTitle: siteTitle}); 
@@ -101,7 +104,7 @@ app.post('/board', function(req, res){
   });
 
   if (req.body.pool_setting === 'football') {
-    fs.readFile('json/americanFootballBase.json', function (err, data) {
+    fs.readFile(__dirname + '/json/americanFootballBase.json', function (err, data) {
       if (err) throw err;
       var footballJson = JSON.parse(data);
 
