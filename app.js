@@ -44,7 +44,6 @@ app.get('/settings', function(req, res){
 
 app.post('/board', function(req, res){
 
-  console.log(req.body);
   var is_serpentine = (req.body.serpentine === 'on');
 
   var teamsArray = [];
@@ -89,8 +88,6 @@ app.post('/board', function(req, res){
 
   }      
 
-  console.log(confirmedPassword);
-
   var board = new Board({
     shortId: shortId.generate(),
     league: req.body.league,
@@ -109,6 +106,7 @@ app.post('/board', function(req, res){
       var footballJson = JSON.parse(data);
 
       var players = [];
+      var idCounter = 0;
 
       for (i=0;i<footballJson.length;i++) {
         var team = footballJson[i].city + " " + footballJson[i].name;
@@ -121,7 +119,9 @@ app.post('/board', function(req, res){
           player.team = team;
           player.position = footballJson[i].players[j].position;
           player.bye = bye;
+          player.id = idCounter + "_" + footballJson[i].name + "_" + footballJson[i].players[j].lastName;
           players.push(player);
+          idCounter++;
         }
 
       }
@@ -157,8 +157,6 @@ app.get('/board/:passedShortId', function(req, res){
 
     var openPicks = [];
 
-    console.log(settings);
-
     //find first empty pick and pass that ID
     for (i=0;i<settings.picks.length;i++) {
       if (settings.picks[i].value === undefined) {
@@ -176,10 +174,10 @@ app.get('/board/:passedShortId', function(req, res){
       return a.pick - b.pick;
     });
 
-    console.log(openPicks);
-
     res.render('board', {
       settings: settings,
+      picks: settings.picks,
+      pool: settings.pool || null,
       openPicks: openPicks,
       pageTitle: prependToTitle("Live Draft Board")
     });
@@ -192,24 +190,47 @@ app.get('/board/:passedShortId', function(req, res){
 
 app.post('/select', function(req, res) {
 
-  Board.findOne({shortId: req.body.shortId}, function(err, settings) {
+  var cleanRequest = {};
+
+  cleanRequest.shortId = req.body.shortId;
+  cleanRequest.pick = parseInt(req.body.pick);
+  cleanRequest.value = req.body.value;
+  cleanRequest.id = req.body.selectionId;
+
+  if (req.body.selection_meta1 !== "") { cleanRequest.meta1 = req.body.selection_meta1; }
+  if (req.body.selection_meta2 !== "") { cleanRequest.meta2 = req.body.selection_meta2; }
+
+  Board.findOne({shortId: cleanRequest.shortId}, function(err, settings) {
     if (!settings) {
       res.send(404, '404 Not Found');
     }
 
-    settings.picks.map(function(err, key, val) {
-      if (val[key].pick === parseInt(req.body.pick)) {
-        val[key].value = req.body.value;
+    for (i=0;i<settings.picks.length;i++) {
+      if (settings.picks[i].pick === cleanRequest.pick) {
+        settings.picks[i].value = cleanRequest.value;
+        settings.picks[i].meta1 = cleanRequest.meta1;
+        settings.picks[i].meta2 = cleanRequest.meta2;
+
       }
-    });
+    }
+
+    // remove selection from server-side data-pool 
+    if (cleanRequest.id !== "") {
+
+      settings.pool = settings.pool.filter(function (selection) {
+        return selection.id !== cleanRequest.id;
+      });
+
+    }
+
+    // this should be conditional, if from a football pool...
+    cleanRequest.meta2 = "Bye: " + cleanRequest.meta2;
 
     settings.save();
 
-    console.log(settings);
-    res.send(req.body.value);
+    res.send(cleanRequest);
   });
 
-  console.log(req.body);
 });
 
 app.post('/picktime', function(req, res) {

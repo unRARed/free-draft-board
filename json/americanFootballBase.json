@@ -6,7 +6,7 @@
     "players": [
       {
         "firstName": "Cardinals",
-        "lastName": "Defense / Special Teams",
+        "lastName": "Defense/ST",
         "position": "D/ST"
       },
       {
@@ -23,7 +23,7 @@
     "players": [
       {
         "firstName": "Bengals",
-        "lastName": "Defense / Special Teams",
+        "lastName": "Defense/ST",
         "position": "D/ST"
       },
       {
@@ -45,7 +45,7 @@
     "players": [
       {
         "firstName": "Browns",
-        "lastName": "Defense / Special Teams",
+        "lastName": "Defense/ST",
         "position": "D/ST"
       }
     ]
@@ -57,7 +57,7 @@
     "players": [
       {
         "firstName": "Broncos",
-        "lastName": "Defense / Special Teams",
+        "lastName": "Defense/ST",
         "position": "D/ST"
       },
       {
@@ -89,7 +89,7 @@
     "players": [
       {
         "firstName": "Seahawks",
-        "lastName": "Defense / Special Teams",
+        "lastName": "Defense/ST",
         "position": "D/ST"
       },
       {
@@ -106,7 +106,7 @@
     "players": [
       {
         "firstName": "Rams",
-        "lastName": "Defense / Special Teams",
+        "lastName": "Defense/ST",
         "position": "D/ST"
       },
       {
@@ -123,7 +123,7 @@
     "players": [
       {
         "firstName": "Raiders",
-        "lastName": "Defense / Special Teams",
+        "lastName": "Defense/ST",
         "position": "D/ST"
       }
     ]
@@ -135,7 +135,7 @@
     "players": [
       {
         "firstName": "Dolphins",
-        "lastName": "Defense / Special Teams",
+        "lastName": "Defense/ST",
         "position": "D/ST"
       }
     ]
@@ -147,7 +147,7 @@
     "players": [
       {
         "firstName": "Chiefs",
-        "lastName": "Defense / Special Teams",
+        "lastName": "Defense/ST",
         "position": "D/ST"
       },
       {
@@ -164,7 +164,7 @@
     "players": [
       {
         "firstName": "Saints",
-        "lastName": "Defense / Special Teams",
+        "lastName": "Defense/ST",
         "position": "D/ST"
       },
       {
@@ -186,7 +186,7 @@
     "players": [
       {
         "firstName": "Eagles",
-        "lastName": "Defense / Special Teams",
+        "lastName": "Defense/ST",
         "position": "D/ST"
       },
       {
@@ -203,7 +203,7 @@
     "players": [
       {
         "firstName": "Buccaneers",
-        "lastName": "Defense / Special Teams",
+        "lastName": "Defense/ST",
         "position": "D/ST"
       },
       {
@@ -220,7 +220,7 @@
     "players": [
       {
         "firstName": "Giants",
-        "lastName": "Defense / Special Teams",
+        "lastName": "Defense/ST",
         "position": "D/ST"
       },
       {
@@ -237,7 +237,7 @@
     "players": [
       {
         "firstName": "49ers",
-        "lastName": "Defense / Special Teams",
+        "lastName": "Defense/ST",
         "position": "D/ST"
       }
     ]
@@ -249,7 +249,7 @@
     "players": [
       {
         "firstName": "Falcons",
-        "lastName": "Defense / Special Teams",
+        "lastName": "Defense/ST",
         "position": "D/ST"
       },
       {
@@ -266,7 +266,7 @@
     "players": [
       {
         "firstName": "Bills",
-        "lastName": "Defense / Special Teams",
+        "lastName": "Defense/ST",
         "position": "D/ST"
       },
       {
@@ -283,7 +283,7 @@
     "players": [
       {
         "firstName": "Bears",
-        "lastName": "Defense / Special Teams",
+        "lastName": "Defense/ST",
         "position": "D/ST"
       },
       {
@@ -310,7 +310,7 @@
     "players": [
       {
         "firstName": "Lions",
-        "lastName": "Defense / Special Teams",
+        "lastName": "Defense/ST",
         "position": "D/ST"
       },
       {
@@ -327,7 +327,7 @@
     "players": [
       {
         "firstName": "Packers",
-        "lastName": "Defense / Special Teams",
+        "lastName": "Defense/ST",
         "position": "D/ST"
       },
       {
@@ -359,7 +359,7 @@
     "players": [
       {
         "firstName": "Titans",
-        "lastName": "Defense / Special Teams",
+        "lastName": "Defense/ST",
         "position": "D/ST"
       }
     ]
@@ -371,7 +371,7 @@
     "players": [
       {
         "firstName": "Colts",
-        "lastName": "Defense / Special Teams",
+        "lastName": "Defense/ST",
         "position": "D/ST"
       }
     ]
@@ -383,7 +383,7 @@
     "players": [
       {
         "firstName": "Vikings",
-        "lastName": "Defense / Special Teams",
+        "lastName": "Defense/ST",
         "position": "D/ST"
       },
       {
@@ -400,7 +400,7 @@
     "players": [
       {
         "firstName": "Patriots",
-        "lastName": "Defense / Special Teams",
+        "lastName": "Defense/ST",
         "position": "D/ST"
       }
     ]
@@ -412,7 +412,7 @@
     "players": [
       {
         "firstName": "Chargers",
-        "lastName": "Defense / Special Teams",
+        "lastName": "Defense/ST",
         "position": "D/ST"
       },
       {
@@ -434,7 +434,7 @@
     "players": [
       {
         "firstName": "Redskins",
-        "lastName": "Defense / Special Teams",
+        "lastName": "Defense/ST",
         "position": "D/ST"
       },
       {
@@ -451,7 +451,7 @@
     "players": [
       {
         "firstName": "Texans",
-        "lastName": "Defense / Special Teams",
+        "lastName": "Defense/ST",
         "position": "D/ST"
       },
       {
@@ -468,7 +468,7 @@
     "players": [
       {
         "firstName": "Cowboys",
-        "lastName": "Defense / Special Teams",
+        "lastName": "Defense/ST",
         "position": "D/ST"
       },
       {
@@ -490,7 +490,7 @@
     "players": [
       {
         "firstName": "Jets",
-        "lastName": "Defense / Special Teams",
+        "lastName": "Defense/ST",
         "position": "D/ST"
       }
     ]
@@ -502,7 +502,7 @@
     "players": [
       {
         "firstName": "Jaguars",
-        "lastName": "Defense / Special Teams",
+        "lastName": "Defense/ST",
         "position": "D/ST"
       }
     ]
@@ -514,7 +514,7 @@
     "players": [
       {
         "firstName": "Ravens",
-        "lastName": "Defense / Special Teams",
+        "lastName": "Defense/ST",
         "position": "D/ST"
       }
     ]
@@ -526,7 +526,7 @@
     "players": [
       {
         "firstName": "Steelers",
-        "lastName": "Defense / Special Teams",
+        "lastName": "Defense/ST",
         "position": "D/ST"
       },
       {
@@ -548,7 +548,7 @@
     "players": [
       {
         "firstName": "Panthers",
-        "lastName": "Defense / Special Teams",
+        "lastName": "Defense/ST",
         "position": "D/ST"
       }
     ]

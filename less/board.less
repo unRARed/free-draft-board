@@ -16,7 +16,6 @@
       font-weight: bold;
       font-size: 40px;
       margin-right: 10px;
-      padding-top: 4px;
     }
 
     .start-draft,
@@ -146,6 +145,16 @@
         .v-center;
       }
 
+      .selection-value {
+        cursor: pointer;
+        padding: 2px 6px;
+        border-radius: 4px;
+      }
+
+      .selection-value:hover {
+        background-color: @tertiary;
+      }
+
       h2,
       h3,
       h4,
@@ -182,16 +191,19 @@
         position: relative;
         text-align: center;
 
-      .pick-team { font-size: 18px; margin-bottom: 4px; }
+      .pick-team { font-size: 14px; margin-bottom: 4px; }
       .pick-value { 
         padding: 4px; 
-        font-size: 26px; 
+        font-size: 16px; 
         font-weight: bold; 
         margin-bottom: 4px;
-        background-color: @tertiary-dark;
         display: inline-block;
         padding: 4px 8px;
         border-radius: 4px;
+      }
+
+      .pick-value.picked {
+        background-color: @tertiary-dark;
       }
 
       .pick-meta1,

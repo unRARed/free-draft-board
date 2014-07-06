@@ -1,15 +1,20 @@
 doctype html
-html(lang="en")
+html(lang="en" ng-app="draftApp")
   head
     meta(name="viewport", content="width=device-width, initial-scale=1")
     link(rel="stylesheet", type="text/css", href="/css/main.css")
     link(href='http://fonts.googleapis.com/css?family=Pompiere', rel='stylesheet', type='text/css')
     link(href='http://fonts.googleapis.com/css?family=Rock+Salt', rel='stylesheet' type='text/css')
+    link(href='http://fonts.googleapis.com/css?family=Alegreya+Sans+SC:100,400', rel='stylesheet', type='text/css')
     script(src="http://code.jquery.com/jquery-1.11.0.min.js")
     script(src="/js/plugins/jlivetime-0.0.13.min.js")
+    script(src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.min.js")
     script(type='text/javascript').
       var countDown = !{((settings.minutes * 60) + settings.seconds) * 1000}
       var openPicks = !{JSON.stringify(openPicks)}
+    if pool
+      script(type='text/javascript').
+        var pool = !{JSON.stringify(pool)}
     script(src="/js/board.js")
     title= pageTitle
   body
@@ -38,18 +43,25 @@ html(lang="en")
           div(id="#{teamName}", class="team")= teamName
       include partials/board/rounds
       #selection-blanket.selection-blanket
-      #selection.selection
+      #selection.selection(ng-controller="SelectionController")
         .selection-content
           h3.your-pick Enter selection for
           h2#team_id.team-id
           form#selection_form(action="#", method="POST")
-            input#entered-value.text-input.tertiary.player-input(type="text", name="value")
+            input#entered-value.text-input.tertiary.player-input(type="text", name="value", ng-model="searchText", value="searchText" required)
             input#full_pick_id(type="hidden", name="pick")
             input#short_id(type="hidden", name="shortId")
             input#team_name(type="hidden", name="teamName")
-            input.button.tertiary.pick-submit(type="submit", value="Go")
+            input#selection_id(type="hidden", name="selectionId")
+            input#selection_meta1(type="hidden", name="selection_meta1")
+            input#selection_meta2(type="hidden", name="selection_meta2")
+            input.button.tertiary.pick-submit(type="submit", value="Go", ng-click="discardSelection()")
+          ul.available
+            li(ng-repeat="selection in selections | filter:searchText | limitTo:resultCap | orderBy:'lastName'") 
+              p.selection-value(ng-click="fillInput(selection)") {{ selection.lastName }}, {{ selection.firstName }} 
           .pick-indicator
             h3.round-id Round:&nbsp;
               span#round_id
               |  Pick:&nbsp;
               span#pick_id
+    script(src="/js/bindings.js")

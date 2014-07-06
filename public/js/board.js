@@ -87,7 +87,7 @@ $(document).ready(function() {
         $(".league, .round").css({width: boardWidth + "px"});
         $(".pick").css({width: (unitWidth - pixelFraction) + "px"});
 
-        var maintainedAspect = $(".pick").first().width() * 0.6;
+        var maintainedAspect = $(".pick").first().width() * 0.8;
 
         $(".pick").css({height: maintainedAspect});
         $(".team").css({width: (unitWidth - pixelFraction) + "px"});
@@ -237,15 +237,25 @@ $(document).ready(function() {
     boardInstance.nextPick('reverse');
   });
 
+  // $(".selection-value").click(function () {
+  //   $("#entered-value").val($(this).text());
+  // });
+
   $("#selection_form").submit(function(evt) {
     var formData = $(this).serialize();
     evt.preventDefault();
     
     $.post( "/select", formData, function(data) {
-      $("#" + $("#full_pick_id").val()).append( data );
-      $( ".result" ).html( data );
-      $("#pick-" + $("#full_pick_id").val() + " .pick-value").html(data);
+      console.log(data);
+      $pick = $("#pick-" + $("#full_pick_id").val());
+      console.log($pick);
+      $pick.find(".pick-value").addClass('picked').html(data.value);
+      $pick.find(".pick-meta1").html(data.meta1);
+      $pick.find(".pick-meta2").html(data.meta2);
       $("#entered-value").val("");
+      $("#selection_id").val("");
+      $("#selection_meta1").val("");
+      $("#selection_meta2").val("");
       $("#selection, #selection-blanket").hide();
       boardInstance.nextPick('forward');
       $("#control-panel").show();

@@ -1,10 +1,16 @@
 .pick(data-team="#{teamName}", id="pick-#{pickId}")
   each key, val in settings.picks
-    if (settings.picks[val].pick === pickId && settings.picks[val].value !== '')
+    if (picks[val].pick === pickId)
       .pick-data
-        p.pick-team Some team
-        p.pick-value= settings.picks[val].value
+        p.pick-team= picks[val].team
+        if picks[val].value
+          p.pick-value.picked= picks[val].value
+        else
+          p.pick-value
         .pick-meta
-          p.pick-meta1 QB
-          p.pick-meta2 BYE: 8
+          p.pick-meta1= picks[val].meta1
+          p.pick-meta2
+            if picks[val].meta2
+              span Bye: 
+            span= picks[val].meta2
   span.pick-count #{((i-1) * settings.teams.length) + j}
