@@ -10,17 +10,36 @@
     display: none;
   }
 
-  .setting_group {
+  .setting-group {
     margin-top: 20px;
   }
 
-  .team-submission {
-    display: block;
+  .text-input {
+    width: 100%;
     margin-top: 10px;
   }
   .team-submission:first-child,
-  .setting_group:first-child {
+  .setting-group:first-child {
     margin-top: 0;
   }
 
+  .text-input {
+    margin-bottom: 10px;
+  }
+
+}
+
+@media only screen and (max-width : 650px) {
+  #serpentine-img {
+    display: none;
+  }
+  .half.padded {
+    padding: 0;
+  }
+  .group1 {
+    border-radius: 6px 6px 0 0;
+  }
+  .group2 {
+    border-radius: 0 0 6px 6px;
+  }
 }

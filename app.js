@@ -1,6 +1,5 @@
 var express = require('express');
 var path = require('path');
-var fs = require('fs');
 var lessMiddleware = require('less-middleware');
 var shortId = require('shortid');
 var bodyParser = require('body-parser')

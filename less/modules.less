@@ -1,0 +1,52 @@
+.module {
+  margin-top: 40px;
+}
+
+.half {
+  float: left;
+  width: 49%;
+  margin-left: 2%;
+}
+
+.half:first-child {
+  margin-left: 0;
+}
+
+.padded {
+  padding: 1% 4%;
+}
+
+.rounded {
+  border-radius: 6px;
+}
+
+.fancy-img {
+  box-shadow: 0px 1px 8px 4px @primary-dark;
+  margin-bottom: 10px;
+}
+
+.whisper {
+  font-size: 0.9em;
+  font-style: italic;
+}
+
+// color modules
+
+.primary-bg { background-color: @primary; }
+.secondary-bg { background-color: @secondary; }
+.tertiary-bg { background-color: @tertiary; }
+
+.primary-fg { color: @primary; }
+.secondary-fg { color: @secondary; }
+.tertiary-fg { color: @tertiary; }
+.black-true-fg { color: @black-true; }
+.black-fg { color: @black; }
+.white-fg { color: @white; }
+
+@media only screen and (max-width : 650px) {
+  .half {
+    float: none;
+    margin-left: 0;
+    width: 100%;
+  }
+}

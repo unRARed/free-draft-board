@@ -21,6 +21,8 @@ $(document).ready(function() {
 
     if ($(this).val() !== "") {
 
+      $("#teams-required").hide();
+
       $("#team_names").show();
 
       if (teams_showing < $(this).val()) {

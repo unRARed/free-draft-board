@@ -8,7 +8,6 @@ html(lang="en")
     title= pageTitle
     block head
   body
-    .container
+    .container.padded
       block content
-      .footer
-        p.copyright &copy; 2014 Bhamdev.
+      include partials/footer
