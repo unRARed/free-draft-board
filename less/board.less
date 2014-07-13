@@ -3,6 +3,7 @@
   margin: 0 auto;
   position: relative;
   background-color: @black;
+  font-size: 14px;
 
   .control-panel {
     position: fixed;
@@ -15,14 +16,13 @@
 
     .count-down {
       font-weight: bold;
-      font-size: 40px;
+      font-size: 300%;
       margin-right: 10px;
     }
 
     .start-draft,
     .resume-draft {
       background-color: @tertiary-dark;
-      font-size: 20px;
     }
 
     .start-draft:hover,
@@ -43,7 +43,6 @@
 
     .pause-draft {
       background-color: @black;
-      font-size: 20px;
     }
 
     .pause-draft:hover {
@@ -61,10 +60,9 @@
       padding: 0 2%;
       float: left;
       width: 63%;
-      font-size: 14px;
 
       .league-name {
-        font-size: 36px;
+        font-size: 250%;
         margin-bottom: 10px;
       }
 
@@ -121,16 +119,17 @@
       }
 
       .your-pick {
-        font-size: 30px;
+        font-size: 200%;
         margin-bottom: 10px;
       }
 
       .team-id {
-        font-size: 36px;
+        font-size: 250%;
+        font-weight: bold;
       }
 
       .round-id {
-        font-size: 24px;
+        font-size: 150%;
         margin-bottom: 0;
       }
 
@@ -192,8 +191,8 @@
       .pick-data {
         text-align: center;
 
-      .pick-team { 
-        font-size: 14px;
+      .pick-team {
+        font-size: 100%; 
         position: absolute;
         bottom: 5%;
         left: 5%;
@@ -201,7 +200,7 @@
       
       .pick-value1 { 
         padding: 4px; 
-        font-size: 16px; 
+        font-size: 120%; 
         font-weight: bold; 
         margin-bottom: 4px;
         display: inline-block;
@@ -211,12 +210,22 @@
 
       .pick-value1.picked {
         margin: 6px 0;
+        font-size: 140%;
         background-color: @white;
         color: @black;
       }
 
+      .pick-value2 {
+        font-size: 120%;
+      }
+
+      .pick-meta1 {
+        font-weight: bold;
+      }
+
       .pick-meta1,
       .pick-meta2 {
+        font-size: 100%;
         padding: 0 8px;
         display: inline-block;
         vertical-align: middle;
@@ -273,7 +282,7 @@
     .team {
       background: @secondary;
       color: @white;
-      font-size: 18px;
+      font-size: 130%;
       padding: 10px 0;
       text-align: center;
       display: inline-block;
