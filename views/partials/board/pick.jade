@@ -19,10 +19,14 @@ each key, val in settings.picks
           - pickColor += ''
     div(data-team="#{teamName}", id="pick-#{pickId}" class="pick#{pickColor}")
       .pick-data
-        if picks[val].value
-          p.pick-value.picked= picks[val].value
+        if picks[val].value2
+          p.pick-value2= picks[val].value2
         else
-          p.pick-value
+          p.pick-value2
+        if picks[val].value1
+          p.pick-value1.picked= picks[val].value1
+        else
+          p.pick-value1
         .pick-meta
           p.pick-meta1= picks[val].meta1
           p.pick-meta2

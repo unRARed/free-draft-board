@@ -246,13 +246,30 @@ $(document).ready(function() {
     evt.preventDefault();
     
     $.post( "/select", formData, function(data) {
-      console.log(data);
+      var pickColor = '';
       $pick = $("#pick-" + $("#full_pick_id").val());
-      console.log($pick);
-      $pick.find(".pick-value").addClass('picked').html(data.value);
+      if (poolType === 'football') {
+        if (data.meta1 === 'QB') {
+          $pick.addClass('meta-gold');
+        } else if (data.meta1 === 'RB') {
+          $pick.addClass('meta-green');
+        } else if (data.meta1 === 'WR') {
+          $pick.addClass('meta-blue');
+        } else if (data.meta1 === 'TE') {
+          $pick.addClass('meta-pink');
+        } else if (data.meta1 === 'D/ST') {
+          $pick.addClass('meta-brown');
+        } else if (data.meta1 === 'K') {
+          $pick.addClass('meta-magenta');
+        }
+      }
+      $pick.find(".pick-value1").addClass('picked').html(data.value1);
+      if (data.value2) {
+        $pick.find(".pick-value2").html(data.value2);
+      }
       $pick.find(".pick-meta1").html(data.meta1);
       $pick.find(".pick-meta2").html(data.meta2);
-      $("#entered-value").val("");
+      $("#displayed-value").val("");
       $("#selection_id").val("");
       $("#selection_meta1").val("");
       $("#selection_meta2").val("");
@@ -292,7 +309,7 @@ $(document).ready(function() {
       return;
     } else {
       $("#selection, #selection-blanket").hide();
-      $("#entered-value").val("");
+      $("#displayed-value").val("");
       $("#control-panel").show();
     }
   });

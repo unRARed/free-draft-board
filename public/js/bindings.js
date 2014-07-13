@@ -5,7 +5,9 @@ app.controller('SelectionController', function ($scope) {
   $scope.resultCap = 5;
   $scope.searchText = "";
   $scope.fillInput = (function (evt) {
-    $("#entered-value").val(evt.firstName + " " + evt.lastName);
+    $("#displayed-value").val(evt.firstName + " " + evt.lastName);
+    $("#selection-value1").val(evt.lastName);
+    $("#selection-value2").val(evt.firstName);
     $("#selection_id").val(evt.id);
     $("#selection_meta1").val(evt.position);
     $("#selection_meta2").val(evt.bye);

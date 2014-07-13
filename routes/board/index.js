@@ -18,15 +18,17 @@ app.get('/board/:passedShortId', function(req, res){
 
     //find first empty pick and pass that ID
     for (i=0;i<settings.picks.length;i++) {
-      if (settings.picks[i].value === undefined) {
+      if (settings.picks[i].value1 === undefined) {
         var openPick = {};
         openPick.pick = settings.picks[i].pick;
         openPick.team = settings.picks[i].team;
         openPicks.push(openPick);
       }
-      if (settings.picks[i].pick === parseInt(req.body.pick)) {
-        settings.picks[i].value = req.body.value;
-      }
+      // TODO: what is this? should not be setting a val on a Get request!
+
+      // if (settings.picks[i].pick === parseInt(req.body.pick)) {
+      //   settings.picks[i].value = req.body.value;
+      // }
     }
 
     openPicks.sort(function(a,b) {
@@ -156,10 +158,22 @@ app.post('/select', function(req, res) {
 
   var cleanRequest = {};
 
+  console.log(req.body);
+
   cleanRequest.shortId = req.body.shortId;
   cleanRequest.pick = parseInt(req.body.pick);
-  cleanRequest.value = req.body.value;
-  cleanRequest.id = req.body.selectionId;
+
+  if (req.body['selection-value1'] !== "") {
+    cleanRequest.value1 = req.body['selection-value1'];
+
+    if (req.body['selection-value2'] !== "") {
+      cleanRequest.value2 = req.body['selection-value2'];
+    }
+
+  } else {
+    cleanRequest.value1 = req.body.displayed-value;
+  }
+  cleanRequest.id = req.body.selectionId || null;
 
   if (req.body.selection_meta1 !== "") { cleanRequest.meta1 = req.body.selection_meta1; }
   if (req.body.selection_meta2 !== "") { cleanRequest.meta2 = req.body.selection_meta2; }
@@ -171,7 +185,11 @@ app.post('/select', function(req, res) {
 
     for (i=0;i<settings.picks.length;i++) {
       if (settings.picks[i].pick === cleanRequest.pick) {
-        settings.picks[i].value = cleanRequest.value;
+        settings.picks[i].value1 = cleanRequest.value1;
+
+        if (cleanRequest.value2) {
+          settings.picks[i].value2 = cleanRequest.value2;
+        }
         settings.picks[i].meta1 = cleanRequest.meta1;
         settings.picks[i].meta2 = cleanRequest.meta2;
 
@@ -179,7 +197,7 @@ app.post('/select', function(req, res) {
     }
 
     // remove selection from server-side data-pool 
-    if (cleanRequest.id !== "") {
+    if (cleanRequest.id) {
 
       settings.pool = settings.pool.filter(function (selection) {
         return selection.id !== cleanRequest.id;
@@ -187,8 +205,9 @@ app.post('/select', function(req, res) {
 
     }
 
-    // this should be conditional, if from a football pool...
-    cleanRequest.meta2 = "Bye: " + cleanRequest.meta2;
+    if (settings.poolType === 'football') {
+      cleanRequest.meta2 = "Bye: " + cleanRequest.meta2;
+    }
 
     settings.save();
 
