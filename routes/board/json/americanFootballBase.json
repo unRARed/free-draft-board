@@ -5,8 +5,8 @@
     "bye": 4,
     "players": [
       {
-        "firstName": "Cardinals",
-        "lastName": "Defense/ST",
+        "firstName": "Arizona",
+        "lastName": "Cardinals",
         "position": "D/ST"
       },
       {
@@ -22,8 +22,8 @@
     "bye": 4,
     "players": [
       {
-        "firstName": "Bengals",
-        "lastName": "Defense/ST",
+        "firstName": "Cincinatti",
+        "lastName": "Bengals",
         "position": "D/ST"
       },
       {
@@ -44,8 +44,8 @@
     "bye": 4,
     "players": [
       {
-        "firstName": "Browns",
-        "lastName": "Defense/ST",
+        "firstName": "Cleveland",
+        "lastName": "Browns",
         "position": "D/ST"
       }
     ]
@@ -56,8 +56,8 @@
     "bye": 4,
     "players": [
       {
-        "firstName": "Broncos",
-        "lastName": "Defense/ST",
+        "firstName": "Denver",
+        "lastName": "Broncos",
         "position": "D/ST"
       },
       {
@@ -88,8 +88,8 @@
     "bye": 4,
     "players": [
       {
-        "firstName": "Seahawks",
-        "lastName": "Defense/ST",
+        "firstName": "Seattle",
+        "lastName": "Seahawks",
         "position": "D/ST"
       },
       {
@@ -105,8 +105,8 @@
     "bye": 4,
     "players": [
       {
-        "firstName": "Rams",
-        "lastName": "Defense/ST",
+        "firstName": "St. Louis",
+        "lastName": "Rams",
         "position": "D/ST"
       },
       {
@@ -122,8 +122,8 @@
     "bye": 5,
     "players": [
       {
-        "firstName": "Raiders",
-        "lastName": "Defense/ST",
+        "firstName": "Oakland",
+        "lastName": "Raiders",
         "position": "D/ST"
       }
     ]
@@ -134,8 +134,8 @@
     "bye": 5,
     "players": [
       {
-        "firstName": "Dolphins",
-        "lastName": "Defense/ST",
+        "firstName": "Miami",
+        "lastName": "Dolphins",
         "position": "D/ST"
       }
     ]
@@ -146,8 +146,8 @@
     "bye": 6,
     "players": [
       {
-        "firstName": "Chiefs",
-        "lastName": "Defense/ST",
+        "firstName": "Kansas City",
+        "lastName": "Chiefs",
         "position": "D/ST"
       },
       {
@@ -163,8 +163,8 @@
     "bye": 6,
     "players": [
       {
-        "firstName": "Saints",
-        "lastName": "Defense/ST",
+        "firstName": "New Orleans",
+        "lastName": "Saints",
         "position": "D/ST"
       },
       {
@@ -185,8 +185,8 @@
     "bye": 7,
     "players": [
       {
-        "firstName": "Eagles",
-        "lastName": "Defense/ST",
+        "firstName": "Philadelphia",
+        "lastName": "Eagles",
         "position": "D/ST"
       },
       {
@@ -202,8 +202,8 @@
     "bye": 7,
     "players": [
       {
-        "firstName": "Buccaneers",
-        "lastName": "Defense/ST",
+        "firstName": "Tampa Bay",
+        "lastName": "Buccaneers",
         "position": "D/ST"
       },
       {
@@ -219,8 +219,8 @@
     "bye": 8,
     "players": [
       {
-        "firstName": "Giants",
-        "lastName": "Defense/ST",
+        "firstName": "New York",
+        "lastName": "Giants",
         "position": "D/ST"
       },
       {
@@ -236,8 +236,8 @@
     "bye": 8,
     "players": [
       {
-        "firstName": "49ers",
-        "lastName": "Defense/ST",
+        "firstName": "San Francisco",
+        "lastName": "49ers",
         "position": "D/ST"
       }
     ]
@@ -248,8 +248,8 @@
     "bye": 9,
     "players": [
       {
-        "firstName": "Falcons",
-        "lastName": "Defense/ST",
+        "firstName": "Atlanta",
+        "lastName": "Falcons",
         "position": "D/ST"
       },
       {
@@ -265,8 +265,8 @@
     "bye": 9,
     "players": [
       {
-        "firstName": "Bills",
-        "lastName": "Defense/ST",
+        "firstName": "Buffalo",
+        "lastName": "Bills",
         "position": "D/ST"
       },
       {
@@ -282,8 +282,8 @@
     "bye": 9,
     "players": [
       {
-        "firstName": "Bears",
-        "lastName": "Defense/ST",
+        "firstName": "Chicago",
+        "lastName": "Bears",
         "position": "D/ST"
       },
       {
@@ -309,8 +309,8 @@
     "bye": 9,
     "players": [
       {
-        "firstName": "Lions",
-        "lastName": "Defense/ST",
+        "firstName": "Detroit",
+        "lastName": "Lions",
         "position": "D/ST"
       },
       {
@@ -326,8 +326,8 @@
     "bye": 9,
     "players": [
       {
-        "firstName": "Packers",
-        "lastName": "Defense/ST",
+        "firstName": "Green Bay",
+        "lastName": "Packers",
         "position": "D/ST"
       },
       {
@@ -358,8 +358,8 @@
     "bye": 9,
     "players": [
       {
-        "firstName": "Titans",
-        "lastName": "Defense/ST",
+        "firstName": "Tennessee",
+        "lastName": "Titans",
         "position": "D/ST"
       }
     ]
@@ -370,8 +370,8 @@
     "bye": 10,
     "players": [
       {
-        "firstName": "Colts",
-        "lastName": "Defense/ST",
+        "firstName": "Indianapolis",
+        "lastName": "Colts",
         "position": "D/ST"
       }
     ]
@@ -382,8 +382,8 @@
     "bye": 10,
     "players": [
       {
-        "firstName": "Vikings",
-        "lastName": "Defense/ST",
+        "firstName": "Minnesota",
+        "lastName": "Vikings",
         "position": "D/ST"
       },
       {
@@ -399,8 +399,8 @@
     "bye": 10,
     "players": [
       {
-        "firstName": "Patriots",
-        "lastName": "Defense/ST",
+        "firstName": "New England",
+        "lastName": "Patriots",
         "position": "D/ST"
       }
     ]
@@ -411,8 +411,8 @@
     "bye": 10,
     "players": [
       {
-        "firstName": "Chargers",
-        "lastName": "Defense/ST",
+        "firstName": "San Diego",
+        "lastName": "Chargers",
         "position": "D/ST"
       },
       {
@@ -433,8 +433,8 @@
     "bye": 10,
     "players": [
       {
-        "firstName": "Redskins",
-        "lastName": "Defense/ST",
+        "firstName": "Washington",
+        "lastName": "Redskins",
         "position": "D/ST"
       },
       {
@@ -450,8 +450,8 @@
     "bye": 10,
     "players": [
       {
-        "firstName": "Texans",
-        "lastName": "Defense/ST",
+        "firstName": "Houston",
+        "lastName": "Texans",
         "position": "D/ST"
       },
       {
@@ -467,8 +467,8 @@
     "bye": 11,
     "players": [
       {
-        "firstName": "Cowboys",
-        "lastName": "Defense/ST",
+        "firstName": "Dallas",
+        "lastName": "Cowboys",
         "position": "D/ST"
       },
       {
@@ -489,8 +489,8 @@
     "bye": 11,
     "players": [
       {
-        "firstName": "Jets",
-        "lastName": "Defense/ST",
+        "firstName": "New York",
+        "lastName": "Jets",
         "position": "D/ST"
       }
     ]
@@ -501,8 +501,8 @@
     "bye": 11,
     "players": [
       {
-        "firstName": "Jaguars",
-        "lastName": "Defense/ST",
+        "firstName": "Jacksonville",
+        "lastName": "Jaguars",
         "position": "D/ST"
       }
     ]
@@ -513,8 +513,8 @@
     "bye": 11,
     "players": [
       {
-        "firstName": "Ravens",
-        "lastName": "Defense/ST",
+        "firstName": "Baltimore",
+        "lastName": "Ravens",
         "position": "D/ST"
       }
     ]
@@ -525,8 +525,8 @@
     "bye": 4,
     "players": [
       {
-        "firstName": "Steelers",
-        "lastName": "Defense/ST",
+        "firstName": "Pittsburgh",
+        "lastName": "Steelers",
         "position": "D/ST"
       },
       {
@@ -547,8 +547,8 @@
     "bye": 4,
     "players": [
       {
-        "firstName": "Panthers",
-        "lastName": "Defense/ST",
+        "firstName": "Carolina",
+        "lastName": "Panthers",
         "position": "D/ST"
       }
     ]
