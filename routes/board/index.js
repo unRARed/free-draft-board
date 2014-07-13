@@ -171,7 +171,7 @@ app.post('/select', function(req, res) {
     }
 
   } else {
-    cleanRequest.value1 = req.body.displayed-value;
+    cleanRequest.value1 = req.body['displayed-value'];
   }
   cleanRequest.id = req.body.selectionId || null;
 

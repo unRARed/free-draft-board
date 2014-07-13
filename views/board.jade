@@ -49,7 +49,7 @@ html(lang="en" ng-app="draftApp")
           h3.your-pick Enter selection for
           h2#team_id.team-id
           form#selection_form(action="#", method="POST")
-            input#displayed-value.text-input.tertiary.player-input(type="text", name="value", ng-model="searchText", value="searchText" required)
+            input#displayed-value.text-input.tertiary.player-input(type="text", name="displayed-value", ng-model="searchText", value="searchText" required)
             input#full_pick_id(type="hidden", name="pick")
             input#short_id(type="hidden", name="shortId")
             input#team_name(type="hidden", name="teamName")
