@@ -33,9 +33,12 @@ app.get('/board/:passedShortId', function(req, res){
       return a.pick - b.pick;
     });
 
+    //console.log(settings);
+
     res.render('board', {
       settings: settings,
       picks: settings.picks,
+      poolType: settings.poolType || null,
       pool: settings.pool || null,
       openPicks: openPicks,
       pageTitle: shared.prependTitle("Live Draft Board")
@@ -47,11 +50,10 @@ app.get('/board/:passedShortId', function(req, res){
 app.post('/board', function(req, res){
 
   var is_serpentine = (req.body.serpentine === 'on');
-
   var teamsArray = [];
   var teamsPicksArray = [];
-
   var confirmedPassword = null;
+  var poolType;
 
   if (req.body.password_value === req.body.pass_confirm_value) {
     confirmedPassword = req.body.password_value;
@@ -129,6 +131,7 @@ app.post('/board', function(req, res){
       }
 
       board.pool = players;
+      board.poolType = 'football';
 
       board.save(function(err, board) {
 

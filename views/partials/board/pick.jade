@@ -1,8 +1,24 @@
-.pick(data-team="#{teamName}", id="pick-#{pickId}")
-  each key, val in settings.picks
-    if (picks[val].pick === pickId)
+each key, val in settings.picks
+  if (picks[val].pick === pickId)
+    - var pickColor = ''
+    if poolType === 'football'
+      case picks[val].meta1
+        when 'QB'
+          - pickColor += ' meta-gold'
+        when 'RB'
+          - pickColor += ' meta-green'
+        when 'WR'
+          - pickColor += ' meta-blue'
+        when 'TE'
+          - pickColor += ' meta-pink'
+        when 'D/ST'
+          - pickColor += ' meta-brown'
+        when 'K'
+          - pickColor += ' meta-magenta'
+        default
+          - pickColor += ''
+    div(data-team="#{teamName}", id="pick-#{pickId}" class="pick#{pickColor}")
       .pick-data
-        p.pick-team= picks[val].team
         if picks[val].value
           p.pick-value.picked= picks[val].value
         else
@@ -13,4 +29,5 @@
             if picks[val].meta2
               span Bye: 
             span= picks[val].meta2
-  span.pick-count #{((i-1) * settings.teams.length) + j}
+        p.pick-team= picks[val].team
+      span.pick-count #{((i-1) * settings.teams.length) + j}

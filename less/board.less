@@ -190,10 +190,15 @@
       overflow: hidden;
 
       .pick-data {
-        position: relative;
         text-align: center;
 
-      .pick-team { font-size: 14px; margin-bottom: 4px; }
+      .pick-team { 
+        font-size: 14px;
+        position: absolute;
+        bottom: 5%;
+        left: 5%;
+      }
+      
       .pick-value { 
         padding: 4px; 
         font-size: 16px; 
@@ -256,6 +261,13 @@
         color: @white;
       }
     }
+
+    .pick.meta-gold { background-color: #B8A800; }
+    .pick.meta-brown { background-color: #8C4600; }
+    .pick.meta-blue { background-color: #00468C; }
+    .pick.meta-green { background-color: #115400; }
+    .pick.meta-pink { background-color: #8F0085; }
+    .pick.meta-magenta { background-color: #62008F; }
     
     .team {
       background: @secondary;
@@ -294,7 +306,10 @@
     }
 
     .pick-data {
-      .pick-team { display: none; }
+      .pick-team,
+      .pick-meta { 
+        display: none; 
+      }
     }
 
   }

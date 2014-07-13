@@ -10,11 +10,12 @@ html(lang="en" ng-app="draftApp")
     script(src="/js/plugins/jlivetime-0.0.13.min.js")
     script(src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.min.js")
     script(type='text/javascript').
-      var countDown = !{((settings.minutes * 60) + settings.seconds) * 1000}
-      var openPicks = !{JSON.stringify(openPicks)}
+      var countDown = !{((settings.minutes * 60) + settings.seconds) * 1000};
+      var openPicks = !{JSON.stringify(openPicks)};
     if pool
       script(type='text/javascript').
-        var pool = !{JSON.stringify(pool)}
+        var pool = !{JSON.stringify(pool)};
+        var poolType = "!{poolType}";
     script(src="/js/board.js")
     title= pageTitle
   body
