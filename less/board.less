@@ -143,6 +143,7 @@
       .pick-submit {
         border-radius: 0 6px 6px 0;
         width: 30%;
+        height: 44px;
         .v-center;
       }
 
@@ -204,7 +205,8 @@
       }
 
       .pick-value.picked {
-        background-color: @tertiary-dark;
+        background-color: @white;
+        color: @black;
       }
 
       .pick-meta1,
@@ -220,17 +222,17 @@
       .pick-count {
         background-color: @white;
         text-align: center;
-        padding-top: 2px;
+        padding: 1px;
         display: inline-block;
         border-radius: 50%;
-        font-size: 16px;
-        width: 22px;
-        height: 22px;
+        font-size: 13px;
+        min-width: 20px;
         position: absolute;
         bottom: 5%;
         right: 5%;
         color: @black;
         font-weight: bold;
+        .transparent;
       }
     }
 
