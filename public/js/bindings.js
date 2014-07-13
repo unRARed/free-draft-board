@@ -21,4 +21,3 @@ app.controller('SelectionController', function ($scope) {
     });
   });
 });
-
