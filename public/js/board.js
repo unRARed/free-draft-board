@@ -65,10 +65,12 @@ $(document).ready(function() {
       console.log('scaling...');
       var boardWidth = $(window).width();
       if (shouldResize) {
+
         while (boardWidth % teamCount !== 0) { boardWidth--; }
         var unitWidth = (boardWidth / teamCount);
-        var pixelFraction = 1 / teamCount;
         var teamHeight;
+        var maintainedAspect = unitWidth * 0.7;
+
         $(".team").each(function() {
             $(this).css({height: "auto"});
         });
@@ -85,12 +87,31 @@ $(document).ready(function() {
             $(this).height(teamHeight);
         });
         $(".league, .round").css({width: boardWidth + "px"});
-        $(".pick").css({width: (unitWidth - pixelFraction) + "px"});
-
-        var maintainedAspect = $(".pick").first().width() * 0.8;
-
+        $(".pick").css({width: (unitWidth - .5) + "px"});
         $(".pick").css({height: maintainedAspect});
-        $(".team").css({width: (unitWidth - pixelFraction) + "px"});
+        $(".team").css({width: (unitWidth - .5) + "px"});
+
+        // font-resizing and div hiding
+        if (unitWidth < 30) {
+          $('.pick-team, .pick-meta, .pick-value2, .pick-count').hide();
+          $('.board').css({'font-size': '7px'});
+        } else if (unitWidth < 100) {
+          $('.pick-team, .pick-meta, .pick-value2').hide();
+          $('.pick-count').show();
+          $('.board').css({'font-size': '7px'});
+        } else if (unitWidth < 130) {
+          $('.pick-team, .pick-meta').hide();
+          $('.pick-value2, .pick-count').show();
+          $('.board').css({'font-size': '8px'});
+        } else if (unitWidth < 190) {
+          $('.pick-team').hide();
+          $('.pick-meta, .pick-value2, .pick-count').show();
+          $('.board').css({'font-size': '10px'});
+        } else if (unitWidth > 190) {
+          $('.pick-team, .pick-meta, .pick-value2, .pick-count').show();
+          $('.board').css({'font-size': '14px'});
+        }
+
         shouldResize = false;
       }
       setTimeout(function() {
