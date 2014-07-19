@@ -16,13 +16,25 @@
 
     .count-down {
       font-weight: bold;
-      font-size: 36px;
       margin-right: 10px;
+      font-size: 42px;
+    }
+
+    .ui-control {
+      padding: 8px 0;
+    }
+
+    .next-pick,
+    .previous-pick {
+      padding: 6px 10px;
+      font-size: 30px;
+      line-height: 0.8;
     }
 
     .start-draft,
     .resume-draft {
       background-color: @tertiary-dark;
+      font-size: 20px;
     }
 
     .start-draft:hover,
@@ -43,6 +55,7 @@
 
     .pause-draft {
       background-color: @black;
+      font-size: 20px;
     }
 
     .pause-draft:hover {
@@ -50,6 +63,13 @@
       transition: background-color 0.3s ease;
     }
 
+  }
+
+  .control-panel * {
+    margin-left: 6px;
+  }
+  .control-panel *:first-child {
+    margin-left: 0;
   }
 
   .league-info {
