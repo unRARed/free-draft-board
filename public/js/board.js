@@ -1,5 +1,11 @@
 $(document).ready(function() {
 
+  ///////////////////////////////////
+  ////                           ////
+  ////  Client-side Board Model  ////
+  ////                           ////
+  ///////////////////////////////////
+
   $.livetime.options.serverTimeUrl = '/time-ref.txt';
   $.livetime.options.formats.countDown = [
     [-4, 'd_mm:d_ss'],
@@ -11,6 +17,7 @@ $(document).ready(function() {
 
   var board = (function (spec) {
 
+    var boardId = $(".board").attr("id");
     var teamCount = $(".team").size();
     var pickCount = $(".pick").size();
     var shouldResize = false;
@@ -20,12 +27,11 @@ $(document).ready(function() {
     var timeRemaining = roundTimeInMS;
     var baseTime = fullTimeStamp(roundTimeInMS);
     var refreshTimeRemaining;
-    var active = true;
+    var timerActive = false;
+    var boardActive = spec.active;
 
   ///////////////////////////////
-  ////                       ////
   ////    Helper Functions   ////
-  ////                       ////
   ///////////////////////////////
 
     function fullTimeStamp(ms) {
@@ -55,9 +61,7 @@ $(document).ready(function() {
     });
 
   ///////////////////////////////////
-  ////                           ////
   ////   Board Instance Methods  ////
-  ////                           ////
   ///////////////////////////////////
 
     var scale = (function (initial) {
@@ -177,8 +181,15 @@ $(document).ready(function() {
         return timeRemaining;
       }),
       startTime: (function () {
+        timerActive = true;
+
+        if (!boardActive) { // on first fire, set board globally active in DB
+          $.post( "/start", {shortId: boardId}, function() {
+            boardActive = true;
+          });
+        }
+        
         // reset base to now + current time remaining
-        active = true;
         baseTime = fullTimeStamp(timeRemaining);
         refreshTimeRemaining = setInterval(function () {
           if (timeRemaining > 0) {
@@ -193,7 +204,10 @@ $(document).ready(function() {
         clearInterval(refreshTimeRemaining);
       }),
       isActive: (function () {
-        return active;
+        return boardActive;
+      }),
+      timerIsActive: (function () {
+        return timerActive;
       })
     }
 
@@ -201,11 +215,12 @@ $(document).ready(function() {
 
   var boardInstance = board({
     currentPick: openPicks[0].pick,
-    pickTime: countDown
+    pickTime: countDown,
+    // currentTimeStamp: currentTimeStamp,
+    active: active
   });
 
   boardInstance.scale(true);
-
 
   ////////////////////////////////////
   ////                            ////
@@ -217,7 +232,7 @@ $(document).ready(function() {
     $(this).hide();
     $("#close-panel").css({'display': 'inline-block'}); 
 
-    if (boardInstance.isActive()) {
+    if (boardInstance.timerIsActive()) {
       $("#pause-draft, #pick-nav").css({'display': 'inline-block'});
       $("#resume-draft").css({'display': 'none'});
     } else {
@@ -334,5 +349,10 @@ $(document).ready(function() {
       $("#control-panel").show();
     }
   });
+
+  if (boardInstance.isActive()) {
+    console.log('got here');
+    $("#start-draft").trigger('click'); 
+  } 
 
 });

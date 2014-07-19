@@ -12,6 +12,7 @@ html(lang="en" ng-app="draftApp")
     script(type='text/javascript').
       var countDown = !{((settings.minutes * 60) + settings.seconds) * 1000};
       var openPicks = !{JSON.stringify(openPicks)};
+      var active = !{active};
     if pool
       script(type='text/javascript').
         var pool = !{JSON.stringify(pool)};

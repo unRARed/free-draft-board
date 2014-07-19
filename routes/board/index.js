@@ -43,7 +43,8 @@ app.get('/board/:passedShortId', function(req, res){
       poolType: settings.poolType || null,
       pool: settings.pool || null,
       openPicks: openPicks,
-      pageTitle: shared.prependTitle("Live Draft Board")
+      pageTitle: shared.prependTitle("Live Draft Board"),
+      active: settings.active
     });
   });
 
@@ -153,6 +154,35 @@ app.post('/board', function(req, res){
   }
 
 });
+
+//////////////////////////////////////////////////////////
+//  POST: /start                                        //
+//                                                      //
+//  Sets board 'active' and timestamp so future client  //
+//  connections will have a synced count-down timer.    //
+//////////////////////////////////////////////////////////
+
+app.post('/start', function(req, res) {
+
+  Board.findOne({shortId: req.body.shortId}, function(err, settings) {
+    if (!settings) {
+      res.send(404, '404 Not Found');
+    }
+
+    settings.active = true;
+
+    settings.save();
+
+  });
+
+});
+
+////////////////////////////////////////////////////////////
+//  POST: /select                                         //
+//                                                        //
+//  Stores serialized form data to the pick at the index  //
+//  req.body.pick and responds with values for display.   //
+////////////////////////////////////////////////////////////
 
 app.post('/select', function(req, res) {
 
