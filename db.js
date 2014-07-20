@@ -23,11 +23,21 @@ var BoardSchema = new Schema({
   minutes: { type: Number, max: 60 },
   seconds: { type: Number, max: 60 },
   serpentine: { type: Boolean, default: true },
-  pickTime: { type: Date, default: Date.now },
+  timeStarted: { type: Number, default: null },
+  currentPick: { type: Number, default: 1 },
   teams: [],
   picks: [PickSchema],
   poolType: { type: String },
   pool: []
+});
+
+BoardSchema.methods.roundTimeInMs = (function () {
+  return ((this.minutes * 60) + this.seconds) * 1000;
+});
+
+BoardSchema.methods.timeRemaining = (function (timeStamp) {
+  var timePassed = (this.timeStarted - timeStamp);
+  return this.roundTimeInMs() - (this.roundTimeInMs() - timePassed);
 });
 
 BoardSchema.pre('save', function(next) {

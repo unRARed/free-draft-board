@@ -12,11 +12,15 @@ html(lang="en" ng-app="draftApp")
     script(type='text/javascript').
       var countDown = !{((settings.minutes * 60) + settings.seconds) * 1000};
       var openPicks = !{JSON.stringify(openPicks)};
-      var active = !{active};
-    if pool
+      var active = !{settings.active};
+      var currentPick = !{settings.currentPick};
+    if settings.timeStarted
       script(type='text/javascript').
-        var pool = !{JSON.stringify(pool)};
-        var poolType = "!{poolType}";
+        var timeStarted = !{settings.timeStarted};
+    if settings.pool
+      script(type='text/javascript').
+        var pool = !{JSON.stringify(settings.pool)};
+        var poolType = "!{settings.poolType}";
     script(src="/js/board.js")
     title= pageTitle
   body

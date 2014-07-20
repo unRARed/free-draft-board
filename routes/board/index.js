@@ -40,11 +40,8 @@ app.get('/board/:passedShortId', function(req, res){
     res.render('board', {
       settings: settings,
       picks: settings.picks,
-      poolType: settings.poolType || null,
-      pool: settings.pool || null,
       openPicks: openPicks,
       pageTitle: shared.prependTitle("Live Draft Board"),
-      active: settings.active
     });
   });
 
@@ -255,5 +252,23 @@ app.post('/picktime', function(req, res) {
 
     settings.pickTime = req.body.picktime;
     settings.save();
+  });
+});
+
+
+app.post('/changePick', function(req, res) {
+  console.log(req.body);
+  Board.findOne({shortId: req.body.shortId}, function(err, settings) {
+    if (!settings) {
+      res.send(404, '404 Not Found');
+    }
+
+    console.log(settings.currentPick);
+
+    settings.currentPick = req.body.currentPick;
+    settings.save();
+
+    res.send(settings.currentPick);
+
   });
 });

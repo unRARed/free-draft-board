@@ -21,10 +21,10 @@ $(document).ready(function() {
     var teamCount = $(".team").size();
     var pickCount = $(".pick").size();
     var shouldResize = false;
-    var currentPick = spec.currentPick;
+    var currentPick = spec.currentPick; // get from db
     var newPick = currentPick;
-    var roundTimeInMS = spec.pickTime;
-    var timeRemaining = roundTimeInMS;
+    var roundTimeInMS = spec.countDown;
+    var timeRemaining = roundTimeInMS; // get from db
     var baseTime = fullTimeStamp(roundTimeInMS);
     var refreshTimeRemaining;
     var timerActive = false;
@@ -33,6 +33,12 @@ $(document).ready(function() {
   ///////////////////////////////
   ////    Helper Functions   ////
   ///////////////////////////////
+
+    var changePick = (function (pickNumber) {
+      $.post('/changePick', {shortId: boardId, currentPick: pickNumber}, function (newValue) {
+        newPick = newValue;
+      });
+    });
 
     function fullTimeStamp(ms) {
       var date = new Date();
@@ -124,6 +130,7 @@ $(document).ready(function() {
     });
 
     var nextPick = (function () {
+      changePick(newPick);
       var $currentPick = $("#pick-" + currentPick);
       var $newPick = $("#pick-" + newPick);
       var timerDiv = '<time data-time-label="#countDown" class="count-down" id="count-down"></time>';
@@ -213,10 +220,14 @@ $(document).ready(function() {
 
   });
 
+  if (!timeStarted) {
+    var timeStarted = null;
+  }
+
   var boardInstance = board({
-    currentPick: openPicks[0].pick,
-    pickTime: countDown,
-    // currentTimeStamp: currentTimeStamp,
+    currentPick: currentPick,
+    countDown: countDown,
+    timeStarted: timeStarted,
     active: active
   });
 
