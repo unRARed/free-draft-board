@@ -14,33 +14,10 @@ app.get('/board/:passedShortId', function(req, res){
       res.send(404, '404 Not Found');
     }
 
-    var openPicks = [];
-
-    //find first empty pick and pass that ID
-    for (i=0;i<settings.picks.length;i++) {
-      if (settings.picks[i].value1 === undefined) {
-        var openPick = {};
-        openPick.pick = settings.picks[i].pick;
-        openPick.team = settings.picks[i].team;
-        openPicks.push(openPick);
-      }
-      // TODO: what is this? should not be setting a val on a Get request!
-
-      // if (settings.picks[i].pick === parseInt(req.body.pick)) {
-      //   settings.picks[i].value = req.body.value;
-      // }
-    }
-
-    openPicks.sort(function(a,b) {
-      return a.pick - b.pick;
-    });
-
-    //console.log(settings);
+    console.log(settings);
 
     res.render('board', {
       settings: settings,
-      picks: settings.picks,
-      openPicks: openPicks,
       pageTitle: shared.prependTitle("Live Draft Board"),
     });
   });
@@ -152,27 +129,6 @@ app.post('/board', function(req, res){
 
 });
 
-//////////////////////////////////////////////////////////
-//  POST: /start                                        //
-//                                                      //
-//  Sets board 'active' and timestamp so future client  //
-//  connections will have a synced count-down timer.    //
-//////////////////////////////////////////////////////////
-
-app.post('/start', function(req, res) {
-
-  Board.findOne({shortId: req.body.shortId}, function(err, settings) {
-    if (!settings) {
-      res.send(404, '404 Not Found');
-    }
-
-    settings.active = true;
-
-    settings.save();
-
-  });
-
-});
 
 ////////////////////////////////////////////////////////////
 //  POST: /select                                         //
@@ -256,19 +212,69 @@ app.post('/picktime', function(req, res) {
 });
 
 
-app.post('/changePick', function(req, res) {
+app.post('/newPick', function(req, res) {
   console.log(req.body);
   Board.findOne({shortId: req.body.shortId}, function(err, settings) {
     if (!settings) {
       res.send(404, '404 Not Found');
     }
 
+    if (!settings.active) {
+      settings.active = true;
+    }
     console.log(settings.currentPick);
-
+    settings.timeStarted = req.body.timeStarted;
+    settings.resetTimeRemaining();
     settings.currentPick = req.body.currentPick;
     settings.save();
 
     res.send(settings.currentPick);
+
+  });
+});
+
+app.post('/updateTimeRemaining', function(req, res) {
+  console.log(req.body);
+  Board.findOne({shortId: req.body.shortId}, function(err, settings) {
+    if (!settings) {
+      res.send(404, '404 Not Found');
+    }
+
+    settings.updateTimeRemaining(req.body.clientTime);
+    settings.save();
+    console.log('settings.timeRemaining is ' + settings.timeRemaining);
+    res.send({
+      timeRemaining: settings.timeRemaining
+    });
+  });
+});
+
+app.get('/getTimeRemaining', function(req, res) {
+  console.log(req.query);
+  Board.findOne({shortId: req.query.shortId}, function(err, settings) {
+    if (!settings) {
+      res.send(404, '404 Not Found');
+    }
+
+    console.log('get timeRemaining: ' + settings.timeRemaining);
+
+    res.send({
+      timeRemaining: settings.timeRemaining
+    });
+  });
+});
+
+app.get('/state', function (req, res) {
+  Board.findOne({shortId: req.query.shortId}, function(err, settings) {
+    var state = {};
+
+    state.currentPick = settings.currentPick;
+    state.timeRemaining = settings.timeRemaining;
+    state.timeStarted = settings.timeStarted;
+    state.openPicks = settings.openPicks();
+    state.picks = settings.picks;
+
+    res.send(state);
 
   });
 });

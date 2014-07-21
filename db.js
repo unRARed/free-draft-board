@@ -15,7 +15,8 @@ var PickSchema = new Schema({
 
 var BoardSchema = new Schema({
   shortId: { type: String, index: true, required: true },
-  active: { type: Boolean, default: false }, // if started and not paused
+  active: { type: Boolean, default: false }, // if started
+  paused: { type: Boolean, default: false },
   complete: { type: Boolean, default: false }, // if all picks have been made and confirmed finished
   league: { type: String },
   password: { type: String },
@@ -24,6 +25,7 @@ var BoardSchema = new Schema({
   seconds: { type: Number, max: 60 },
   serpentine: { type: Boolean, default: true },
   timeStarted: { type: Number, default: null },
+  timeRemaining: { type: Number, default: null },
   currentPick: { type: Number, default: 1 },
   teams: [],
   picks: [PickSchema],
@@ -31,13 +33,34 @@ var BoardSchema = new Schema({
   pool: []
 });
 
+BoardSchema.methods.openPicks = (function () {
+  var openPicks = [];
+
+  //find first empty pick and pass that ID
+  for (i=0;i<this.picks.length;i++) {
+    if (this.picks[i].value1 === undefined) {
+      openPicks.push(this.picks[i].pick);
+    }
+  }
+
+  openPicks.sort(function(a,b) {
+    return a - b;
+  });
+
+  return openPicks;
+});
+
 BoardSchema.methods.roundTimeInMs = (function () {
   return ((this.minutes * 60) + this.seconds) * 1000;
 });
 
-BoardSchema.methods.timeRemaining = (function (timeStamp) {
-  var timePassed = (this.timeStarted - timeStamp);
-  return this.roundTimeInMs() - (this.roundTimeInMs() - timePassed);
+BoardSchema.methods.resetTimeRemaining = (function () {
+  this.timeRemaining = this.roundTimeInMs();
+});
+
+BoardSchema.methods.updateTimeRemaining = (function (clientTimeStamp) {
+  var timePassed = (clientTimeStamp - this.timeStarted);
+  this.timeRemaining = this.roundTimeInMs() - timePassed;
 });
 
 BoardSchema.pre('save', function(next) {

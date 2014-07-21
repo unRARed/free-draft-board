@@ -276,9 +276,18 @@
     }
 
     .pick.active {
-      background-color: @tertiary-dark;
       color: @white;
       position: relative;
+    }
+
+    .pick.active:after {
+      content: 'Active Pick';
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      padding: 10px;
+      background-color: @tertiary-dark;
+
     }
 
     .pick.active:hover {

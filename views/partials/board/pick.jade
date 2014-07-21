@@ -1,8 +1,8 @@
 each key, val in settings.picks
-  if (picks[val].pick === pickId)
+  if (settings.picks[val].pick === pickId)
     - var pickColor = ''
     if poolType === 'football'
-      case picks[val].meta1
+      case settings.picks[val].meta1
         when 'QB'
           - pickColor += ' meta-gold'
         when 'RB'
@@ -19,19 +19,19 @@ each key, val in settings.picks
           - pickColor += ''
     div(data-team="#{teamName}", id="pick-#{pickId}" class="pick#{pickColor}")
       .pick-data
-        if picks[val].value2
-          p.pick-value2= picks[val].value2
+        if settings.picks[val].value2
+          p.pick-value2= settings.picks[val].value2
         else
           p.pick-value2
-        if picks[val].value1
-          p.pick-value1.picked= picks[val].value1
+        if settings.picks[val].value1
+          p.pick-value1.picked= settings.picks[val].value1
         else
           p.pick-value1
         .pick-meta
-          p.pick-meta1= picks[val].meta1
+          p.pick-meta1= settings.picks[val].meta1
           p.pick-meta2
-            if picks[val].meta2
+            if settings.picks[val].meta2
               span Bye: 
-            span= picks[val].meta2
-        p.pick-team= picks[val].team
+            span= settings.picks[val].meta2
+        p.pick-team= settings.picks[val].team
       span.pick-count #{((i-1) * settings.teams.length) + j}

@@ -21,22 +21,130 @@ $(document).ready(function() {
     var teamCount = $(".team").size();
     var pickCount = $(".pick").size();
     var shouldResize = false;
+    var poolType = spec.poolType;
     var currentPick = spec.currentPick; // get from db
     var newPick = currentPick;
     var roundTimeInMS = spec.countDown;
     var timeRemaining = roundTimeInMS; // get from db
-    var baseTime = fullTimeStamp(roundTimeInMS);
-    var refreshTimeRemaining;
+    var timeStarted = timeStarted || fullTimeStamp(roundTimeInMS);
     var timerActive = false;
     var boardActive = spec.active;
+    var paused = false;
+    var fastInterval; // runs until pick time expires
+    var slowInterval; // runs constantly
+    var picks = [];
+    var openPicks = [];
 
   ///////////////////////////////
   ////    Helper Functions   ////
   ///////////////////////////////
 
-    var changePick = (function (pickNumber) {
-      $.post('/changePick', {shortId: boardId, currentPick: pickNumber}, function (newValue) {
-        newPick = newValue;
+    var addColor = (function (metaString) {
+      var color = '';
+      if (poolType === 'football') {
+        if (metaString === 'QB') {
+          color = 'meta-gold';
+        } else if (metaString === 'RB') {
+          color = 'meta-green';
+        } else if (metaString === 'WR') {
+          color = 'meta-blue';
+        } else if (metaString === 'TE') {
+          color = 'meta-pink';
+        } else if (metaString === 'D/ST') {
+          color = 'meta-brown';
+        } else if (metaString === 'K') {
+          color = 'meta-magenta';
+        }
+      }
+      return color;
+    });
+
+    var populatePickData = (function () {
+      for (i=0;i<picks.length;i++) {
+
+        $.each(picks[i], function(key, value) {
+
+          if (picks[i]['value1']) { // no need to work with undefined values
+
+            var pickId = picks[i]['pick'];
+            var newTeam = picks[i]['team'];
+            var newMeta1 = picks[i]['meta1'];
+            var newMeta2 = picks[i]['meta2'];
+            var newValue1 = picks[i]['value1'];
+            var newValue2 = picks[i]['value2'];
+            var $existing = $('#pick-' + pickId);
+            var $existingTeam = $('#pick-' + pickId).find('.pick-team');
+            var $existingMeta1 = $('#pick-' + pickId).find('.pick-meta1');
+            var $existingMeta2 = $('#pick-' + pickId).find('.pick-meta2');
+            var $existingValue1 = $('#pick-' + pickId).find('.pick-value1');
+            var $existingValue2 = $('#pick-' + pickId).find('.pick-value2');
+
+            if ($existingValue1.text() !== newValue1 || $existingValue1.text() !== "") {
+
+              $existingValue2.text(newValue2);
+              $existingValue1.text(newValue1).addClass('picked');
+              if ($existingMeta1) {
+                $existing.addClass(addColor(newMeta1));
+                $existingMeta1.text(newMeta1);
+                if (poolType === 'football') {
+                  $existingMeta2.text("Bye: " + newMeta2);
+                } else {
+                  $existingMeta2.text(newMeta2);
+                }
+              }
+
+              $existingTeam.text(newTeam);
+            }
+
+          }
+
+        });
+        
+      }
+    });
+
+    var setActivePick = (function () {
+
+      // remove click handler and active class from whichever pick is currently active
+      // then assign both to the current pick
+      var $existingPick = $(".active.pick");
+      var $newPick = $("#pick-" + currentPick);
+      var timerDiv = '<time data-time-label="#countDown" class="count-down" id="count-down"></time>';
+
+      // remove active settings from old pick
+      $existingPick.removeClass('active');
+      $existingPick.find('#count-down').remove();
+      $existingPick.off('click');
+
+      // assign active settings to new pick
+      $newPick.addClass('active');
+      $newPick.append(timerDiv);
+      $('#count-down').attr('datetime', fullTimeStamp(timeRemaining));
+      $('#count-down').data('duration', timeRemaining);
+      $('#count-down').livetime();
+
+      newPick = currentPick;
+
+      $newPick.click(function() {
+        select();
+      });
+      focusWindow();
+    });
+
+    var getState = (function () {
+      $.get('/state', {shortId: boardId}, function (response) {
+        paused = response.paused;
+        currentPick = response.currentPick;
+        timeRemaining = response.timeRemaining;
+        timeStarted = response.timeStarted;
+        picks = response.picks;
+        openPicks = response.openPicks;
+      });
+    });
+
+    var updateTimeRemaining = (function () {
+      $.post('/updateTimeRemaining', {shortId: boardId, clientTime: fullTimeStamp(0)}, function (response) {
+        timeRemaining = response.timeRemaining;
       });
     });
 
@@ -46,11 +154,6 @@ $(document).ready(function() {
       var nowTimeUTC = date.getTime() - (date.getTimezoneOffset() * 60000);
       return nowTimeUTC + ms;
     }
-
-    var resetTime = (function () {
-      timeRemaining = roundTimeInMS;
-      baseTime = fullTimeStamp(roundTimeInMS);
-    });
 
     var select = (function () {
       var $currentPick = $("#pick-" + currentPick);
@@ -70,9 +173,22 @@ $(document).ready(function() {
   ////   Board Instance Methods  ////
   ///////////////////////////////////
 
+
+    var prepareNextPick = (function () {
+      $("#pick-" + openPicks[0]).addClass('active').click(function() {
+          select();
+      });
+      $("#count-down").attr('datetime', fullTimeStamp(timeRemaining));
+      $("#count-down").data('duration', timeRemaining);
+      $("#count-down").livetime();
+
+      nextPick({
+        pickId: openPicks[0]
+      });
+    });
+
     var scale = (function (initial) {
       if (initial) { shouldResize = true; }
-      console.log('scaling...');
       var boardWidth = $(window).width();
       if (shouldResize) {
 
@@ -129,29 +245,15 @@ $(document).ready(function() {
       }, 100);
     });
 
-    var nextPick = (function () {
-      changePick(newPick);
-      var $currentPick = $("#pick-" + currentPick);
-      var $newPick = $("#pick-" + newPick);
-      var timerDiv = '<time data-time-label="#countDown" class="count-down" id="count-down"></time>';
-      // reset the coundDown timer
-      resetTime();
-
-      // swap active pick from old to new and reassign current pick
-      $currentPick.removeClass('active');
-      $currentPick.find('#count-down').remove();
-      $currentPick.off('click');
-      $newPick.addClass('active');
-      $newPick.append(timerDiv);
-      $('#count-down').attr('datetime', fullTimeStamp(timeRemaining));
-      $('#count-down').data('duration', timeRemaining);
-      $('#count-down').livetime();
-
-      currentPick = newPick;
-      $newPick.click(function() {
-        select();
+    var nextPick = (function (options) {
+      var pickId;
+      if (options.pickId) {
+        pickId = options.pickId;
+      } else { 
+        pickId = newPick;
+      }
+      $.post( "/newPick", {shortId: boardId, timeStarted: fullTimeStamp(0), currentPick: pickId}, function(pickValue) {
       });
-      focusWindow();
     });
 
     var focusWindow = function () {
@@ -173,13 +275,46 @@ $(document).ready(function() {
       scale: (function (initial) {
         scale(initial);
       }),
-      nextPick: (function (direction) {
-        if (direction === 'forward' && currentPick < pickCount) {
-          newPick++;
-        } else if (direction === 'reverse' && currentPick > 1) {
-          newPick--;
+      nextPick: (function (options) {
+        var shiftedPick = currentPick;
+        if (options.forward && currentPick < pickCount) {
+          shiftedPick++;
+        } else if (!options.forward && currentPick > 1) {
+          shiftedPick--;
         }
-        nextPick();
+        nextPick({
+          pickId: shiftedPick
+        });
+      }),
+      nextOpenPick: (function () {
+        var nextOpenPick = openPicks[0];
+
+        nextPick({
+          pickId: nextOpenPick
+        });
+      }),
+      makeSelection: (function (formData) {
+        var pickId = parseInt($("#full_pick_id").val(), 10);
+        $.post( "/select", formData, function(response) {
+          var pickColor = '';
+          $pick = $("#pick-" + $("#full_pick_id").val());
+
+          $pick.find(".pick-value1").addClass('picked').html(response.value1);
+          if (response.value2) {
+            $pick.find(".pick-value2").html(response.value2);
+          }
+          $pick.find(".pick-meta1").html(response.meta1);
+          $pick.find(".pick-meta2").html(response.meta2);
+          $("#displayed-value").val("");
+          $("#selection_id").val("");
+          $("#selection_meta1").val("");
+          $("#selection_meta2").val("");
+          $("#selection, #selection-blanket").hide();
+          
+          openPicks.splice(openPicks.indexOf(pickId), 1);
+          prepareNextPick();
+          $("#control-panel").show();
+        });
       }),
       getTime: (function() {
         return fullTimeStamp(timeRemaining);
@@ -187,28 +322,47 @@ $(document).ready(function() {
       getMsRemaining: (function() {
         return timeRemaining;
       }),
-      startTime: (function () {
+      startTime: (function (options) {
+
         timerActive = true;
 
-        if (!boardActive) { // on first fire, set board globally active in DB
-          $.post( "/start", {shortId: boardId}, function() {
+        setActivePick();
+
+        $.get('/getTimeRemaining', {shortId: boardId}, function (response) {
+          timeRemaining = response.timeRemaining;
+
+          if (!boardActive) { // on first fire, set board globally active in DB
             boardActive = true;
-          });
-        }
-        
-        // reset base to now + current time remaining
-        baseTime = fullTimeStamp(timeRemaining);
-        refreshTimeRemaining = setInterval(function () {
-          if (timeRemaining > 0) {
-            var timePassed = (baseTime - fullTimeStamp(0));
-            timeRemaining = roundTimeInMS - (roundTimeInMS - timePassed);
-            console.log(timeRemaining);
           }
-        }, 2000);
+
+          fastInterval = setInterval(function () {
+            if (timeRemaining <= 0) {
+              clearInterval(fastInterval);
+            }
+            updateTimeRemaining();
+
+            if (newPick !== currentPick) {
+              setActivePick();
+            }
+
+
+            $("#count-down").attr('datetime', fullTimeStamp(timeRemaining));
+            $("#count-down").data('duration', timeRemaining);
+          }, 1000);
+
+          slowInterval = setInterval(function () {
+            populatePickData();
+            getState();
+          }, 1000);
+
+        });
+
       }),
       pauseTime: (function () {
-        active = false;
-        clearInterval(refreshTimeRemaining);
+        paused = true;
+        updateTimeRemaining();
+        clearInterval(fastInterval);
+        timerActive = false;
       }),
       isActive: (function () {
         return boardActive;
@@ -224,10 +378,16 @@ $(document).ready(function() {
     var timeStarted = null;
   }
 
+  if (!timeRemaining) {
+    var timeRemaining = null;
+  }
+
   var boardInstance = board({
     currentPick: currentPick,
     countDown: countDown,
     timeStarted: timeStarted,
+    timeRemaining: timeRemaining,
+    poolType: poolType,
     active: active
   });
 
@@ -263,68 +423,26 @@ $(document).ready(function() {
   });
 
   $("#start-draft").click(function() {
-    boardInstance.nextPick();
-    boardInstance.startTime();
+    boardInstance.startTime({
+      first: true
+    });
     $(this).hide();
     $("#open-panel, #count-down").css(
       {'display': 'inline-block'}
     );
   });
 
-  $(window).resize(function() {
-    boardInstance.scale();
-  });
-
-  $("#next-pick").click(function() {
-    boardInstance.nextPick('forward');
-    console.log(boardInstance.getTime());
-  });
-
-  $("#previous-pick").click(function() {
-    boardInstance.nextPick('reverse');
-  });
-
-  // $(".selection-value").click(function () {
-  //   $("#entered-value").val($(this).text());
-  // });
-
-  $("#selection_form").submit(function(evt) {
-    var formData = $(this).serialize();
-    evt.preventDefault();
-    
-    $.post( "/select", formData, function(data) {
-      var pickColor = '';
-      $pick = $("#pick-" + $("#full_pick_id").val());
-      if (poolType === 'football') {
-        if (data.meta1 === 'QB') {
-          $pick.addClass('meta-gold');
-        } else if (data.meta1 === 'RB') {
-          $pick.addClass('meta-green');
-        } else if (data.meta1 === 'WR') {
-          $pick.addClass('meta-blue');
-        } else if (data.meta1 === 'TE') {
-          $pick.addClass('meta-pink');
-        } else if (data.meta1 === 'D/ST') {
-          $pick.addClass('meta-brown');
-        } else if (data.meta1 === 'K') {
-          $pick.addClass('meta-magenta');
-        }
-      }
-      $pick.find(".pick-value1").addClass('picked').html(data.value1);
-      if (data.value2) {
-        $pick.find(".pick-value2").html(data.value2);
-      }
-      $pick.find(".pick-meta1").html(data.meta1);
-      $pick.find(".pick-meta2").html(data.meta2);
-      $("#displayed-value").val("");
-      $("#selection_id").val("");
-      $("#selection_meta1").val("");
-      $("#selection_meta2").val("");
-      $("#selection, #selection-blanket").hide();
-      boardInstance.nextPick('forward');
-      $("#control-panel").show();
+  $("#resume-draft").click(function() {
+    boardInstance.startTime({
+      first: false
     });
-
+    $("#count-down").attr('datetime', boardInstance.getTime());
+    $("#count-down").data('duration', boardInstance.getMsRemaining());
+    $("#count-down").livetime();
+    $(this).hide();
+    $("#pause-draft, #pick-nav").css(
+      {'display': 'inline-block'}
+    );
   });
 
   $("#pause-draft").click(function() {
@@ -338,15 +456,28 @@ $(document).ready(function() {
     );
   });
 
-  $("#resume-draft").click(function() {
-    boardInstance.startTime();
-    $("#count-down").attr('datetime', boardInstance.getTime());
-    $("#count-down").data('duration', boardInstance.getMsRemaining());
-    $("#count-down").livetime();
-    $(this).hide();
-    $("#pause-draft, #pick-nav").css(
-      {'display': 'inline-block'}
-    );
+  $(window).resize(function() {
+    boardInstance.scale();
+  });
+
+  $("#next-pick").click(function() {
+    boardInstance.nextPick({
+      forward: true
+    });
+  });
+
+  $("#previous-pick").click(function() {
+    boardInstance.nextPick({
+      forward: false
+    });
+  });
+
+  $("#selection_form").submit(function(evt) {
+    var formData = $(this).serialize();
+    evt.preventDefault();
+    
+    boardInstance.makeSelection(formData);
+
   });
 
   // if selection div is visible, 
@@ -362,7 +493,6 @@ $(document).ready(function() {
   });
 
   if (boardInstance.isActive()) {
-    console.log('got here');
     $("#start-draft").trigger('click'); 
   } 
 

@@ -11,12 +11,14 @@ html(lang="en" ng-app="draftApp")
     script(src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.min.js")
     script(type='text/javascript').
       var countDown = !{((settings.minutes * 60) + settings.seconds) * 1000};
-      var openPicks = !{JSON.stringify(openPicks)};
       var active = !{settings.active};
       var currentPick = !{settings.currentPick};
     if settings.timeStarted
       script(type='text/javascript').
         var timeStarted = !{settings.timeStarted};
+    if settings.timeRemaining
+      script(type='text/javascript').
+        var timeRemaining = !{settings.timeRemaining};
     if settings.pool
       script(type='text/javascript').
         var pool = !{JSON.stringify(settings.pool)};
