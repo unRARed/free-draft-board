@@ -399,6 +399,11 @@ $(document).ready(function() {
   ////                            ////
   ////////////////////////////////////
 
+  $('#show-admin-login').click(function () {
+    $('.admin-login').show();
+    $(this).hide();
+  });
+
   $("#open-panel").click(function() {
     $(this).hide();
     $("#close-panel").css({'display': 'inline-block'}); 

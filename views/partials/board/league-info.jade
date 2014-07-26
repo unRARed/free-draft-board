@@ -1,0 +1,12 @@
+.league-info.cf
+  .league-settings
+    h1.league-name= settings.league
+    if !admin
+      a(href="#")#show-admin-login.button.primary Admin Login
+      form(method="POST", action="/board/#{settings.shortId}").admin-login
+        input(type="password", name="admin-password").text-input
+        input(type="submit", value="Login").button
+    p.board-url URL: 
+      a(href="#{boardUrl}") #{boardUrl}
+    p.total-rounds #{"Rounds: " + settings.rounds}
+    p.pick-time #{"Pick Time: " + settings.minutes + " Minutes, " + settings.seconds + " Seconds"}

@@ -28,24 +28,8 @@ html(lang="en" ng-app="draftApp")
   body
     - var boardUrl = "http://www.freedraftboard.com/board/" + settings.shortId;
     .board(id="#{settings.shortId}")
-      #control-panel.control-panel
-        .transparent-wrapper
-          time(data-time-label="#countDown", class="count-down", id="count-down")
-          button#start-draft.button.tertiary.start-draft Start
-          button#pause-draft.button.quadrary.pause-draft Pause
-          button#resume-draft.button.tertiary.resume-draft Resume
-          #pick-nav.pick-nav
-            button#previous-pick.ui-control.button.tertiary.previous-pick &laquo;
-            button#next-pick.ui-control.button.tertiary.next-pick &raquo;
-          button#open-panel.ui-control.open-panel.button.secondary &laquo;
-          button#close-panel.ui-control.close-panel.button.secondary &raquo;
-      .league-info.cf
-        .league-settings
-          h1.league-name= settings.league
-          p.board-url URL: 
-            a(href="#{boardUrl}") #{boardUrl}
-          p.total-rounds #{"Rounds: " + settings.rounds}
-          p.pick-time #{"Pick Time: " + settings.minutes + " Minutes, " + settings.seconds + " Seconds"}
+      include partials/board/control-panel
+      include partials/board/league-info
       .league
         each teamName in settings.teams
           div(id="#{teamName}", class="team")= teamName

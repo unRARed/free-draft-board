@@ -9,17 +9,45 @@ var shared = require('../sharedVars.js');
 
 app.get('/board/:passedShortId', function(req, res){
 
+  var isAuthorized = false;
+
   Board.findOne({shortId: req.params.passedShortId}, function(err, settings) {
     if (!settings) {
       res.send(404, '404 Not Found');
     }
 
-    console.log(settings);
+    // if a cookie is set, check if cookie's 
+    // auth value matches the stored password
+    if (req.clientCookie) {
+      if (settings.isHashPasswordHash(req.clientCookie.auth)) {
+        isAuthorized = true;
+      }
+    }
 
     res.render('board', {
       settings: settings,
+      admin: isAuthorized,
       pageTitle: shared.prependTitle("Live Draft Board"),
     });
+  });
+
+});
+
+app.post('/board/:passedShortId', function(req, res){
+
+  Board.findOne({shortId: req.params.passedShortId}, function(err, settings) {
+    if (!settings) {
+      res.send(404, '404 Not Found');
+    }
+
+    console.log(req.body);
+
+    // consider saving hash to cookie instead of 
+    // actual password value???
+    req.clientCookie.auth = req.body['admin-password'];
+
+    res.redirect('/board/' + settings.shortId);    
+
   });
 
 });

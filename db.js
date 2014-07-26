@@ -63,6 +63,16 @@ BoardSchema.methods.updateTimeRemaining = (function (clientTimeStamp) {
   this.timeRemaining = this.roundTimeInMs() - timePassed;
 });
 
+// returns true if given password's hash 
+// is equal to the hash stored
+BoardSchema.methods.isHashPasswordHash = (function (password) {
+  if (password && this.password) {
+    return bcrypt.compareSync(password, this.password);
+  } else {
+    return false; // false if either password value is NULL
+  }
+});
+
 BoardSchema.pre('save', function(next) {
 
   // only hash the password if it has been set... or new or modified.

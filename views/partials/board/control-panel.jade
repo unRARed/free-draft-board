@@ -1,0 +1,12 @@
+#control-panel.control-panel
+  .transparent-wrapper
+    time(data-time-label="#countDown", class="count-down", id="count-down")
+    if admin
+      button#start-draft.button.tertiary.start-draft Start
+      button#pause-draft.button.quadrary.pause-draft Pause
+      button#resume-draft.button.tertiary.resume-draft Resume
+      #pick-nav.pick-nav
+        button#previous-pick.ui-control.button.tertiary.previous-pick &laquo;
+        button#next-pick.ui-control.button.tertiary.next-pick &raquo;
+      button#open-panel.ui-control.open-panel.button.secondary &laquo;
+      button#close-panel.ui-control.close-panel.button.secondary &raquo;
