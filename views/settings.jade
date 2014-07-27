@@ -20,10 +20,9 @@ block content
             label(for="league").h4 League Name
             input.text-input.primary(type="text", name="league", placeholder="Enter League Name Here", required)
           .setting-group
-            label(for="password_setting").h4 Password Protected? 
-            input(type="checkbox", id="password_setting")
-          p.black-fg.whisper.tac.padded By default, draft boards are wide open. Consider setting an edit password if selections should be moderated.
-          #password_fields.password_fields.setting-group
+            label(for="password_setting").h4 Set Edit Password
+            input(placeholder="Password", type="password", class="text-input primary", name="password_value", required)
+            input(placeholder="Confirm Password", type="password", class="text-input primary", name="pass_confirm_value", required)
           .setting-group
             label(for="serpentine_setting").h4 Serpentine style? 
             input(type="checkbox", checked="checked", id="serpentine_setting", name="serpentine")

@@ -1,19 +1,5 @@
 $(document).ready(function() {
 
-  $("#password_setting").change(function() {
-
-    if ($(this).is(":checked")) {
-      var $passes = $("#password_fields");
-      $passes.empty().
-        append('<input placeholder="Password" type="password" class="text-input primary" name="password_value" required><br>').
-          append('<input placeholder="Confirm Password" type="password" class="text-input primary" name="pass_confirm_value" required>').
-            show();
-    } else {
-      $("#password_fields").hide();
-    }
-
-  });
-
   $("#teams_setting").change(function() {
 
     var teams_showing = $(".team-submission").size();
