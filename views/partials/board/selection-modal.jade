@@ -1,24 +1,23 @@
-if admin
-  #selection.selection(ng-controller="SelectionController")
-    .selection-content
-      h3.your-pick Enter selection for
-      h2#team_id.team-id
-      form#selection_form(action="#", method="POST")
-        input#displayed-value.text-input.tertiary.player-input(type="text", name="displayed-value", ng-model="searchText", value="searchText" required)
-        input#full_pick_id(type="hidden", name="pick")
-        input#short_id(type="hidden", name="shortId")
-        input#team_name(type="hidden", name="teamName")
-        input#selection_id(type="hidden", name="selectionId")
-        input#selection-value1(type="hidden", name="selection-value1")
-        input#selection-value2(type="hidden", name="selection-value2")
-        input#selection_meta1(type="hidden", name="selection_meta1")
-        input#selection_meta2(type="hidden", name="selection_meta2")
-        input.button.tertiary.pick-submit(type="submit", value="Go", ng-click="discardSelection()")
-      ul.available
-        li(ng-repeat="selection in selections | filter:searchText | limitTo:resultCap | orderBy:'lastName'") 
-          p.selection-value(ng-click="fillInput(selection)") {{ selection.lastName }}, {{ selection.firstName }} 
-      .pick-indicator
-        h3.round-id Round:&nbsp;
-          span#round_id
-          |  Pick:&nbsp;
-          span#pick_id
+#selection.selection(ng-controller="SelectionController")
+  .selection-content
+    h3.your-pick Enter selection for
+    h2#team_id.team-id
+    form#selection_form(action="#", method="POST")
+      input#displayed-value.text-input.tertiary.player-input(type="text", name="displayed-value", ng-model="searchText", value="searchText" required)
+      input#full_pick_id(type="hidden", name="pick")
+      input#short_id(type="hidden", name="shortId")
+      input#team_name(type="hidden", name="teamName")
+      input#selection_id(type="hidden", name="selectionId")
+      input#selection-value1(type="hidden", name="selection-value1")
+      input#selection-value2(type="hidden", name="selection-value2")
+      input#selection_meta1(type="hidden", name="selection_meta1")
+      input#selection_meta2(type="hidden", name="selection_meta2")
+      input.button.tertiary.pick-submit(type="submit", value="Go", ng-click="discardSelection()")
+    ul.available
+      li(ng-repeat="selection in selections | filter:searchText | limitTo:resultCap | orderBy:'lastName'") 
+        p.selection-value(ng-click="fillInput(selection)") {{ selection.lastName }}, {{ selection.firstName }} 
+    .pick-indicator
+      h3.round-id Round:&nbsp;
+        span#round_id
+        |  Pick:&nbsp;
+        span#pick_id

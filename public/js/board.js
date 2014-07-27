@@ -31,11 +31,11 @@ $(document).ready(function() {
     var active = spec.active;
     var paused = spec.paused;
     var adminInterval; // runs until pick time expires
-    var globalFastInterval; // runs constantly
-    var globalSlowInterval;
+    var globalInterval;
     var picks = [];
     var openPicks = [];
     var admin = spec.admin;
+
 
   ///////////////////////////////
   ////    Helper Functions   ////
@@ -134,6 +134,8 @@ $(document).ready(function() {
         picks = response.picks;
         openPicks = response.openPicks;
         active = response.active;
+        completed = response.completed;
+        populatePickData();
         $('#count-down').attr('datetime', fullTimeStamp(timeRemaining));
         $('#count-down').data('duration', timeRemaining);
         if (paused) {
@@ -171,10 +173,10 @@ $(document).ready(function() {
       $("#previous-pick, #next-pick").hide();
     });
 
-  ///////////////////////////////////
-  ////   Board Instance Methods  ////
-  ///////////////////////////////////
 
+    ///////////////////////////////////
+    ////   Board Instance Methods  ////
+    ///////////////////////////////////
 
     var prepareNextPick = (function () {
       $("#pick-" + openPicks[0]).addClass('active').click(function() {
@@ -251,7 +253,9 @@ $(document).ready(function() {
       } else { 
         pickId = newPick;
       }
-      $.post( "/newPick", {shortId: boardId, timeStarted: fullTimeStamp(0), currentPick: pickId}, function(pickValue) {
+      $.post( "/newPick", {shortId: boardId, timeStarted: fullTimeStamp(0), currentPick: pickId}, function(response) {
+        currentPick = response.pickId;
+        setActivePick();
       });
     });
 
@@ -344,31 +348,51 @@ $(document).ready(function() {
 
         // set next pick (resetting time values) on load
         // ONLY if the client has admin rights
-        if (admin && options.initialRun) {
+        if (admin && options.initialRun && !completed) {
           nextPick({
             pickId: openPicks[0]
           });
         }
 
-        // update state and set active pick
+        // update state and set colors on picks
         // for all clients on first load
         if (options.initialRun) {
           updateClientState();
+        }
+        // set active pick if draft is still live
+        if (options.initialRun && !completed) {
           setActivePick();
         }
 
-        globalFastInterval = setInterval(function () {
+        // remove top margin now that fixed
+        // control-panel has been hidden
+        if (completed) {
+          $('.league-info').css('margin-top', '0');
+        }
 
-          if (newPick !== currentPick) {
+        // set intervals only when draft is still live
+        if (!completed) {
+
+          globalInterval = setInterval(function () {
+            updateClientState();
             setActivePick();
-          }
-          
-        }, 1000);
 
-        globalSlowInterval = setInterval(function () {
-          populatePickData();
-          updateClientState();
-        }, 4000);
+            // if draft completes, kill the interval
+            // and remove the active pick
+            if (completed) {
+              var $existingPick = $(".active.pick");
+              $existingPick.removeClass('active');
+              if (admin) {
+                $existingPick.off('click');
+              }
+              $('#control-panel').hide();
+              $('.league-info').css('margin-top', '0');
+              clearInterval(globalInterval);
+            }
+
+          }, 3000);
+
+        }
 
       }),
       toggleTime: (function () {
@@ -390,6 +414,9 @@ $(document).ready(function() {
       }),
       isAdmin: (function () {
         return admin;
+      }),
+      isCompleted: (function () {
+        return completed;
       })
     }
 
@@ -423,7 +450,7 @@ $(document).ready(function() {
   ////                            ////
   ////////////////////////////////////
 
-  if (boardInstance.isAdmin()) {
+  if (boardInstance.isAdmin() && !boardInstance.isCompleted()) {
 
     $("#open-panel").click(function() {
       $(this).hide();
@@ -435,7 +462,6 @@ $(document).ready(function() {
       } else {
         $("#resume-draft").css({'display': 'inline-block'});
       }
-
     });
 
     $("#close-panel").click(function() {

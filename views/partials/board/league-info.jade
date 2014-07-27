@@ -1,7 +1,7 @@
 .league-info.cf
   .league-settings
     h1.league-name= settings.league
-    if !admin
+    if !admin && !settings.completed
       a(href="#")#show-admin-login.button.primary Admin Login
       form(method="POST", action="/board/#{settings.shortId}").admin-login
         input(type="password", name="admin-password").text-input

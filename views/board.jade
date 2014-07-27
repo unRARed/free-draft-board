@@ -37,8 +37,9 @@ html(lang="en" ng-app="draftApp")
         each teamName in settings.teams
           div(id="#{teamName}", class="team")= teamName
       include partials/board/rounds
-      #modal-blanket.modal-blanket
-      include partials/board/selection-modal
-      include partials/board/completed-modal
+      if admin && !settings.completed
+        #modal-blanket.modal-blanket
+        include partials/board/selection-modal
+        include partials/board/completed-modal
       include partials/footer
     script(src="/js/bindings.js")

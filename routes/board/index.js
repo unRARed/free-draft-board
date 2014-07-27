@@ -9,11 +9,8 @@ var shared = require('../sharedVars.js');
 
 //////////////////////////////////
 //      MAIN LANDING ROUTE      //
-//  if draft is completed, it   //
-//  loads the results page for  //
-//  it. otherwise, it loads the //
-//  board passing admin if a    //
-//  cookie has been set.        //
+//  loads the board passing     //
+//  admin if cookie is set.     //
 //////////////////////////////////
 app.get('/board/:passedShortId', function(req, res){
 
@@ -24,25 +21,19 @@ app.get('/board/:passedShortId', function(req, res){
       res.send(404, '404 Not Found');
     }
 
-    if (settings.completed) {
-      res.redirect('/board/' + settings.shortId + '/results');
-    } else {
-
-      // if a cookie is set, check if cookie's 
-      // auth value matches the stored password
-      if (req.clientCookie) {
-        if (settings.isHashPasswordHash(req.clientCookie.auth)) {
-          isAuthorized = true;
-        }
+    // if a cookie is set, check if cookie's 
+    // auth value matches the stored password
+    if (req.clientCookie) {
+      if (settings.isHashPasswordHash(req.clientCookie.auth)) {
+        isAuthorized = true;
       }
-
-      res.render('board', {
-        settings: settings,
-        admin: isAuthorized,
-        pageTitle: shared.prependTitle("Live Draft Board"),
-      });
-
     }
+
+    res.render('board', {
+      settings: settings,
+      admin: isAuthorized,
+      pageTitle: shared.prependTitle("Live Draft Board"),
+    });
 
   });
 
@@ -306,7 +297,9 @@ app.post('/newPick', function(req, res) {
     settings.currentPick = req.body.currentPick;
     settings.save();
 
-    res.send(settings.currentPick);
+    res.send({
+      pickId: settings.currentPick
+    });
 
   });
 });
@@ -392,8 +385,7 @@ app.get('/state', function (req, res) {
 //  picks remaining for board,  //
 //  a form instructs user to    //
 //  confirm completed. If so,   //
-//  this sets board.completed   //
-//  and redirects to 'results'. //
+//  this sets board.completed.  //
 //////////////////////////////////
 app.post('/board/:passedShortId/complete', function(req, res){
 
@@ -413,10 +405,9 @@ app.post('/board/:passedShortId/complete', function(req, res){
     if (isAuthorized) {
       settings.completed = true;
       settings.save();
-      res.redirect('/board/' + settings.shortId + '/results');
-    } else {
-      res.redirect('/board/' + settings.shortId);
     }
+
+    res.redirect('/board/' + settings.shortId);
 
   });
 
