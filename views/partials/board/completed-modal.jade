@@ -1,0 +1,8 @@
+if admin
+  #completed.completed(ng-controller="SelectionController")
+    .completed-content
+      h2 Has your Draft Completed?
+      p Confirm in order to continue on and see the results. Otherwise, click cancel to make some additional modifications.
+      form#confirm-completed(action="/board/#{settings.shortId}/complete", method="POST").confirm-completed
+        input.button.tertiary.pick-submit.h4(type="submit", value="Confirm")
+        a#cancel-completed.button.secondary.h4(href="#") Cancel

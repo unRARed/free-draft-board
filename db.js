@@ -17,7 +17,7 @@ var BoardSchema = new Schema({
   shortId: { type: String, index: true, required: true },
   active: { type: Boolean, default: false }, // if started
   paused: { type: Boolean, default: false },
-  complete: { type: Boolean, default: false }, // if all picks have been made and confirmed finished
+  completed: { type: Boolean, default: false }, // if all picks have been made and confirmed finished
   league: { type: String },
   password: { type: String },
   rounds: { type: Number, max: 99 }, 

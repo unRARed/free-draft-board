@@ -22,18 +22,20 @@ $(document).ready(function() {
     var pickCount = $(".pick").size();
     var shouldResize = false;
     var poolType = spec.poolType;
+    var completed = spec.completed;
     var currentPick = spec.currentPick; // get from db
     var newPick = currentPick;
     var roundTimeInMS = spec.countDown;
     var timeRemaining = roundTimeInMS; // get from db
     var timeStarted = timeStarted || fullTimeStamp(roundTimeInMS);
-    var timerActive = false;
     var boardActive = spec.active;
-    var paused = false;
-    var fastInterval; // runs until pick time expires
-    var slowInterval; // runs constantly
+    var paused = spec.paused;
+    var adminInterval; // runs until pick time expires
+    var globalFastInterval; // runs constantly
+    var globalSlowInterval;
     var picks = [];
     var openPicks = [];
+    var admin = spec.admin;
 
   ///////////////////////////////
   ////    Helper Functions   ////
@@ -104,25 +106,15 @@ $(document).ready(function() {
     });
 
     var setActivePick = (function () {
-
-      // remove click handler and active class from whichever pick is currently active
-      // then assign both to the current pick
+      console.log('current pick is ' + currentPick)
       var $existingPick = $(".active.pick");
       var $newPick = $("#pick-" + currentPick);
-      var timerDiv = '<time data-time-label="#countDown" class="count-down" id="count-down"></time>';
 
-      // remove active settings from old pick
       $existingPick.removeClass('active');
       $existingPick.find('#count-down').remove();
       $existingPick.off('click');
 
-      // assign active settings to new pick
       $newPick.addClass('active');
-      $newPick.append(timerDiv);
-      $('#count-down').attr('datetime', fullTimeStamp(timeRemaining));
-      $('#count-down').data('duration', timeRemaining);
-      $('#count-down').livetime();
-
       newPick = currentPick;
 
       $newPick.click(function() {
@@ -131,7 +123,7 @@ $(document).ready(function() {
       focusWindow();
     });
 
-    var getState = (function () {
+    var updateClientState = (function () {
       $.get('/state', {shortId: boardId}, function (response) {
         paused = response.paused;
         currentPick = response.currentPick;
@@ -139,6 +131,13 @@ $(document).ready(function() {
         timeStarted = response.timeStarted;
         picks = response.picks;
         openPicks = response.openPicks;
+        $('#count-down').attr('datetime', fullTimeStamp(timeRemaining));
+        $('#count-down').data('duration', timeRemaining);
+        if (paused) {
+          $("#count-down").livetime(false);
+        } else {
+          $("#count-down").livetime();
+        }
       });
     });
 
@@ -165,8 +164,8 @@ $(document).ready(function() {
       $("#short_id").val($(".board").attr("id"));
       $("#round_id").html(round);
       $("#pick_id").html(pick);
-      $("#selection, #selection-blanket").show();
-      $("#control-panel").hide();
+      $("#selection, #modal-blanket").show();
+      $("#previous-pick, #next-pick").hide();
     });
 
   ///////////////////////////////////
@@ -176,11 +175,8 @@ $(document).ready(function() {
 
     var prepareNextPick = (function () {
       $("#pick-" + openPicks[0]).addClass('active').click(function() {
-          select();
+        select();
       });
-      $("#count-down").attr('datetime', fullTimeStamp(timeRemaining));
-      $("#count-down").data('duration', timeRemaining);
-      $("#count-down").livetime();
 
       nextPick({
         pickId: openPicks[0]
@@ -298,7 +294,6 @@ $(document).ready(function() {
         $.post( "/select", formData, function(response) {
           var pickColor = '';
           $pick = $("#pick-" + $("#full_pick_id").val());
-
           $pick.find(".pick-value1").addClass('picked').html(response.value1);
           if (response.value2) {
             $pick.find(".pick-value2").html(response.value2);
@@ -309,11 +304,19 @@ $(document).ready(function() {
           $("#selection_id").val("");
           $("#selection_meta1").val("");
           $("#selection_meta2").val("");
-          $("#selection, #selection-blanket").hide();
-          
+          $("#selection-value1").val("");
+          $("#selection-value2").val("");
+          $("#selection, #modal-blanket").hide();
+          $("#previous-pick, #next-pick").show();
           openPicks.splice(openPicks.indexOf(pickId), 1);
-          prepareNextPick();
-          $("#control-panel").show();
+          console.log(openPicks.length);
+          if (openPicks.length < 1) {
+            // TODO: display confirm draft over div
+            // if user confirms, mark completed
+            $('#completed, #modal-blanket').show();
+          } else {
+            prepareNextPick();
+          }
         });
       }),
       getTime: (function() {
@@ -324,51 +327,51 @@ $(document).ready(function() {
       }),
       startTime: (function (options) {
 
-        timerActive = true;
+        if (options.initialRun) {
+          updateClientState();
+          setActivePick();
+        }
 
-        setActivePick();
+        if (!boardActive) { // on first fire, set board globally active in DB
+          boardActive = true;
+        }
 
-        $.get('/getTimeRemaining', {shortId: boardId}, function (response) {
-          timeRemaining = response.timeRemaining;
-
-          if (!boardActive) { // on first fire, set board globally active in DB
-            boardActive = true;
-          }
-
-          fastInterval = setInterval(function () {
-            if (timeRemaining <= 0) {
-              clearInterval(fastInterval);
-            }
+        if (admin) {
+          adminInterval = setInterval(function () {
             updateTimeRemaining();
+          }, 5000);
+        }
 
-            if (newPick !== currentPick) {
-              setActivePick();
-            }
+        globalFastInterval = setInterval(function () {
 
+          if (newPick !== currentPick) {
+            setActivePick();
+          }
+          
+        }, 1000);
 
-            $("#count-down").attr('datetime', fullTimeStamp(timeRemaining));
-            $("#count-down").data('duration', timeRemaining);
-          }, 1000);
-
-          slowInterval = setInterval(function () {
-            populatePickData();
-            getState();
-          }, 1000);
-
-        });
+        globalSlowInterval = setInterval(function () {
+          populatePickData();
+          updateClientState();
+        }, 4000);
 
       }),
-      pauseTime: (function () {
-        paused = true;
+      toggleTime: (function () {
         updateTimeRemaining();
-        clearInterval(fastInterval);
-        timerActive = false;
+        clearInterval(adminInterval);
+        $.post('/toggleTime', {shortId: boardId}, function (response) {
+          console.log(response);
+          paused = response.isPaused;
+        });
       }),
       isActive: (function () {
         return boardActive;
       }),
       timerIsActive: (function () {
-        return timerActive;
+        return !paused;
+      }),
+      picksRemaining: (function () {
+        return openPicks.length;
       })
     }
 
@@ -388,6 +391,9 @@ $(document).ready(function() {
     timeStarted: timeStarted,
     timeRemaining: timeRemaining,
     poolType: poolType,
+    completed: completed,
+    admin: admin,
+    paused: paused,
     active: active
   });
 
@@ -399,106 +405,113 @@ $(document).ready(function() {
   ////                            ////
   ////////////////////////////////////
 
+  if (admin) {
+
+    $("#open-panel").click(function() {
+      $(this).hide();
+      $("#close-panel").css({'display': 'inline-block'}); 
+
+      if (boardInstance.timerIsActive()) {
+        $("#pause-draft, #pick-nav").css({'display': 'inline-block'});
+        $("#resume-draft").css({'display': 'none'});
+      } else {
+        $("#resume-draft").css({'display': 'inline-block'});
+      }
+
+    });
+
+    $("#close-panel").click(function() {
+      $(this).hide();
+      $("#open-panel").css(
+        {'display': 'inline-block'}
+      );
+      $("#pause-draft, #resume-draft, #pick-nav").css(
+        {'display': 'none'}
+      );  
+    });
+
+    $("#start-draft").click(function() {
+      boardInstance.startTime({
+        initialRun: true
+      });
+      $(this).hide();
+      $("#open-panel, #count-down").css(
+        {'display': 'inline-block'}
+      );
+    });
+
+    $("#resume-draft").click(function() {
+      boardInstance.toggleTime();
+      $(this).hide();
+      $("#pause-draft, #pick-nav").css(
+        {'display': 'inline-block'}
+      );
+    });
+
+    $("#pause-draft").click(function() {
+      boardInstance.toggleTime();
+      $("#pause-draft, #pick-nav").css(
+        {'display': 'none'}
+      );  
+      $("#resume-draft").css(
+        {'display': 'inline-block'}
+      );
+    });
+
+    $("#next-pick").click(function() {
+      boardInstance.nextPick({
+        forward: true
+      });
+    });
+
+    $("#previous-pick").click(function() {
+      boardInstance.nextPick({
+        forward: false
+      });
+    });
+
+    $("#selection_form").submit(function(evt) {
+      var formData = $(this).serialize();
+      evt.preventDefault();
+      
+      boardInstance.makeSelection(formData);
+    });
+
+    $('#cancel-completed').click(function() {
+      $("#completed, #modal-blanket").hide();
+    });
+
+    // if selection div is visible, 
+    // hide it if user clicks outside
+    $("#modal-blanket").click(function(evt) {
+      if ($("#selection").is(evt.target)) {
+        return;
+      } else {
+        $("#selection, #completed, #modal-blanket").hide();
+        $("#displayed-value").val("");
+      }
+    });
+
+  }
+
+  // basically same as clicking start draft
+  if (boardInstance.isActive()) {
+    boardInstance.startTime({
+      initialRun: true
+    });
+    $('#start-draft').hide();
+    $("#open-panel, #count-down").css(
+      {'display': 'inline-block'}
+    );
+  }
+
   $('#show-admin-login').click(function () {
     $('.admin-login').show();
     $(this).hide();
   });
 
-  $("#open-panel").click(function() {
-    $(this).hide();
-    $("#close-panel").css({'display': 'inline-block'}); 
-
-    if (boardInstance.timerIsActive()) {
-      $("#pause-draft, #pick-nav").css({'display': 'inline-block'});
-      $("#resume-draft").css({'display': 'none'});
-    } else {
-      $("#resume-draft").css({'display': 'inline-block'});
-    }
-
-  });
-
-  $("#close-panel").click(function() {
-    $(this).hide();
-    $("#open-panel").css(
-      {'display': 'inline-block'}
-    );
-    $("#pause-draft, #resume-draft, #pick-nav").css(
-      {'display': 'none'}
-    );  
-  });
-
-  $("#start-draft").click(function() {
-    boardInstance.startTime({
-      first: true
-    });
-    $(this).hide();
-    $("#open-panel, #count-down").css(
-      {'display': 'inline-block'}
-    );
-  });
-
-  $("#resume-draft").click(function() {
-    boardInstance.startTime({
-      first: false
-    });
-    $("#count-down").attr('datetime', boardInstance.getTime());
-    $("#count-down").data('duration', boardInstance.getMsRemaining());
-    $("#count-down").livetime();
-    $(this).hide();
-    $("#pause-draft, #pick-nav").css(
-      {'display': 'inline-block'}
-    );
-  });
-
-  $("#pause-draft").click(function() {
-    boardInstance.pauseTime();
-    $("#count-down").livetime(false);
-    $("#pause-draft, #pick-nav").css(
-      {'display': 'none'}
-    );  
-    $("#resume-draft").css(
-      {'display': 'inline-block'}
-    );
-  });
-
   $(window).resize(function() {
     boardInstance.scale();
   });
-
-  $("#next-pick").click(function() {
-    boardInstance.nextPick({
-      forward: true
-    });
-  });
-
-  $("#previous-pick").click(function() {
-    boardInstance.nextPick({
-      forward: false
-    });
-  });
-
-  $("#selection_form").submit(function(evt) {
-    var formData = $(this).serialize();
-    evt.preventDefault();
-    
-    boardInstance.makeSelection(formData);
-
-  });
-
-  // if selection div is visible, 
-  // hide it if user clicks outside
-  $("#selection-blanket").click(function(evt) {
-    if ($("#selection").is(evt.target)) {
-      return;
-    } else {
-      $("#selection, #selection-blanket").hide();
-      $("#displayed-value").val("");
-      $("#control-panel").show();
-    }
-  });
-
-  if (boardInstance.isActive()) {
-    $("#start-draft").trigger('click'); 
-  } 
 
 });

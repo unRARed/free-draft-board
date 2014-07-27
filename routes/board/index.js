@@ -7,6 +7,14 @@ var Board = models.Board;
 var Pick = models.Pick;
 var shared = require('../sharedVars.js');
 
+//////////////////////////////////
+//      MAIN LANDING ROUTE      //
+//  if draft is completed, it   //
+//  loads the results page for  //
+//  it. otherwise, it loads the //
+//  board passing admin if a    //
+//  cookie has been set.        //
+//////////////////////////////////
 app.get('/board/:passedShortId', function(req, res){
 
   var isAuthorized = false;
@@ -16,23 +24,35 @@ app.get('/board/:passedShortId', function(req, res){
       res.send(404, '404 Not Found');
     }
 
-    // if a cookie is set, check if cookie's 
-    // auth value matches the stored password
-    if (req.clientCookie) {
-      if (settings.isHashPasswordHash(req.clientCookie.auth)) {
-        isAuthorized = true;
+    if (settings.completed) {
+      res.redirect('/board/' + settings.shortId + '/results');
+    } else {
+
+      // if a cookie is set, check if cookie's 
+      // auth value matches the stored password
+      if (req.clientCookie) {
+        if (settings.isHashPasswordHash(req.clientCookie.auth)) {
+          isAuthorized = true;
+        }
       }
+
+      res.render('board', {
+        settings: settings,
+        admin: isAuthorized,
+        pageTitle: shared.prependTitle("Live Draft Board"),
+      });
+
     }
 
-    res.render('board', {
-      settings: settings,
-      admin: isAuthorized,
-      pageTitle: shared.prependTitle("Live Draft Board"),
-    });
   });
 
 });
 
+//////////////////////////////////
+//          ADMIN LOGIN         //
+//  Sets a cookie to supplied   //
+//  password value.             //
+//////////////////////////////////
 app.post('/board/:passedShortId', function(req, res){
 
   Board.findOne({shortId: req.params.passedShortId}, function(err, settings) {
@@ -52,6 +72,13 @@ app.post('/board/:passedShortId', function(req, res){
 
 });
 
+//////////////////////////////////
+//  RENDER BOARD FROM /SETTINGS //
+//  Creates a mongo store for   //
+//  a board with the values it  //
+//  receives from the /settings //
+//  form input options.         //
+//////////////////////////////////
 app.post('/board', function(req, res){
 
   var is_serpentine = (req.body.serpentine === 'on');
@@ -157,14 +184,48 @@ app.post('/board', function(req, res){
 
 });
 
+//////////////////////////////////
+//     MARKS DRAFT COMPLETE     //
+//  Once there are zero open    //
+//  picks remaining for board,  //
+//  a form instructs user to    //
+//  confirm completed. If so,   //
+//  this sets board.completed   //
+//  and redirects to 'results'. //
+//////////////////////////////////
+app.post('/board/:passedShortId/complete', function(req, res){
+
+  var isAuthorized = false;
+
+  Board.findOne({shortId: req.params.passedShortId}, function(err, settings) {
+    if (!settings) {
+      res.send(404, '404 Not Found');
+    }
+
+    if (req.clientCookie) {
+      if (settings.isHashPasswordHash(req.clientCookie.auth)) {
+        isAuthorized = true;
+      }
+    }
+
+    if (isAuthorized) {
+      settings.completed = true;
+      settings.save();
+      res.redirect('/board/' + settings.shortId + '/results');
+    } else {
+      res.redirect('/board/' + settings.shortId);
+    }
+
+  });
+
+});
+
 
 ////////////////////////////////////////////////////////////
-//  POST: /select                                         //
-//                                                        //
+//      APPENDS SUBMITTED DATA TO PICK ID FOR BOARD       //
 //  Stores serialized form data to the pick at the index  //
 //  req.body.pick and responds with values for display.   //
 ////////////////////////////////////////////////////////////
-
 app.post('/select', function(req, res) {
 
   var cleanRequest = {};
@@ -227,19 +288,13 @@ app.post('/select', function(req, res) {
 
 });
 
-
-app.post('/picktime', function(req, res) {
-  Board.findOne({shortId: req.body.shortId}, function(err, settings) {
-    if (!settings) {
-      res.send(404, '404 Not Found');
-    }
-
-    settings.pickTime = req.body.picktime;
-    settings.save();
-  });
-});
-
-
+//////////////////////////////////
+//  RESETS PER-PICK STATE DATA  //
+//  Sets timeStarted to clients //
+//  current time. Also sets the //
+//  currently selected pick id  //
+//  and resets timeRemaining.  //
+//////////////////////////////////
 app.post('/newPick', function(req, res) {
   console.log(req.body);
   Board.findOne({shortId: req.body.shortId}, function(err, settings) {
@@ -250,7 +305,7 @@ app.post('/newPick', function(req, res) {
     if (!settings.active) {
       settings.active = true;
     }
-    console.log(settings.currentPick);
+
     settings.timeStarted = req.body.timeStarted;
     settings.resetTimeRemaining();
     settings.currentPick = req.body.currentPick;
@@ -261,6 +316,13 @@ app.post('/newPick', function(req, res) {
   });
 });
 
+//////////////////////////////////
+//  UPDATES PICK TIME REMAINING //
+//  Updates time remaining by   //
+//  calculating time that has   //
+//  passed using timeStarted    //
+//  value and passed timeStamp. //
+//////////////////////////////////
 app.post('/updateTimeRemaining', function(req, res) {
   console.log(req.body);
   Board.findOne({shortId: req.body.shortId}, function(err, settings) {
@@ -277,21 +339,38 @@ app.post('/updateTimeRemaining', function(req, res) {
   });
 });
 
-app.get('/getTimeRemaining', function(req, res) {
-  console.log(req.query);
-  Board.findOne({shortId: req.query.shortId}, function(err, settings) {
+//////////////////////////////////
+//      TOGGLES PAUSED          //
+//  When 'paused' or 'resumed'  //
+//  from admin sub-view, sets   //
+//  to opposite of current val. //
+//////////////////////////////////
+app.post('/toggleTime', function(req, res) {
+
+  Board.findOne({shortId: req.body.shortId}, function(err, settings) {
     if (!settings) {
       res.send(404, '404 Not Found');
     }
 
-    console.log('get timeRemaining: ' + settings.timeRemaining);
+    if (settings.paused) {
+      settings.paused = false;
+    } else {
+      settings.paused = true;
+    }
+    settings.save();
 
     res.send({
-      timeRemaining: settings.timeRemaining
+      isPaused: settings.paused
     });
   });
 });
 
+//////////////////////////////////
+//    RETRIEVES CURRENT STATE   //
+//  For getting the state of    //
+//  the board to keep multiple  //
+//  clients in sync.            //
+//////////////////////////////////
 app.get('/state', function (req, res) {
   Board.findOne({shortId: req.query.shortId}, function(err, settings) {
     var state = {};
@@ -301,6 +380,8 @@ app.get('/state', function (req, res) {
     state.timeStarted = settings.timeStarted;
     state.openPicks = settings.openPicks();
     state.picks = settings.picks;
+    state.paused = settings.paused;
+    state.completed = settings.completed;
 
     res.send(state);
 
