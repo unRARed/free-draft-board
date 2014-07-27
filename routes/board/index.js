@@ -185,15 +185,12 @@ app.post('/board', function(req, res){
 });
 
 //////////////////////////////////
-//     MARKS DRAFT COMPLETE     //
-//  Once there are zero open    //
-//  picks remaining for board,  //
-//  a form instructs user to    //
-//  confirm completed. If so,   //
-//  this sets board.completed   //
-//  and redirects to 'results'. //
+//      SETS BOARD ACTIVE       //
+//  If 'start' is clicked from  //
+//  admin sub-view, board is    //
+//  set to 'active'.            //
 //////////////////////////////////
-app.post('/board/:passedShortId/complete', function(req, res){
+app.post('/board/:passedShortId/active', function(req, res){
 
   var isAuthorized = false;
 
@@ -207,14 +204,16 @@ app.post('/board/:passedShortId/complete', function(req, res){
         isAuthorized = true;
       }
     }
-
+    console.log('got into active post')
     if (isAuthorized) {
-      settings.completed = true;
+      console.log('was authorized')
+      settings.active = true;
       settings.save();
-      res.redirect('/board/' + settings.shortId + '/results');
-    } else {
-      res.redirect('/board/' + settings.shortId);
     }
+
+    res.send({
+      active: settings.active
+    });
 
   });
 
@@ -302,10 +301,6 @@ app.post('/newPick', function(req, res) {
       res.send(404, '404 Not Found');
     }
 
-    if (!settings.active) {
-      settings.active = true;
-    }
-
     settings.timeStarted = req.body.timeStarted;
     settings.resetTimeRemaining();
     settings.currentPick = req.body.currentPick;
@@ -365,6 +360,7 @@ app.post('/toggleTime', function(req, res) {
   });
 });
 
+
 //////////////////////////////////
 //    RETRIEVES CURRENT STATE   //
 //  For getting the state of    //
@@ -382,8 +378,46 @@ app.get('/state', function (req, res) {
     state.picks = settings.picks;
     state.paused = settings.paused;
     state.completed = settings.completed;
+    state.active = settings.active;
 
     res.send(state);
 
   });
+});
+
+
+//////////////////////////////////
+//     MARKS DRAFT COMPLETE     //
+//  Once there are zero open    //
+//  picks remaining for board,  //
+//  a form instructs user to    //
+//  confirm completed. If so,   //
+//  this sets board.completed   //
+//  and redirects to 'results'. //
+//////////////////////////////////
+app.post('/board/:passedShortId/complete', function(req, res){
+
+  var isAuthorized = false;
+
+  Board.findOne({shortId: req.params.passedShortId}, function(err, settings) {
+    if (!settings) {
+      res.send(404, '404 Not Found');
+    }
+
+    if (req.clientCookie) {
+      if (settings.isHashPasswordHash(req.clientCookie.auth)) {
+        isAuthorized = true;
+      }
+    }
+
+    if (isAuthorized) {
+      settings.completed = true;
+      settings.save();
+      res.redirect('/board/' + settings.shortId + '/results');
+    } else {
+      res.redirect('/board/' + settings.shortId);
+    }
+
+  });
+
 });

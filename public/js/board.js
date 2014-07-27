@@ -28,7 +28,7 @@ $(document).ready(function() {
     var roundTimeInMS = spec.countDown;
     var timeRemaining = roundTimeInMS; // get from db
     var timeStarted = timeStarted || fullTimeStamp(roundTimeInMS);
-    var boardActive = spec.active;
+    var active = spec.active;
     var paused = spec.paused;
     var adminInterval; // runs until pick time expires
     var globalFastInterval; // runs constantly
@@ -111,15 +111,17 @@ $(document).ready(function() {
       var $newPick = $("#pick-" + currentPick);
 
       $existingPick.removeClass('active');
-      $existingPick.find('#count-down').remove();
-      $existingPick.off('click');
 
       $newPick.addClass('active');
       newPick = currentPick;
 
-      $newPick.click(function() {
-        select();
-      });
+      if (admin) {
+        $existingPick.off('click');
+        $newPick.click(function() {
+          select();
+        });
+      }
+
       focusWindow();
     });
 
@@ -131,6 +133,7 @@ $(document).ready(function() {
         timeStarted = response.timeStarted;
         picks = response.picks;
         openPicks = response.openPicks;
+        active = response.active;
         $('#count-down').attr('datetime', fullTimeStamp(timeRemaining));
         $('#count-down').data('duration', timeRemaining);
         if (paused) {
@@ -327,19 +330,31 @@ $(document).ready(function() {
       }),
       startTime: (function (options) {
 
-        if (options.initialRun) {
-          updateClientState();
-          setActivePick();
-        }
-
-        if (!boardActive) { // on first fire, set board globally active in DB
-          boardActive = true;
+        if (admin && !active) { // on first fire, set board globally active in DB
+          $.post('/board/' + boardId + '/active', function (response) {
+            active = response.active;
+          });
         }
 
         if (admin) {
           adminInterval = setInterval(function () {
             updateTimeRemaining();
           }, 5000);
+        }
+
+        // set next pick (resetting time values) on load
+        // ONLY if the client has admin rights
+        if (admin && options.initialRun) {
+          nextPick({
+            pickId: openPicks[0]
+          });
+        }
+
+        // update state and set active pick
+        // for all clients on first load
+        if (options.initialRun) {
+          updateClientState();
+          setActivePick();
         }
 
         globalFastInterval = setInterval(function () {
@@ -365,13 +380,16 @@ $(document).ready(function() {
         });
       }),
       isActive: (function () {
-        return boardActive;
+        return active;
       }),
       timerIsActive: (function () {
         return !paused;
       }),
       picksRemaining: (function () {
         return openPicks.length;
+      }),
+      isAdmin: (function () {
+        return admin;
       })
     }
 
@@ -405,7 +423,7 @@ $(document).ready(function() {
   ////                            ////
   ////////////////////////////////////
 
-  if (admin) {
+  if (boardInstance.isAdmin()) {
 
     $("#open-panel").click(function() {
       $(this).hide();
@@ -431,13 +449,13 @@ $(document).ready(function() {
     });
 
     $("#start-draft").click(function() {
+      $("#open-panel, #count-down").css(
+        {'display': 'inline-block'}
+      );
       boardInstance.startTime({
         initialRun: true
       });
       $(this).hide();
-      $("#open-panel, #count-down").css(
-        {'display': 'inline-block'}
-      );
     });
 
     $("#resume-draft").click(function() {
@@ -494,17 +512,6 @@ $(document).ready(function() {
 
   }
 
-  // basically same as clicking start draft
-  if (boardInstance.isActive()) {
-    boardInstance.startTime({
-      initialRun: true
-    });
-    $('#start-draft').hide();
-    $("#open-panel, #count-down").css(
-      {'display': 'inline-block'}
-    );
-  }
-
   $('#show-admin-login').click(function () {
     $('.admin-login').show();
     $(this).hide();
@@ -513,5 +520,24 @@ $(document).ready(function() {
   $(window).resize(function() {
     boardInstance.scale();
   });
+
+  if (!boardInstance.isAdmin()) {
+    $('#count-down').css({'display': 'inline-block'});
+  }
+
+  // basically same as clicking start draft
+  if (!boardInstance.isAdmin() ||
+    (boardInstance.isAdmin() && boardInstance.isActive())) {
+    boardInstance.startTime({
+      initialRun: true
+    });
+  }
+
+  if (boardInstance.isActive()) {
+    $('#start-draft').hide();
+    $("#open-panel, #count-down").css(
+      {'display': 'inline-block'}
+    );
+  }
 
 });
