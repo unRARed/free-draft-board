@@ -23,6 +23,16 @@
         "firstName": "Carson",
         "lastName": "Palmer",
         "position": "QB"
+      },
+      {
+        "firstName": "Larry",
+        "lastName": "Fitzgerald",
+        "position": "WR"
+      },
+      {
+        "firstName": "Michael",
+        "lastName": "Floyd",
+        "position": "WR"
       }
     ]
   },
@@ -55,6 +65,11 @@
         "firstName": "Andy",
         "lastName": "Dalton",
         "position": "QB"
+      },
+      {
+        "firstName": "Mike",
+        "lastName": "Nugent",
+        "position": "K"
       }
     ]
   },
@@ -82,6 +97,11 @@
         "firstName": "Johnny",
         "lastName": "Manziel",
         "position": "QB"
+      },
+      {
+        "firstName": "Billy",
+        "lastName": "Cundiff",
+        "position": "K"
       }
     ]
   },
@@ -119,6 +139,21 @@
         "firstName": "Ronnie",
         "lastName": "Hillman",
         "position": "RB"
+      },
+      {
+        "firstName": "Wes",
+        "lastName": "Welker",
+        "position": "WR"
+      },
+      {
+        "firstName": "Emmanuel",
+        "lastName": "Sanders",
+        "position": "WR"
+      },
+      {
+        "firstName": "Matt",
+        "lastName": "Prater",
+        "position": "K"
       }
     ]
   },
@@ -146,6 +181,21 @@
         "firstName": "Russell",
         "lastName": "Wilson",
         "position": "QB"
+      },
+      {
+        "firstName": "Percy",
+        "lastName": "Harvin",
+        "position": "WR"
+      },
+      {
+        "firstName": "Doug",
+        "lastName": "Baldwin",
+        "position": "WR"
+      },
+      {
+        "firstName": "Steven",
+        "lastName": "Hauschka",
+        "position": "K"
       }
     ]
   },
@@ -173,6 +223,21 @@
         "firstName": "Sam",
         "lastName": "Bradford",
         "position": "QB"
+      },
+      {
+        "firstName": "Tavon",
+        "lastName": "Austin",
+        "position": "WR"
+      },
+      {
+        "firstName": "Kenny",
+        "lastName": "Britt",
+        "position": "WR"
+      },
+      {
+        "firstName": "Greg",
+        "lastName": "Zuerlein",
+        "position": "K"
       }
     ]
   },
@@ -200,6 +265,21 @@
         "firstName": "Matt",
         "lastName": "Schaub",
         "position": "QB"
+      },
+      {
+        "firstName": "Rod",
+        "lastName": "Streater",
+        "position": "WR"
+      },
+      {
+        "firstName": "Andre",
+        "lastName": "Holmes",
+        "position": "WR"
+      },
+      {
+        "firstName": "Sebastian",
+        "lastName": "Janikowski",
+        "position": "K"
       }
     ]
   },
@@ -227,6 +307,21 @@
         "firstName": "Ryan",
         "lastName": "Tannehill",
         "position": "QB"
+      },
+      {
+        "firstName": "Mike",
+        "lastName": "Wallace",
+        "position": "WR"
+      },
+      {
+        "firstName": "Brian",
+        "lastName": "Hartline",
+        "position": "WR"
+      },
+      {
+        "firstName": "Caleb",
+        "lastName": "Sturgis",
+        "position": "K"
       }
     ]
   },
@@ -254,6 +349,16 @@
         "firstName": "Alex",
         "lastName": "Smith",
         "position": "QB"
+      },
+      {
+        "firstName": "Dwayne",
+        "lastName": "Bowe",
+        "position": "WR"
+      },
+      {
+        "firstName": "Ryan",
+        "lastName": "Succop",
+        "position": "K"
       }
     ]
   },
@@ -291,6 +396,26 @@
         "firstName": "Mark",
         "lastName": "Ingram",
         "position": "RB"
+      },
+      {
+        "firstName": "Marques",
+        "lastName": "Colston",
+        "position": "WR"
+      },
+      {
+        "firstName": "Brandon",
+        "lastName": "Cooks",
+        "position": "WR"
+      },
+      {
+        "firstName": "Kenny",
+        "lastName": "Stills",
+        "position": "WR"
+      },
+      {
+        "firstName": "Shayne",
+        "lastName": "Graham",
+        "position": "K"
       }
     ]
   },
@@ -318,6 +443,26 @@
         "firstName": "Nick",
         "lastName": "Foles",
         "position": "QB"
+      },
+      {
+        "firstName": "Jeremy",
+        "lastName": "Maclin",
+        "position": "WR"
+      },
+      {
+        "firstName": "Riley",
+        "lastName": "Cooper",
+        "position": "WR"
+      },
+      {
+        "firstName": "Jordan",
+        "lastName": "Matthews",
+        "position": "WR"
+      },
+      {
+        "firstName": "Alex",
+        "lastName": "Henry",
+        "position": "K"
       }
     ]
   },
@@ -340,6 +485,21 @@
         "firstName": "Josh",
         "lastName": "McCown",
         "position": "QB"
+      },
+      {
+        "firstName": "Vincent",
+        "lastName": "Jackson",
+        "position": "WR"
+      },
+      {
+        "firstName": "Mike",
+        "lastName": "Evans",
+        "position": "WR"
+      },
+      {
+        "firstName": "Connor",
+        "lastName": "Barth",
+        "position": "K"
       }
     ]
   },
@@ -372,6 +532,16 @@
         "firstName": "Eli",
         "lastName": "Manning",
         "position": "QB"
+      },
+      {
+        "firstName": "Rueben",
+        "lastName": "Randle",
+        "position": "WR"
+      },
+      {
+        "firstName": "Josh",
+        "lastName": "Brown",
+        "position": "K"
       }
     ]
   },
@@ -399,6 +569,26 @@
         "firstName": "Colin",
         "lastName": "Kaepernick",
         "position": "QB"
+      },
+      {
+        "firstName": "Michael",
+        "lastName": "Crabtree",
+        "position": "WR"
+      },
+      {
+        "firstName": "Anquan",
+        "lastName": "Boldin",
+        "position": "WR"
+      },
+      {
+        "firstName": "Phil",
+        "lastName": "Dawson",
+        "position": "K"
+      },
+      {
+        "firstName": "Vernon",
+        "lastName": "Davis",
+        "position": "TE"
       }
     ]
   },
@@ -431,6 +621,21 @@
         "firstName": "Matt",
         "lastName": "Ryan",
         "position": "QB"
+      },
+      {
+        "firstName": "Roddy",
+        "lastName": "White",
+        "position": "WR"
+      },
+      {
+        "firstName": "Harry",
+        "lastName": "Douglas",
+        "position": "WR"
+      },
+      {
+        "firstName": "Matt",
+        "lastName": "Bryant",
+        "position": "K"
       }
     ]
   },
@@ -458,6 +663,16 @@
         "firstName": "EJ",
         "lastName": "Manuel",
         "position": "QB"
+      },
+      {
+        "firstName": "Sammy",
+        "lastName": "Watkins",
+        "position": "WR"
+      },
+      {
+        "firstName": "Dan",
+        "lastName": "Carpenter",
+        "position": "K"
       }
     ]
   },
@@ -490,6 +705,11 @@
         "firstName": "Jay",
         "lastName": "Cutler",
         "position": "QB"
+      },
+      {
+        "firstName": "Robbie",
+        "lastName": "Gould",
+        "position": "K"
       }
     ]
   },
@@ -522,6 +742,16 @@
         "firstName": "Matthew",
         "lastName": "Stafford",
         "position": "QB"
+      },
+      {
+        "firstName": "Golden",
+        "lastName": "Tate",
+        "position": "WR"
+      },
+      {
+        "firstName": "Nate",
+        "lastName": "Freese",
+        "position": "K"
       }
     ]
   },
@@ -559,6 +789,16 @@
         "firstName": "James",
         "lastName": "Starks",
         "position": "RB"
+      },
+      {
+        "firstName": "Jarrett",
+        "lastName": "Boykin",
+        "position": "WR"
+      },
+      {
+        "firstName": "Mason",
+        "lastName": "Crosby",
+        "position": "K"
       }
     ]
   },
@@ -591,6 +831,21 @@
         "firstName": "Jake",
         "lastName": "Locker",
         "position": "QB"
+      },
+      {
+        "firstName": "Kendall",
+        "lastName": "Wright",
+        "position": "WR"
+      },
+      {
+        "firstName": "Justin",
+        "lastName": "Hunter",
+        "position": "WR"
+      },
+      {
+        "firstName": "Maikon",
+        "lastName": "Bonani",
+        "position": "K"
       }
     ]
   },
@@ -618,6 +873,26 @@
         "firstName": "Ahmad",
         "lastName": "Bradshaw",
         "position": "RB"
+      },
+      {
+        "firstName": "T.Y.",
+        "lastName": "Hilton",
+        "position": "WR"
+      },
+      {
+        "firstName": "Reggie",
+        "lastName": "Wayne",
+        "position": "WR"
+      },
+      {
+        "firstName": "Hakeem",
+        "lastName": "Nicks",
+        "position": "WR"
+      },
+      {
+        "firstName": "Adam",
+        "lastName": "Vinatieri",
+        "position": "K"
       }
     ]
   },
@@ -645,6 +920,26 @@
         "firstName": "Matt",
         "lastName": "Castle",
         "position": "QB"
+      },
+      {
+        "firstName": "Codarrelle",
+        "lastName": "Patterson",
+        "position": "WR"
+      },
+      {
+        "firstName": "Greg",
+        "lastName": "Jennings",
+        "position": "WR"
+      },
+      {
+        "firstName": "Blair",
+        "lastName": "Walsh",
+        "position": "K"
+      },
+      {
+        "firstName": "Kyle",
+        "lastName": "Rudolph",
+        "position": "TE"
       }
     ]
   },
@@ -682,6 +977,26 @@
         "firstName": "Tom",
         "lastName": "Brady",
         "position": "QB"
+      },
+      {
+        "firstName": "Julian",
+        "lastName": "Edelman",
+        "position": "WR"
+      },
+      {
+        "firstName": "Danny",
+        "lastName": "Amendola",
+        "position": "WR"
+      },
+      {
+        "firstName": "Aaron",
+        "lastName": "Dobson",
+        "position": "WR"
+      },
+      {
+        "firstName": "Stephen",
+        "lastName": "Gostkowski",
+        "position": "K"
       }
     ]
   },
@@ -698,7 +1013,7 @@
       {
         "firstName": "Keenan",
         "lastName": "Allen",
-        "position": "D/ST"
+        "position": "WR"
       },
       {
         "firstName": "Ryan",
@@ -714,6 +1029,11 @@
         "firstName": "Philip",
         "lastName": "Rivers",
         "position": "QB"
+      },
+      {
+        "firstName": "Nick",
+        "lastName": "Novak",
+        "position": "K"
       }
     ]
   },
@@ -741,6 +1061,26 @@
         "firstName": "Robert",
         "lastName": "Griffin III",
         "position": "QB"
+      },
+      {
+        "firstName": "Pierre",
+        "lastName": "Garcon",
+        "position": "WR"
+      },
+      {
+        "firstName": "DeSean",
+        "lastName": "Jackson",
+        "position": "WR"
+      },
+      {
+        "firstName": "Kai",
+        "lastName": "Forbath",
+        "position": "K"
+      },
+      {
+        "firstName": "Jordan",
+        "lastName": "Reed",
+        "position": "TE"
       }
     ]
   },
@@ -768,6 +1108,26 @@
         "firstName": "Ryan",
         "lastName": "Fitzpatrick",
         "position": "QB"
+      },
+      {
+        "firstName": "Andre",
+        "lastName": "Johnson",
+        "position": "WR"
+      },
+      {
+        "firstName": "DeAndre",
+        "lastName": "Hopkins",
+        "position": "WR"
+      },
+      {
+        "firstName": "Jay",
+        "lastName": "Feely",
+        "position": "K"
+      },
+      {
+        "firstName": "Randy",
+        "lastName": "Bullock",
+        "position": "K"
       }
     ]
   },
@@ -800,6 +1160,21 @@
         "firstName": "Tony",
         "lastName": "Romo",
         "position": "QB"
+      },
+      {
+        "firstName": "Terrance",
+        "lastName": "Williams",
+        "position": "WR"
+      },
+      {
+        "firstName": "Dan",
+        "lastName": "Bailey",
+        "position": "K"
+      },
+      {
+        "firstName": "Jason",
+        "lastName": "Witten",
+        "position": "TE"
       }
     ]
   },
@@ -827,6 +1202,16 @@
         "firstName": "Geno",
         "lastName": "Smith",
         "position": "QB"
+      },
+      {
+        "firstName": "Eric",
+        "lastName": "Decker",
+        "position": "WR"
+      },
+      {
+        "firstName": "Nick",
+        "lastName": "Folk",
+        "position": "K"
       }
     ]
   },
@@ -854,6 +1239,21 @@
         "firstName": "Blake",
         "lastName": "Borles",
         "position": "QB"
+      },
+      {
+        "firstName": "Cecil",
+        "lastName": "Shorts",
+        "position": "WR"
+      },
+      {
+        "firstName": "Marqise",
+        "lastName": "Lee",
+        "position": "WR"
+      },
+      {
+        "firstName": "Josh",
+        "lastName": "Scobee",
+        "position": "K"
       }
     ]
   },
@@ -881,6 +1281,21 @@
         "firstName": "Joe",
         "lastName": "Flacco",
         "position": "QB"
+      },
+      {
+        "firstName": "Torrey",
+        "lastName": "Smith",
+        "position": "WR"
+      },
+      {
+        "firstName": "Justin",
+        "lastName": "Tucker",
+        "position": "K"
+      },
+      {
+        "firstName": "Dennis",
+        "lastName": "Pitta",
+        "position": "K"
       }
     ]
   },
@@ -913,6 +1328,11 @@
         "firstName": "Ben",
         "lastName": "Roethlisberger",
         "position": "QB"
+      },
+      {
+        "firstName": "Shaun",
+        "lastName": "Suisham",
+        "position": "K"
       }
     ]
   },
@@ -935,6 +1355,16 @@
         "firstName": "Cam",
         "lastName": "Newton",
         "position": "QB"
+      },
+      {
+        "firstName": "Kelvin",
+        "lastName": "Benjamin",
+        "position": "WR"
+      },
+      {
+        "firstName": "Graham",
+        "lastName": "Gano",
+        "position": "K"
       }
     ]
   }
